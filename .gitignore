@@ -1,0 +1,10 @@
+node_modules
+dist
+.turbo
+.next
+.env
+logs/
+config/state.json
+used-payments.json
+*.tsbuildinfo
+.DS_Store

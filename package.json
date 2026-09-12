@@ -1,0 +1,28 @@
+{
+  "name": "fatera",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@10.31.0",
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "lint": "turbo run lint",
+    "test": "vitest run",
+    "setup": "tsx scripts/setup.ts",
+    "verify:foundation": "tsx scripts/verify-foundation.ts",
+    "topic:tail": "tsx scripts/fetch-topic.ts",
+    "demo:dry": "tsx scripts/demo.ts --dry",
+    "demo": "tsx scripts/demo.ts",
+    "demo:reset": "tsx scripts/demo-reset.ts",
+    "e2e:single": "tsx scripts/e2e-single-paid-call.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "dotenv": "^16.4.5",
+    "tsx": "^4.19.0",
+    "turbo": "^2.0.4",
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0",
+    "eslint": "^9.1.1"
+  }
+}
