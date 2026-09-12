@@ -1,5 +1,5 @@
 {
-  "name": "@fatera/config",
+  "name": "@fatera/mirror",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -16,9 +16,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@fatera/types": "workspace:*",
-    "dotenv": "^16.4.5",
-    "zod": "^3.23.8"
+    "@fatera/types": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.4.5",

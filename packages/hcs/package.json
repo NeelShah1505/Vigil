@@ -1,5 +1,5 @@
 {
-  "name": "@fatera/config",
+  "name": "@fatera/hcs",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -17,8 +17,7 @@
   },
   "dependencies": {
     "@fatera/types": "workspace:*",
-    "dotenv": "^16.4.5",
-    "zod": "^3.23.8"
+    "@fatera/hedera": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.4.5",

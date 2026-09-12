@@ -16,6 +16,14 @@
     "demo:reset": "tsx scripts/demo-reset.ts",
     "e2e:single": "tsx scripts/e2e-single-paid-call.ts"
   },
+  "dependencies": {
+    "@fatera/config": "workspace:*",
+    "@fatera/hcs": "workspace:*",
+    "@fatera/hedera": "workspace:*",
+    "@fatera/mirror": "workspace:*",
+    "@fatera/types": "workspace:*",
+    "@hashgraph/sdk": "^2.48.0"
+  },
   "devDependencies": {
     "@types/node": "^20.12.7",
     "dotenv": "^16.4.5",
