@@ -6,11 +6,12 @@
 - Started: 2026-09-13 · Deadline: check ETHOnline dates — submit EARLY
 
 ## Current phase
-Phase 2 — HCS + packages/hcs (ready to verify)
+Phase 3 — x402 API service (api-service)
 
 ## Completed phases
 - Phase 0 ✅ checkpoint passed: `pnpm install && pnpm -r build` exited 0. Workspace scaffolded with turbo, tsconfig.base, packages/types, packages/config.
 - Phase 1 ✅ checkpoint passed: `pnpm setup` & `pnpm verify:foundation` passed. AGENT (100 HBAR / 0 FUSDC); FUSDC Token 0.0.10510032 with custom fixed fee (0.01 FUSDC); HCS Audit Topic 0.0.10510035; HCS Identity Topic 0.0.10510037. Checkpoint event verified on mirror node.
+- Phase 2 ✅ checkpoint passed: `pnpm topic:tail` decoded and printed HCS Audit Topic events from the mirror node as structured JSON.
 
 ## Live environment (fill during Phase 1 — NEVER commit real keys here, IDs only)
 - AGENT_ACCOUNT_ID: 0.0.10510026
@@ -33,6 +34,7 @@ Phase 2 — HCS + packages/hcs (ready to verify)
 - [Phase 1] Fixed Hedera SDK method naming: `setTokenSymbol` (instead of `setSymbol`).
 - [Phase 1] `TokenCreateTransaction` requires signatures from both `adminKey` and `routerLpKey` (treasury); both signed with `await tx.sign()`.
 - [Phase 1] Successfully created child accounts, FUSDC token with custom fixed fee, associated accounts, and created HCS topics.
+- [Phase 2] HcsLogger wraps messages ≤ 1000 bytes with automatic payload trimming for payloads approaching the 1024-byte HCS consensus limit.
 
 ## Blockers & fallbacks used
 - [Phase 1] Portal URL corrected from outdated `portal.prd.hedera.com` to `portal.hedera.com`.
@@ -41,8 +43,9 @@ Phase 2 — HCS + packages/hcs (ready to verify)
 ## Risk register
 
 ## Next actions
-1. Run Phase 2 checkpoint: `pnpm topic:tail` to verify decoded JSON event history.
-2. Proceed to Phase 3: Build `apps/api-service` (the x402-gated Market Intelligence API with metering and replay protection).
+1. Implement Phase 3: `apps/api-service` (the merchant x402-gated Market Intelligence API with metering and replay store).
+2. Implement `scripts/e2e-single-paid-call.ts`.
+3. Verify Phase 3 checkpoint: 402 quotation and successful paid request verification.
 
 ## Submission status
 - [ ] repo public  [ ] README complete  [ ] video recorded  [ ] submitted on platform
