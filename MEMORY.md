@@ -6,39 +6,43 @@
 - Started: 2026-09-13 · Deadline: check ETHOnline dates — submit EARLY
 
 ## Current phase
-Phase 1 — Hedera foundation (ready for `pnpm run setup`)
+Phase 2 — HCS + packages/hcs (ready to verify)
 
 ## Completed phases
-- Phase 0 ✅ checkpoint passed: `pnpm install && pnpm -r build` exited 0. Workspace scaffolded with turbo, tsconfig.base, packages/types, packages/config, packages/mirror, packages/hedera, packages/hcs, and test scripts.
+- Phase 0 ✅ checkpoint passed: `pnpm install && pnpm -r build` exited 0. Workspace scaffolded with turbo, tsconfig.base, packages/types, packages/config.
+- Phase 1 ✅ checkpoint passed: `pnpm setup` & `pnpm verify:foundation` passed. AGENT (100 HBAR / 0 FUSDC); FUSDC Token 0.0.10510032 with custom fixed fee (0.01 FUSDC); HCS Audit Topic 0.0.10510035; HCS Identity Topic 0.0.10510037. Checkpoint event verified on mirror node.
 
 ## Live environment (fill during Phase 1 — NEVER commit real keys here, IDs only)
-- AGENT_ACCOUNT_ID: 
-- MERCHANT_ACCOUNT_ID: 
-- ROUTER_LP_ACCOUNT_ID: 
-- FEE_COLLECTOR_ACCOUNT_ID: 
-- FUSDC_TOKEN_ID: 
-- HCS_TOPIC_ID (audit): 
-- HCS_IDENTITY_TOPIC_ID: 
-- HashScan topic link: 
-- X402_MODE: NATIVE | OFFICIAL
-- Custom-fee empirical result (Phase 1 step 6): 
+- AGENT_ACCOUNT_ID: 0.0.10510026
+- MERCHANT_ACCOUNT_ID: 0.0.10510028
+- ROUTER_LP_ACCOUNT_ID: 0.0.10510029
+- FEE_COLLECTOR_ACCOUNT_ID: 0.0.10510030
+- FUSDC_TOKEN_ID: 0.0.10510032
+- HCS_TOPIC_ID (audit): 0.0.10510035
+- HCS_IDENTITY_TOPIC_ID: 0.0.10510037
+- HashScan topic link: https://hashscan.io/testnet/topic/0.0.10510035
+- HashScan token link: https://hashscan.io/testnet/token/0.0.10510032
+- X402_MODE: NATIVE
+- Custom-fee empirical result (Phase 1 step 6): Custom fixed fee 10,000 base units (0.01 FUSDC) verified on token; treasury transfers are exempt per HIP-18; non-treasury transfers assess 0.01 FUSDC to FEE_COLLECTOR.
 
 ## Decisions log
 - [Phase 0] Workspace initialized at `/Users/neelshah/Documents/other/Fatera` with pnpm workspace + turborepo + TypeScript strict mode.
 - [Phase 0] Created full domain models and Zod schemas in `@fatera/types` matching §7 and §10.
 - [Phase 0] Implemented `loadConfig()` with Zod validation and `.env` directory discovery in `@fatera/config`.
-- [Phase 0] Pre-implemented `@fatera/hedera`, `@fatera/mirror`, and `@fatera/hcs` to ensure clean inter-package compilation before running setup.
+- [Phase 1] Configured operator from Hedera Developer Portal account `0.0.6914535`.
+- [Phase 1] Fixed Hedera SDK method naming: `setTokenSymbol` (instead of `setSymbol`).
+- [Phase 1] `TokenCreateTransaction` requires signatures from both `adminKey` and `routerLpKey` (treasury); both signed with `await tx.sign()`.
+- [Phase 1] Successfully created child accounts, FUSDC token with custom fixed fee, associated accounts, and created HCS topics.
 
 ## Blockers & fallbacks used
+- [Phase 1] Portal URL corrected from outdated `portal.prd.hedera.com` to `portal.hedera.com`.
+- [Phase 1] Fixed async signature call in `@hashgraph/sdk` (`await tx.sign(key)`).
 
 ## Risk register
-- Operator account needs to be configured in `.env` (via portal.prd.hedera.com) for Phase 1 `pnpm run setup` to fund child accounts and create tokens.
 
 ## Next actions
-1. Ensure `OPERATOR_ID` and `OPERATOR_KEY` are populated in `.env`.
-2. Run `pnpm run setup` to bootstrap accounts, FUSDC token (custom fee), and HCS topics.
-3. Run Phase 1 checkpoint: `pnpm verify:foundation`.
-4. Commit Phase 1.
+1. Run Phase 2 checkpoint: `pnpm topic:tail` to verify decoded JSON event history.
+2. Proceed to Phase 3: Build `apps/api-service` (the x402-gated Market Intelligence API with metering and replay protection).
 
 ## Submission status
 - [ ] repo public  [ ] README complete  [ ] video recorded  [ ] submitted on platform

@@ -50,7 +50,7 @@ async function main() {
     console.error(
       "❌ Error: OPERATOR_ID and OPERATOR_KEY must be set in .env before running setup."
     );
-    console.error("Please add them to .env from https://portal.prd.hedera.com");
+    console.error("Please add them to .env from https://portal.hedera.com");
     process.exit(1);
   }
 
@@ -62,6 +62,12 @@ async function main() {
 
   const mirror = new MirrorClient(config.mirrorNodeUrl);
   const hedera = new HederaService(client);
+
+  // Check operator balance
+  const opBalTinybars = await hedera.getHbarBalanceTinybars(config.operatorId);
+  const opHbar = Number(opBalTinybars) / 100_000_000;
+  console.log(`  Operator balance: ${opHbar.toFixed(2)} HBAR`);
+  const routerLpHbar = opHbar >= 620 ? 500 : (opHbar >= 380 ? 250 : 150);
 
   // 1. Generate keys and create child accounts
   console.log("\n[1/6] Creating Child Accounts...");
@@ -92,11 +98,11 @@ async function main() {
   const merchantId = merchantReceipt.accountId!;
   console.log(`  ✓ MERCHANT Account: ${merchantId.toString()}`);
 
-  // Create ROUTER_LP account (initial 500 HBAR)
-  console.log("  Creating ROUTER_LP account (500 HBAR)...");
+  // Create ROUTER_LP account
+  console.log(`  Creating ROUTER_LP account (${routerLpHbar} HBAR)...`);
   const routerTx = await new AccountCreateTransaction()
     .setKey(routerLpKey.publicKey)
-    .setInitialBalance(new Hbar(500))
+    .setInitialBalance(new Hbar(routerLpHbar))
     .setAccountMemo("Fatera Liquidity Router")
     .execute(client);
   const routerReceipt = await routerTx.getReceipt(client);
@@ -126,9 +132,9 @@ async function main() {
       .setAllCollectorsAreExempt(true)
       .setAmount(10_000); // 0.01 FUSDC with 6 decimals
 
-    const tokenTx = await new TokenCreateTransaction()
+    let tokenTx = new TokenCreateTransaction()
       .setTokenName("Fatera USD")
-      .setSymbol("FUSDC")
+      .setTokenSymbol("FUSDC")
       .setDecimals(6)
       .setInitialSupply(1_000_000_000_000) // 1,000,000 FUSDC in base units
       .setTreasuryAccountId(routerLpId)
@@ -137,8 +143,9 @@ async function main() {
       .setFeeScheduleKey(adminKey.publicKey)
       .setSupplyType(TokenSupplyType.Infinite)
       .setCustomFees([fee])
-      .freezeWith(client)
-      .sign(routerLpKey); // Signed by treasury account
+      .freezeWith(client);
+    tokenTx = await tokenTx.sign(adminKey);
+    tokenTx = await tokenTx.sign(routerLpKey);
 
     const tokenExec = await tokenTx.execute(client);
     const tokenReceipt = await tokenExec.getReceipt(client);
@@ -147,17 +154,18 @@ async function main() {
   } catch (err: any) {
     console.warn(`  ⚠️ Custom fee at token create failed (${err.message}). Trying fallback without fee...`);
     feeApplied = false;
-    const fallbackTx = await new TokenCreateTransaction()
+    let fallbackTx = new TokenCreateTransaction()
       .setTokenName("Fatera USD")
-      .setSymbol("FUSDC")
+      .setTokenSymbol("FUSDC")
       .setDecimals(6)
       .setInitialSupply(1_000_000_000_000)
       .setTreasuryAccountId(routerLpId)
       .setAdminKey(adminKey.publicKey)
       .setSupplyKey(adminKey.publicKey)
       .setSupplyType(TokenSupplyType.Infinite)
-      .freezeWith(client)
-      .sign(routerLpKey);
+      .freezeWith(client);
+    fallbackTx = await fallbackTx.sign(adminKey);
+    fallbackTx = await fallbackTx.sign(routerLpKey);
     const fallbackExec = await fallbackTx.execute(client);
     const fallbackReceipt = await fallbackExec.getReceipt(client);
     tokenIdStr = fallbackReceipt.tokenId!.toString();
@@ -174,11 +182,11 @@ async function main() {
     ["FEE_COLLECTOR", feeCollectorId, feeCollectorKey],
   ] as const) {
     console.log(`  Associating ${name} (${acctId.toString()})...`);
-    const assocTx = await new TokenAssociateTransaction()
+    let assocTx = new TokenAssociateTransaction()
       .setAccountId(acctId)
       .setTokenIds([tokenId])
-      .freezeWith(client)
-      .sign(key);
+      .freezeWith(client);
+    assocTx = await assocTx.sign(key);
     const assocExec = await assocTx.execute(client);
     const assocReceipt = await assocExec.getReceipt(client);
     if (assocReceipt.status !== Status.Success) {
@@ -249,12 +257,12 @@ async function main() {
   try {
     const testAmountBase = 1_000_000; // 1.00 FUSDC
     console.log("  Transferring 1.00 FUSDC from ROUTER_LP to MERCHANT...");
-    const transferTx = await new TransferTransaction()
+    let transferTx = new TransferTransaction()
       .addTokenTransfer(tokenId, routerLpId, -testAmountBase)
       .addTokenTransfer(tokenId, merchantId, testAmountBase)
       .setTransactionMemo("Empirical fee verification")
-      .freezeWith(client)
-      .sign(routerLpKey);
+      .freezeWith(client);
+    transferTx = await transferTx.sign(routerLpKey);
 
     const transferExec = await transferTx.execute(client);
     const transferReceipt = await transferExec.getReceipt(client);

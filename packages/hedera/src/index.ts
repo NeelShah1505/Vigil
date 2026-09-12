@@ -18,15 +18,37 @@ export class HederaService {
   constructor(public client: Client) {}
 
   static parsePrivateKey(key: string): PrivateKey {
-    const trimmed = key.trim();
-    try {
-      if (trimmed.startsWith("302e") || trimmed.startsWith("3030") || trimmed.startsWith("0x")) {
+    const trimmed = key.trim().replace(/\.+$/, "");
+
+    // 1. If starts with 302e or 3030, try DER
+    if (trimmed.startsWith("302e") || trimmed.startsWith("3030")) {
+      try {
         return PrivateKey.fromStringDer(trimmed);
-      }
-      return PrivateKey.fromString(trimmed);
-    } catch {
-      return PrivateKey.fromString(trimmed);
+      } catch {}
     }
+
+    // 2. If 64 hex chars (or 66 with 0x), try ECDSA first (Hedera portal default)
+    const cleanHex = trimmed.startsWith("0x") ? trimmed.slice(2) : trimmed;
+    if (cleanHex.length === 64) {
+      try {
+        return PrivateKey.fromStringECDSA(cleanHex);
+      } catch {}
+      try {
+        return PrivateKey.fromStringED25519(cleanHex);
+      } catch {}
+    }
+
+    // 3. Try standard parser
+    try {
+      return PrivateKey.fromString(trimmed);
+    } catch {}
+    try {
+      return PrivateKey.fromStringECDSA(trimmed);
+    } catch {}
+    try {
+      return PrivateKey.fromStringDer(trimmed);
+    } catch {}
+    return PrivateKey.fromStringED25519(trimmed);
   }
 
   static fromEnv(id: string, key: string, network = "testnet"): HederaService {

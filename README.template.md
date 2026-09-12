@@ -55,7 +55,7 @@ mirror-node verification; the payment layer is behind a swappable PaymentExecuto
 
 ## Quickstart
 ```bash
-# Prereqs: Node ≥20, pnpm ≥9, a Hedera testnet account (https://portal.prd.hedera.com, free 10k tHBAR)
+# Prereqs: Node ≥20, pnpm ≥9, a Hedera testnet account (https://portal.hedera.com, free 10k tHBAR)
 git clone <REPO_URL> && cd fatera
 cp .env.example .env        # fill OPERATOR_ID + OPERATOR_KEY from the portal
 pnpm install
