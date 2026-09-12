@@ -18,37 +18,43 @@ export class HederaService {
   constructor(public client: Client) {}
 
   static parsePrivateKey(key: string): PrivateKey {
-    const trimmed = key.trim().replace(/\.+$/, "");
+    const trimmed = key.trim();
 
-    // 1. If starts with 302e or 3030, try DER
+    // 1. If starts with 302e or 3030, parse DER
     if (trimmed.startsWith("302e") || trimmed.startsWith("3030")) {
       try {
         return PrivateKey.fromStringDer(trimmed);
       } catch {}
     }
 
-    // 2. If 64 hex chars (or 66 with 0x), try ECDSA first (Hedera portal default)
-    const cleanHex = trimmed.startsWith("0x") ? trimmed.slice(2) : trimmed;
-    if (cleanHex.length === 64) {
+    // 2. If prefixed with 0x, it is explicitly an EVM/ECDSA key
+    if (trimmed.startsWith("0x")) {
       try {
-        return PrivateKey.fromStringECDSA(cleanHex);
-      } catch {}
-      try {
-        return PrivateKey.fromStringED25519(cleanHex);
+        return PrivateKey.fromStringECDSA(trimmed.slice(2));
       } catch {}
     }
 
-    // 3. Try standard parser
+    // 3. If 64 hex chars without 0x, Hedera native keys are ED25519
+    if (trimmed.length === 64) {
+      try {
+        return PrivateKey.fromStringED25519(trimmed);
+      } catch {}
+      try {
+        return PrivateKey.fromStringECDSA(trimmed);
+      } catch {}
+    }
+
+    // 4. Fallback parsers
     try {
       return PrivateKey.fromString(trimmed);
     } catch {}
     try {
-      return PrivateKey.fromStringECDSA(trimmed);
+      return PrivateKey.fromStringED25519(trimmed);
     } catch {}
     try {
-      return PrivateKey.fromStringDer(trimmed);
+      return PrivateKey.fromStringECDSA(trimmed);
     } catch {}
-    return PrivateKey.fromStringED25519(trimmed);
+    return PrivateKey.fromStringDer(trimmed);
   }
 
   static fromEnv(id: string, key: string, network = "testnet"): HederaService {
