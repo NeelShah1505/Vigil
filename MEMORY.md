@@ -6,10 +6,10 @@
 - Started: 2026-09-13 · Deadline: check ETHOnline dates — submit EARLY
 
 ## Current phase
-Phase 1 — Hedera foundation (ready to start)
+Phase 1 — Hedera foundation (ready for `pnpm run setup`)
 
 ## Completed phases
-- Phase 0 ✅ checkpoint passed: `pnpm install && pnpm -r build` exited 0. Workspace scaffolded with turbo, tsconfig.base, packages/types, packages/config.
+- Phase 0 ✅ checkpoint passed: `pnpm install && pnpm -r build` exited 0. Workspace scaffolded with turbo, tsconfig.base, packages/types, packages/config, packages/mirror, packages/hedera, packages/hcs, and test scripts.
 
 ## Live environment (fill during Phase 1 — NEVER commit real keys here, IDs only)
 - AGENT_ACCOUNT_ID: 
@@ -27,16 +27,18 @@ Phase 1 — Hedera foundation (ready to start)
 - [Phase 0] Workspace initialized at `/Users/neelshah/Documents/other/Fatera` with pnpm workspace + turborepo + TypeScript strict mode.
 - [Phase 0] Created full domain models and Zod schemas in `@fatera/types` matching §7 and §10.
 - [Phase 0] Implemented `loadConfig()` with Zod validation and `.env` directory discovery in `@fatera/config`.
+- [Phase 0] Pre-implemented `@fatera/hedera`, `@fatera/mirror`, and `@fatera/hcs` to ensure clean inter-package compilation before running setup.
 
 ## Blockers & fallbacks used
 
 ## Risk register
-- Operator account needs to be configured in `.env` for Phase 1 `pnpm setup` to fund child accounts and create tokens.
+- Operator account needs to be configured in `.env` (via portal.prd.hedera.com) for Phase 1 `pnpm run setup` to fund child accounts and create tokens.
 
 ## Next actions
-1. Implement Phase 1: `packages/hedera` (HederaService SDK wrapper) and `packages/mirror` (MirrorClient REST wrapper + `toMirrorTxId`).
-2. Implement `scripts/setup.ts` and `scripts/verify-foundation.ts`.
-3. Check `.env` operator credentials and execute Phase 1 checkpoint.
+1. Ensure `OPERATOR_ID` and `OPERATOR_KEY` are populated in `.env`.
+2. Run `pnpm run setup` to bootstrap accounts, FUSDC token (custom fee), and HCS topics.
+3. Run Phase 1 checkpoint: `pnpm verify:foundation`.
+4. Commit Phase 1.
 
 ## Submission status
 - [ ] repo public  [ ] README complete  [ ] video recorded  [ ] submitted on platform
