@@ -14,19 +14,19 @@ export const ConfigSchema = z.object({
   OPERATOR_KEY: z.string().default(""),
 
   // Generated accounts
-  AGENT_ACCOUNT_ID: z.string().default(""),
+  AGENT_ACCOUNT_ID: z.string().default("0.0.10510026"),
   AGENT_PRIVATE_KEY: z.string().default(""),
-  MERCHANT_ACCOUNT_ID: z.string().default(""),
+  MERCHANT_ACCOUNT_ID: z.string().default("0.0.10510028"),
   MERCHANT_PRIVATE_KEY: z.string().default(""),
-  ROUTER_LP_ACCOUNT_ID: z.string().default(""),
+  ROUTER_LP_ACCOUNT_ID: z.string().default("0.0.10510029"),
   ROUTER_LP_PRIVATE_KEY: z.string().default(""),
-  FEE_COLLECTOR_ACCOUNT_ID: z.string().default(""),
+  FEE_COLLECTOR_ACCOUNT_ID: z.string().default("0.0.10510030"),
   FEE_COLLECTOR_PRIVATE_KEY: z.string().default(""),
 
   // Generated token & topics
-  FUSDC_TOKEN_ID: z.string().default(""),
-  HCS_TOPIC_ID: z.string().default(""),
-  HCS_IDENTITY_TOPIC_ID: z.string().default(""),
+  FUSDC_TOKEN_ID: z.string().default("0.0.10510032"),
+  HCS_TOPIC_ID: z.string().default("0.0.10524552"),
+  HCS_IDENTITY_TOPIC_ID: z.string().default("0.0.10524553"),
 
   // Economics
   HBAR_PER_FUSDC: z.coerce.number().default(2),

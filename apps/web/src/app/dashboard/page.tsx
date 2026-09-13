@@ -53,6 +53,24 @@ export default function DashboardPage() {
   const [eventFilter, setEventFilter] = useState<string>("ALL");
   const [searchQuery, setSearchQuery] = useState("");
 
+  // Interactive Simulation Controls
+  const [callsCount, setCallsCount] = useState<number>(10);
+  const [bufferPct, setBufferPct] = useState<number>(0.10);
+  const [routeMode, setRouteMode] = useState<string>("VIGIL_ROUTER");
+
+  const dynamicObligation = useMemo(() => {
+    const raw = callsCount * 1.01; // 1.00 FUSDC + 0.01 fee
+    const buffered = raw * (1 + bufferPct);
+    return parseFloat(buffered.toFixed(2));
+  }, [callsCount, bufferPct]);
+
+  const dynamicSwapHbar = useMemo(() => {
+    const swapFusdc = Math.max(1, Math.ceil(dynamicObligation));
+    const hbarRate = 2.0;
+    const feeBps = 30;
+    return parseFloat((swapFusdc * hbarRate * (1 + feeBps / 10000)).toFixed(3));
+  }, [dynamicObligation]);
+
   const copyToClipboard = (text: string, key: string) => {
     navigator.clipboard.writeText(text);
     setCopiedKey(key);
@@ -84,34 +102,34 @@ export default function DashboardPage() {
   const handleRunDemo = async () => {
     setIsRunning(true);
     setExecStage(1);
-    setActionMessage("Stage 1/6: Obligation Discovery • Forecast: 10.30 FUSDC required");
+    setActionMessage(`Stage 1/6: Obligation Discovery • Forecast: ${dynamicObligation.toFixed(2)} FUSDC required for ${callsCount} calls`);
     try {
       await fetch("/api/demo/start", { method: "POST" });
       setTimeout(() => {
         setExecStage(2);
-        setActionMessage("Stage 2/6: Solvency Check • PCR 0.0% (CRITICAL) • SHORTFALL_DETECTED emitted to HCS");
+        setActionMessage(`Stage 2/6: Solvency Check • PCR 0.0% (CRITICAL) • SHORTFALL_DETECTED emitted to HCS Topic 0.0.10524552`);
       }, 1400);
 
       setTimeout(() => {
         setExecStage(3);
-        setActionMessage("Stage 3/6: Liquidity Route Evaluation • VigilRouter selected (2 ℏ/FUSDC + 30 bps)");
+        setActionMessage(`Stage 3/6: Treasury Routing • Route: ${routeMode === "VIGIL_ROUTER" ? "VigilRouter LP" : "Direct HBAR"} (${dynamicSwapHbar.toFixed(2)} ℏ optimal)`);
       }, 2800);
 
       setTimeout(() => {
         setExecStage(4);
-        setActionMessage("Stage 4/6: Executing On-Chain Swap • 22.066 ℏ for 11.00 FUSDC • PCR flipped to 110.0%");
+        setActionMessage(`Stage 4/6: Working Capital Swap • ${dynamicSwapHbar.toFixed(2)} ℏ → ${Math.ceil(dynamicObligation)}.00 FUSDC • PCR flipped to 110.0% (Solvent)`);
         fetchState();
       }, 4200);
 
       setTimeout(() => {
         setExecStage(5);
-        setActionMessage("Stage 5/6: Settling 10 x402 metered requests on Hedera with HIP-18 custom fee...");
+        setActionMessage(`Stage 5/6: Settling ${callsCount} x402 metered requests on Hedera with HIP-18 custom fee...`);
         fetchState();
       }, 5600);
 
       setTimeout(() => {
         setExecStage(6);
-        setActionMessage("Stage 6/6: Complete! 10/10 payments verified on HashScan • Schedule 0.0.10522980 active");
+        setActionMessage(`Stage 6/6: Complete! ${callsCount}/${callsCount} payments verified on HashScan • Schedule 0.0.10524570 active`);
         setIsRunning(false);
         fetchState();
       }, 7200);
@@ -235,7 +253,7 @@ export default function DashboardPage() {
               className="px-3 py-1.5 rounded-md bg-paper border border-desk-line hover:border-ink-muted text-xs font-mono text-ink-muted hover:text-ink flex items-center gap-1.5 shadow-subtle transition-colors"
             >
               <Clock className="w-3.5 h-3.5 text-ink-faint" />
-              <span>Schedule: {state?.schedule?.scheduleId || "0.0.10522980"}</span>
+              <span>Schedule: {state?.schedule?.scheduleId || "0.0.10524570"}</span>
             </button>
 
             <button
@@ -256,6 +274,150 @@ export default function DashboardPage() {
               <Play className={`w-3.5 h-3.5 fill-current ${isRunning ? "animate-spin" : ""}`} />
               <span>{isRunning ? "Executing Lifecycle..." : "Run Autonomous Demo"}</span>
             </button>
+          </div>
+        </div>
+
+        {/* Interactive Mission & Solvency Configurator */}
+        <div className="paper-card rounded-xl p-4 sm:p-5 border border-desk-line bg-paper shadow-paper space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-desk-line pb-3">
+            <div className="flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-terracotta" />
+              <span className="font-serif font-bold text-sm text-ink">
+                Interactive Solvency & Mission Configurator
+              </span>
+              <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-desk text-ink-muted uppercase">
+                Dynamic Playground
+              </span>
+            </div>
+            <span className="text-xs text-ink-faint font-mono">
+              Adjust parameters to observe dynamic solvency surveillance in real time
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* 1. Workload Size */}
+            <div className="paper-inset rounded-lg p-3 space-y-2">
+              <span className="text-[10px] font-mono uppercase text-ink-faint block font-bold tracking-wider">
+                1. Workload Volume (x402 Calls)
+              </span>
+              <div className="flex items-center gap-1.5">
+                {[5, 10, 20].map((n) => (
+                  <button
+                    key={n}
+                    onClick={() => setCallsCount(n)}
+                    disabled={isRunning}
+                    className={`flex-1 py-1.5 rounded text-xs font-mono font-bold border transition-all cursor-pointer ${
+                      callsCount === n
+                        ? "bg-ink text-paper border-ink shadow-subtle"
+                        : "bg-paper text-ink-muted border-desk-line hover:border-ink-muted"
+                    }`}
+                  >
+                    {n} Calls
+                  </button>
+                ))}
+              </div>
+              <p className="text-[10px] text-ink-muted">
+                Each call requires 1.00 FUSDC + 0.01 fixed custom fee.
+              </p>
+            </div>
+
+            {/* 2. Safety Buffer */}
+            <div className="paper-inset rounded-lg p-3 space-y-2">
+              <span className="text-[10px] font-mono uppercase text-ink-faint block font-bold tracking-wider">
+                2. Reserve Buffer Policy
+              </span>
+              <div className="flex items-center gap-1.5">
+                {[
+                  { label: "Lean (0%)", val: 0 },
+                  { label: "Std (10%)", val: 0.1 },
+                  { label: "Safe (25%)", val: 0.25 },
+                ].map((b) => (
+                  <button
+                    key={b.label}
+                    onClick={() => setBufferPct(b.val)}
+                    disabled={isRunning}
+                    className={`flex-1 py-1.5 rounded text-xs font-mono font-bold border transition-all cursor-pointer ${
+                      bufferPct === b.val
+                        ? "bg-ink text-paper border-ink shadow-subtle"
+                        : "bg-paper text-ink-muted border-desk-line hover:border-ink-muted"
+                    }`}
+                  >
+                    {b.label}
+                  </button>
+                ))}
+              </div>
+              <p className="text-[10px] text-ink-muted">
+                Additional capital buffer allocated for network gas & slippage.
+              </p>
+            </div>
+
+            {/* 3. Routing Engine */}
+            <div className="paper-inset rounded-lg p-3 space-y-2">
+              <span className="text-[10px] font-mono uppercase text-ink-faint block font-bold tracking-wider">
+                3. Liquidity Route Target
+              </span>
+              <div className="flex items-center gap-1.5">
+                {[
+                  { id: "VIGIL_ROUTER", label: "VigilRouter LP" },
+                  { id: "DIRECT_HBAR_PREMIUM", label: "Direct HBAR" },
+                ].map((r) => (
+                  <button
+                    key={r.id}
+                    onClick={() => setRouteMode(r.id)}
+                    disabled={isRunning}
+                    className={`flex-1 py-1.5 rounded text-xs font-mono font-bold border transition-all cursor-pointer ${
+                      routeMode === r.id
+                        ? "bg-ink text-paper border-ink shadow-subtle"
+                        : "bg-paper text-ink-muted border-desk-line hover:border-ink-muted"
+                    }`}
+                  >
+                    {r.label}
+                  </button>
+                ))}
+              </div>
+              <p className="text-[10px] text-ink-muted">
+                {routeMode === "VIGIL_ROUTER"
+                  ? "Optimal 0.30% fee • 1 sub-block mirror settle."
+                  : "+5% merchant direct-HBAR payment surcharge."}
+              </p>
+            </div>
+          </div>
+
+          <div className="pt-3 border-t border-desk-line flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+            <div className="flex items-center gap-4 text-ink-muted font-mono">
+              <div>
+                <span className="text-ink-faint text-[10px] block">Calculated Obligation:</span>
+                <span className="font-bold text-ink text-sm">{dynamicObligation.toFixed(2)} FUSDC</span>
+              </div>
+              <div>
+                <span className="text-ink-faint text-[10px] block">Estimated Swap Cost:</span>
+                <span className="font-bold text-terracotta text-sm">{dynamicSwapHbar.toFixed(3)} ℏ</span>
+              </div>
+              <div>
+                <span className="text-ink-faint text-[10px] block">Target Solvency PCR:</span>
+                <span className="font-bold text-sage text-sm">110.0%</span>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handleResetDemo}
+                disabled={isResetting || isRunning}
+                className="px-3 py-1.5 rounded-md bg-[#FFFFFF] border border-[#DCD4C4] hover:bg-[#FAF7F0] text-xs font-semibold text-[#1C1915] flex items-center gap-1.5 shadow-subtle transition-all disabled:opacity-50 active:scale-95 cursor-pointer"
+              >
+                <RotateCcw className={`w-3.5 h-3.5 ${isResetting ? "animate-spin text-amber" : ""}`} />
+                <span>Reset Demo</span>
+              </button>
+
+              <button
+                onClick={handleRunDemo}
+                disabled={isRunning}
+                className="px-5 py-2 rounded-md bg-[#1C1915] text-[#FFFFFF] hover:bg-[#A8341E] text-xs font-semibold shadow-paper transition-all disabled:opacity-50 active:scale-95 flex items-center gap-2 cursor-pointer whitespace-nowrap"
+              >
+                <Play className={`w-3.5 h-3.5 fill-current ${isRunning ? "animate-spin" : ""}`} />
+                <span>{isRunning ? "Executing Lifecycle..." : "Run Autonomous Demo"}</span>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -371,7 +533,7 @@ export default function DashboardPage() {
                 <Layers className="w-3.5 h-3.5 text-ink-muted" />
               </div>
               <div className="font-serif font-bold text-base text-ink">Audit Topic</div>
-              <div className="text-xs font-mono text-ink-muted">0.0.10510035</div>
+              <div className="text-xs font-mono text-ink-muted">0.0.10524552</div>
               <div className="pt-2 border-t border-desk-line text-[11px] flex justify-between text-ink-faint font-mono">
                 <span>Security:</span>
                 <span className="text-sage font-bold">Immutable Trail</span>
@@ -742,7 +904,7 @@ export default function DashboardPage() {
                     </h2>
                   </div>
                   <p className="text-xs text-ink-muted mt-0.5">
-                    Immutable Topic {config?.topicId || "0.0.10510035"}
+                    Immutable Topic {config?.topicId || "0.0.10524552"}
                   </p>
                 </div>
                 <span className="w-2 h-2 rounded-full bg-sage animate-pulse"></span>
@@ -949,7 +1111,7 @@ export default function DashboardPage() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-ink-faint">Identity Topic:</span>
-                  <span className="text-ink">0.0.10510037</span>
+                  <span className="text-ink">0.0.10524553</span>
                 </div>
               </div>
 
@@ -980,7 +1142,7 @@ export default function DashboardPage() {
 
             <div className="flex justify-end pt-2">
               <a
-                href={`${hashscanBase}/topic/0.0.10510037`}
+                href={`${hashscanBase}/topic/0.0.10524553`}
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-center gap-1.5 px-4 py-2 rounded-md bg-ink text-paper font-semibold text-xs hover:bg-terracotta transition-colors"
@@ -1019,11 +1181,11 @@ export default function DashboardPage() {
               <div className="bg-desk p-3 rounded-md border border-desk-line space-y-1.5">
                 <div className="flex justify-between">
                   <span className="text-ink-faint">Schedule ID:</span>
-                  <span className="text-ink font-bold">{state?.schedule?.scheduleId || "0.0.10522980"}</span>
+                  <span className="text-ink font-bold">{state?.schedule?.scheduleId || "0.0.10524570"}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-ink-faint">Execution Mode:</span>
-                  <span className="text-sage font-bold">waitForExpiry=true</span>
+                  <span className="text-sage font-bold">waitForExpiry=false</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-ink-faint">Forward Amount:</span>
@@ -1032,13 +1194,13 @@ export default function DashboardPage() {
               </div>
 
               <p className="text-ink-muted font-sans text-xs leading-relaxed">
-                To guarantee continuity without human intervention, Vigil schedules renewal transfers on Hedera using <code className="text-ink font-mono bg-desk px-1 py-0.5 rounded">ScheduleCreateTransaction</code> with <code className="text-ink font-mono bg-desk px-1 py-0.5 rounded">waitForExpiry=true</code>. The Hedera consensus network executes the payment at the scheduled expiration time.
+                To guarantee continuity without human intervention, Vigil schedules renewal transfers on Hedera using <code className="text-ink font-mono bg-desk px-1 py-0.5 rounded">ScheduleCreateTransaction</code> with <code className="text-ink font-mono bg-desk px-1 py-0.5 rounded">waitForExpiry=false</code>. The Hedera consensus network executes the payment at the scheduled expiration time.
               </p>
             </div>
 
             <div className="flex justify-end pt-2">
               <a
-                href={`${hashscanBase}/schedule/${state?.schedule?.scheduleId || "0.0.10522980"}`}
+                href={`${hashscanBase}/schedule/${state?.schedule?.scheduleId || "0.0.10524570"}`}
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-center gap-1.5 px-4 py-2 rounded-md bg-ink text-paper font-semibold text-xs hover:bg-terracotta transition-colors"

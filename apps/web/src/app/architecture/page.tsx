@@ -80,8 +80,8 @@ export default function ArchitecturePage() {
                    ▼                                      ▼
 ┌───────────────────────────────────────────────────────────────────────────┐
 │                    Hedera Consensus Service (HCS)                         │
-│   • Audit Topic:    0.0.10510035  (Immutable State Machine Log)           │
-│   • Identity Topic: 0.0.10510037  (HCS-14 Agent Identity & Policy Vault)  │
+│   • Audit Topic:    0.0.10524552  (Immutable State Machine Log)           │
+│   • Identity Topic: 0.0.10524553  (HCS-14 Agent Identity & Policy Vault)  │
 └───────────────────────────────────────────────────────────────────────────┘`}
           </pre>
         </section>
@@ -122,7 +122,7 @@ export default function ArchitecturePage() {
               <ol className="space-y-2 text-ink-muted list-decimal list-inside font-mono text-[11px]">
                 <li><strong>Leg 1 (HBAR Deposit):</strong> Agent transfers 22.066 HBAR to the Router LP account on Hedera.</li>
                 <li><strong>Mirror Verification:</strong> Router queries the Hedera Mirror Node to confirm the transfer succeeded within freshness bounds (&lt; 120s) and checks replay store.</li>
-                <li><strong>Leg 2 (FUSDC Payout):</strong> Router transfers 11.00 FUSDC to the Agent account and logs <code>SWAP_SETTLED</code> to HCS topic <code>0.0.10510035</code>.</li>
+                <li><strong>Leg 2 (FUSDC Payout):</strong> Router transfers 11.00 FUSDC to the Agent account and logs <code>SWAP_SETTLED</code> to HCS topic <code>0.0.10524552</code>.</li>
               </ol>
             </div>
           </section>
@@ -151,7 +151,7 @@ export default function ArchitecturePage() {
               Hedera Consensus Service (HCS-14 Identity & Audit)
             </h2>
             <p className="text-sm text-ink-muted leading-relaxed">
-              Every critical lifecycle event is published to HCS topic <code className="font-mono text-xs bg-desk px-1.5 py-0.5 rounded">0.0.10510035</code>. In addition, the agent anchors its capabilities, public keys, and solvency policy bounds to HCS Identity Topic <code className="font-mono text-xs bg-desk px-1.5 py-0.5 rounded">0.0.10510037</code> under an HCS-14-inspired standard.
+              Every critical lifecycle event is published to HCS topic <code className="font-mono text-xs bg-desk px-1.5 py-0.5 rounded">0.0.10524552</code>. In addition, the agent anchors its capabilities, public keys, and solvency policy bounds to HCS Identity Topic <code className="font-mono text-xs bg-desk px-1.5 py-0.5 rounded">0.0.10524553</code> under an HCS-14-inspired standard.
             </p>
           </section>
         </div>

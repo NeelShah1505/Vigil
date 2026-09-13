@@ -83,34 +83,34 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href={`${hashscanBase}/topic/0.0.10510035`}
+                  href={`${hashscanBase}/topic/0.0.10524552`}
                   target="_blank"
                   rel="noreferrer"
                   className="hover:text-terracotta flex items-center gap-1 transition-colors"
                 >
-                  <span>Audit Topic: 0.0.10510035</span>
+                  <span>Audit Topic: 0.0.10524552</span>
                   <ExternalLink className="w-2.5 h-2.5 opacity-60" />
                 </a>
               </li>
               <li>
                 <a
-                  href={`${hashscanBase}/topic/0.0.10510037`}
+                  href={`${hashscanBase}/topic/0.0.10524553`}
                   target="_blank"
                   rel="noreferrer"
                   className="hover:text-terracotta flex items-center gap-1 transition-colors"
                 >
-                  <span>Identity: 0.0.10510037</span>
+                  <span>Identity: 0.0.10524553</span>
                   <ExternalLink className="w-2.5 h-2.5 opacity-60" />
                 </a>
               </li>
               <li>
                 <a
-                  href={`${hashscanBase}/schedule/0.0.10522980`}
+                  href={`${hashscanBase}/schedule/0.0.10524570`}
                   target="_blank"
                   rel="noreferrer"
                   className="hover:text-terracotta flex items-center gap-1 transition-colors"
                 >
-                  <span>Schedule: 0.0.10522980</span>
+                  <span>Schedule: 0.0.10524570</span>
                   <ExternalLink className="w-2.5 h-2.5 opacity-60" />
                 </a>
               </li>

@@ -21,9 +21,9 @@ Vigil forecasts an autonomous AI agent's upcoming payment obligations (x402 pay-
 | **Router LP Account** | `0.0.10510029` | [View Router LP on HashScan](https://hashscan.io/testnet/account/0.0.10510029) | Autonomous working capital swap liquidity pool & treasury |
 | **Fee Collector Account** | `0.0.10510030` | [View Collector on HashScan](https://hashscan.io/testnet/account/0.0.10510030) | HIP-18 recipient of 0.01 FUSDC fixed custom transfer fee |
 | **FUSDC Token** | `0.0.10510032` | [View FUSDC on HashScan](https://hashscan.io/testnet/token/0.0.10510032) | HTS Token with on-chain Custom Fixed Fee (10,000 base units) |
-| **HCS Audit Topic** | `0.0.10510035` | [View Audit Topic on HashScan](https://hashscan.io/testnet/topic/0.0.10510035) | Consensus topic recording all forecasts, swaps, & settlements |
-| **HCS Identity Topic** | `0.0.10510037` | [View Identity Topic on HashScan](https://hashscan.io/testnet/topic/0.0.10510037) | HCS-14-inspired agent identity & capability registry |
-| **Scheduled Tx** | `0.0.10522980` | [View Schedule on HashScan](https://hashscan.io/testnet/schedule/0.0.10522980) | Time-based forward renewal with `waitForExpiry=true` |
+| **HCS Audit Topic** | `0.0.10524552` | [View Audit Topic on HashScan](https://hashscan.io/testnet/topic/0.0.10524552) | Consensus topic recording all forecasts, swaps, & settlements |
+| **HCS Identity Topic** | `0.0.10524553` | [View Identity Topic on HashScan](https://hashscan.io/testnet/topic/0.0.10524553) | HCS-14-inspired agent identity & capability registry |
+| **Scheduled Tx** | `0.0.10524570` | [View Schedule on HashScan](https://hashscan.io/testnet/schedule/0.0.10524570) | Time-based forward renewal with `waitForExpiry=false` |
 
 ---
 

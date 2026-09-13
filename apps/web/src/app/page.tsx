@@ -107,7 +107,7 @@ export default function HomePage() {
                   Audit Trail (HCS)
                 </span>
                 <div className="text-2xl font-serif font-bold text-ink mt-2">100% On-Chain</div>
-                <p className="text-xs text-ink-muted mt-1">Consensus Topic 0.0.10510035</p>
+                <p className="text-xs text-ink-muted mt-1">Consensus Topic 0.0.10524552</p>
               </div>
             </div>
           </div>
@@ -323,11 +323,11 @@ export default function HomePage() {
                   </tr>
                   <tr>
                     <td className="py-3.5 px-4 font-bold text-ink">HCS Audit Topic</td>
-                    <td className="py-3.5 px-4 font-mono text-terracotta font-semibold">0.0.10510035</td>
+                    <td className="py-3.5 px-4 font-mono text-terracotta font-semibold">0.0.10524552</td>
                     <td className="py-3.5 px-4 text-ink-muted">Consensus stream of shortfall, routing, swap, and payment events</td>
                     <td className="py-3.5 px-4 text-right font-mono">
                       <a
-                        href={`${hashscanBase}/topic/0.0.10510035`}
+                        href={`${hashscanBase}/topic/0.0.10524552`}
                         target="_blank"
                         rel="noreferrer"
                         className="text-ink hover:text-terracotta underline inline-flex items-center gap-1"
