@@ -11,6 +11,8 @@ import { calculateForecast } from "../apps/agent/src/core/forecast.js";
 import { evaluateRoutes } from "../apps/agent/src/core/router.js";
 import { discoverDataService } from "../apps/agent/src/core/discovery.js";
 import { executeSwap, x402Fetch } from "../apps/agent/src/core/executor.js";
+import { registerAgentIdentity } from "../apps/agent/src/core/identity.js";
+import { createScheduledRenewal, pollScheduleExecution } from "../apps/agent/src/core/scheduler.js";
 import type { Server } from "node:http";
 
 async function main() {
@@ -102,6 +104,10 @@ async function main() {
       }),
     });
     console.log("  ✓ Merchant API & FateraRouter registered with discovery directory");
+
+    // Phase 8: Anchor Agent Identity on HCS (HCS-14 inspired)
+    console.log("\n[Bonus] Anchoring Agent Identity on HCS Topic...");
+    await registerAgentIdentity(config, hedera, hcs);
 
     // Discover data service
     console.log("\n[3/6] Agent Discovery & Requirement Acquisition...");
@@ -352,14 +358,44 @@ async function main() {
       completedAt: new Date().toISOString(),
     });
 
+    // Phase 8: Autonomous Working Capital Forward Renewal (Scheduled Transaction)
+    console.log("\n[Bonus] Scheduling Autonomous Working Capital Forward Renewal (120s)...");
+    stateStore.setPhase("SCHEDULING");
+    try {
+      const scheduleResult = await createScheduledRenewal(config, hedera, hcs, 120);
+      stateStore.setSchedule({
+        scheduleId: scheduleResult.scheduleId,
+        executeAt: scheduleResult.executeAt,
+        status: "PENDING",
+      });
+
+      console.log(`  ✓ Forward Renewal Scheduled: ${scheduleResult.scheduleId}`);
+      console.log(`    HashScan: https://hashscan.io/testnet/schedule/${scheduleResult.scheduleId}`);
+      console.log(`    Mirror REST: ${config.mirrorNodeUrl}/api/v1/schedules/${scheduleResult.scheduleId}`);
+
+      // Poll mirror node for execution verification
+      const execResult = await pollScheduleExecution(mirror, scheduleResult.scheduleId, hcs, 135_000);
+      if (execResult.executed) {
+        stateStore.setSchedule({
+          scheduleId: scheduleResult.scheduleId,
+          executeAt: scheduleResult.executeAt,
+          status: "EXECUTED",
+        });
+        console.log(`  ✓ SCHEDULE_EXECUTED confirmed on mirror node at ${execResult.executedTimestamp}`);
+      }
+    } catch (err: any) {
+      console.warn(`  ⚠️ Scheduled renewal notice: ${err.message}`);
+    }
+
     console.log("\n==================================================");
-    console.log("       PHASE 6 END-TO-END EXECUTION PASSED ✅     ");
+    console.log("       FATERA DEMO EXECUTION COMPLETE ✅          ");
     console.log("==================================================");
     console.log(`Initial Balances: ~100.0000 HBAR / 0.0000 FUSDC`);
     console.log(`Ending Balances:  ${finalBalances.hbarBalance.toFixed(4)} HBAR (Target: ≈78 HBAR)`);
     console.log(`                  ${finalBalances.fusdcBalance.toFixed(4)} FUSDC (Target: ≈0.90 FUSDC)`);
     console.log(`Payments Settled: 10 / 10 calls on-chain`);
     console.log(`Audit Topic:      https://hashscan.io/testnet/topic/${config.topicId}`);
+    console.log(`Identity Topic:   https://hashscan.io/testnet/topic/${config.identityTopicId}`);
     console.log("==================================================\n");
   } finally {
     for (const s of servers) {

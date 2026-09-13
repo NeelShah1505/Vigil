@@ -10,6 +10,23 @@ export class HcsLogger {
     private agentId = "fatera-agent-001"
   ) {}
 
+  static trimPayload(data: Record<string, unknown>, maxBytes = 1000): Record<string, unknown> {
+    const msg = JSON.stringify(data);
+    if (Buffer.byteLength(msg, "utf8") <= maxBytes) {
+      return data;
+    }
+    const entries = Object.entries(data);
+    const trimmed: Record<string, unknown> = { note: "payload-trimmed" };
+    for (const [k, v] of entries) {
+      trimmed[k] = v;
+      if (Buffer.byteLength(JSON.stringify(trimmed), "utf8") > maxBytes - 100) {
+        delete trimmed[k];
+        break;
+      }
+    }
+    return trimmed;
+  }
+
   async emit(type: HcsEventType, data: Record<string, unknown> = {}): Promise<HcsEvent> {
     if (!this.topicId) {
       throw new Error("Cannot emit HCS event: topicId is empty");
@@ -29,7 +46,7 @@ export class HcsLogger {
       // HCS hard limit 1024 - trim data keys and retry once
       const slim: HcsEvent = {
         ...evt,
-        data: { note: "payload-trimmed", type, ...Object.fromEntries(Object.entries(data).slice(0, 3)) },
+        data: HcsLogger.trimPayload(data, 800),
       };
       msg = JSON.stringify(slim);
       await this.hedera.submitTopicMessage(this.topicId, msg);

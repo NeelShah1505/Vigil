@@ -6,7 +6,7 @@
 - Started: 2026-09-13 · Deadline: check ETHOnline dates — submit EARLY
 
 ## Current phase
-Phase 8 — Bonus layer (HCS Identity & Scheduled Transactions)
+Phase 9 — README, QA, submission preparation
 
 ## Completed phases
 - Phase 0 ✅ checkpoint passed: `pnpm install && pnpm -r build` exited 0. Workspace scaffolded with turbo, tsconfig.base, packages/types, packages/config.
@@ -17,6 +17,7 @@ Phase 8 — Bonus layer (HCS Identity & Scheduled Transactions)
 - Phase 5 ✅ checkpoint passed: `pnpm demo:dry` verified discovery directory (`apps/directory`), balance polling, obligation formulation (10.30 FUSDC), forecast (PCR 0%, shortfall 10.30 FUSDC), route decision matrix selecting FATERA_ROUTER (~22.07 HBAR) over SAUCERSWAP_V2, policy validation, and State API `GET /state`.
 - Phase 6 ✅ checkpoint passed: `pnpm demo` executed full autonomous working capital lifecycle on Hedera Testnet: discovered merchant service via directory, forecasted shortfall (PCR 0%, 10.30 FUSDC required), routed through FateraRouter to swap 22.066 HBAR for 11.00 FUSDC, refreshed treasury to flip PCR to 110.0% (HEALTHY), executed 10 sequential metered x402 paid calls to /market-data with on-chain settlement, replay protection, and mirror verification, fulfilled obligation, and ended with 77.933 HBAR and 1.000 FUSDC. Full event sequence logged to HCS topic 0.0.10510035.
 - Phase 7 ✅ checkpoint passed: `apps/web` live on Next.js 14 App Router + Tailwind. Dark fintech UI (`#0B1220` / `#111A2E` / `#22D3A7`) verified with live PCR circular gauge (110.0% green), Autonomous Route Decision Table highlighting FATERA_ROUTER with decision rationale, 10 on-chain x402 payment records with HashScan links, and real-time HCS consensus audit stream from topic 0.0.10510035. Zero console errors.
+- Phase 8 ✅ checkpoint passed: `pnpm verify:bonus` anchored agent identity profile to HCS Identity Topic 0.0.10510037 (verified AGENT_REGISTERED on mirror node); created and verified time-based scheduled renewal transfer with `scheduleFusdcTransfer` (`waitForExpiry=true`, Schedule `0.0.10521550` verified on Hedera Mirror Node with expiration timestamp). Unit tests passed 10/10 with `pnpm test`.
 
 ## Live environment (fill during Phase 1 — NEVER commit real keys here, IDs only)
 - AGENT_ACCOUNT_ID: 0.0.10510026
@@ -47,6 +48,9 @@ Phase 8 — Bonus layer (HCS Identity & Scheduled Transactions)
 - [Phase 5] Implemented `apps/agent` core: `treasury`, `obligations`, `forecast` (PCR & shortfall math), `router` (route matrix evaluation), `discovery`, and `StateStore` + State API (`GET /state`, `GET /events`). Verified with `pnpm demo:dry`.
 - [Phase 6] Built `apps/agent` executor (`executeSwap`, `x402Fetch`, refund handling). Verified autonomous end-to-end execution of 10 paid calls on Hedera Testnet via `pnpm demo`.
 - [Phase 7] Built `apps/web` Next.js 14 App Router dashboard with dark fintech UI, circular SVG PCR gauge, Route Matrix, settlements table, and live HCS mirror-node audit stream.
+- [Phase 8] Implemented HCS-14-inspired agent identity profile anchored to HCS topic 0.0.10510037.
+- [Phase 8] Implemented autonomous forward working capital renewal via Hedera Schedule Service with `waitForExpiry=true` (Schedule 0.0.10521550).
+- [Phase 8] Added comprehensive unit test suite in `tests/fatera.test.ts` covering §18 (vitest: 10/10 passed).
 
 ## Blockers & fallbacks used
 - [Phase 1] Portal URL corrected from outdated `portal.prd.hedera.com` to `portal.hedera.com`.
@@ -56,9 +60,9 @@ Phase 8 — Bonus layer (HCS Identity & Scheduled Transactions)
 ## Risk register
 
 ## Next actions
-1. Build Phase 8: Bonus Layer (§8.1 scheduled transactions with `scheduleFusdcTransfer`, `waitForExpiry(true)` and HCS agent identity registration `AGENT_REGISTERED` on `HCS_IDENTITY_TOPIC_ID`).
-2. Verify Phase 8 checkpoint with `SCHEDULE_CREATED` and `SCHEDULE_EXECUTED` mirror polling.
-3. Advance to Phase 9 (Submission, README, and QA).
+1. Build Phase 9: Generate complete production `README.md` from `README.template.md` (fill all HashScan links, account IDs, token IDs, topic IDs, architecture diagrams, and quickstart commands).
+2. Verify pre-submission QA checklist (§19).
+3. Ensure `.env` is gitignored and repo is clean for submission.
 
 ## Submission status
 - [ ] repo public  [ ] README complete  [ ] video recorded  [ ] submitted on platform
