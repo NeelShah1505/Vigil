@@ -435,8 +435,11 @@ async function main() {
     console.log("==================================================\n");
   } finally {
     for (const s of servers) {
-      s.close();
+      try {
+        s.close();
+      } catch {}
     }
+    process.exit(0);
   }
 }
 
