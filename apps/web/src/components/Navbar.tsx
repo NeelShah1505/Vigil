@@ -9,10 +9,11 @@ export default function Navbar() {
 
   const links = [
     { href: "/", label: "Overview" },
-    { href: "/dashboard", label: "Dashboard" },
     { href: "/architecture", label: "Architecture" },
     { href: "/explorer", label: "Testnet Explorer" },
   ];
+
+  const isDashboard = pathname === "/dashboard";
 
   return (
     <header className="border-b border-desk-line bg-desk/95 backdrop-blur-md sticky top-0 z-50">
@@ -66,13 +67,22 @@ export default function Navbar() {
             <span className="font-mono">Hedera Testnet</span>
           </div>
 
-          <Link
-            href="/dashboard"
-            className="flex items-center gap-1.5 px-4 py-2 rounded-md bg-ink text-paper hover:bg-terracotta text-xs font-semibold shadow-subtle transition-all active:scale-95"
-          >
-            <span>Open Terminal</span>
-            <ArrowUpRight className="w-3.5 h-3.5" />
-          </Link>
+          {isDashboard ? (
+            <Link
+              href="/"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-md bg-paper border border-desk-line hover:border-ink-muted text-xs font-semibold text-ink shadow-subtle transition-all active:scale-95"
+            >
+              <span>← Overview</span>
+            </Link>
+          ) : (
+            <Link
+              href="/dashboard"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-md bg-ink text-paper hover:bg-terracotta text-xs font-semibold shadow-subtle transition-all active:scale-95"
+            >
+              <span>Launch Terminal</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </Link>
+          )}
         </div>
       </div>
     </header>

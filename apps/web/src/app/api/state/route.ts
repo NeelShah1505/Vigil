@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import fs from "node:fs";
 import path from "node:path";
 import { loadConfig } from "@vigil/config";
+import bundledInitial from "@/data/agent-state.json";
+import { getActiveDemoState } from "@/lib/demoState";
 
 export const dynamic = "force-dynamic";
 
@@ -56,20 +58,25 @@ export async function GET() {
     // mirror node fallback failed
   }
 
+  // Determine state source
+  const activeSimulation = getActiveDemoState();
+  let state = activeSimulation || bundledInitial;
+
   try {
     const snapshotPath = path.resolve(process.cwd(), "..", "..", "config", "agent-state.json");
-    if (fs.existsSync(snapshotPath)) {
+    if (!activeSimulation && fs.existsSync(snapshotPath)) {
       const raw = fs.readFileSync(snapshotPath, "utf8");
-      const state = JSON.parse(raw);
-      return NextResponse.json({
-        online: false,
-        state,
-        events: fallbackEvents,
-      });
+      state = JSON.parse(raw);
     }
   } catch {
-    // No snapshot yet
+    // fallback to bundledInitial
   }
+
+  return NextResponse.json({
+    online: false,
+    state,
+    events: fallbackEvents,
+  });
 
   // Baseline initial state
   return NextResponse.json({

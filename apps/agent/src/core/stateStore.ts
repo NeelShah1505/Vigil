@@ -54,11 +54,23 @@ export class StateStore {
       ts: new Date().toISOString(),
     };
 
+    if (fs.existsSync(this.snapshotPath)) {
+      try {
+        const raw = fs.readFileSync(this.snapshotPath, "utf8");
+        this.state = { ...this.state, ...JSON.parse(raw) };
+      } catch {}
+    }
+
     this.saveSnapshot();
   }
 
   getState(): AgentState {
     return { ...this.state };
+  }
+
+  updateState(updates: Partial<AgentState>) {
+    this.state = { ...this.state, ...updates };
+    this.touch();
   }
 
   getEvents(limit = 50): LoggedEvent[] {

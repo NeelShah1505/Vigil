@@ -246,6 +246,15 @@ async function main() {
     }
     console.log(`  ✓ Treasury Policy Check: PASS (${selectedQuote?.costHbar.toFixed(3)} HBAR ≤ 50 HBAR max; 1.00 FUSDC/call ≤ 2.00 max)`);
 
+    // Sync state with running Agent State service if external
+    try {
+      await fetch(`http://localhost:${config.PORT_AGENT}/state`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(stateStore.getState()),
+      });
+    } catch {}
+
     // Verify State API endpoint
     console.log("\n[6/6] Verifying Agent State API (GET http://localhost:3002/state)...");
     const stateRes = await fetch(`http://localhost:${config.PORT_AGENT}/state`);

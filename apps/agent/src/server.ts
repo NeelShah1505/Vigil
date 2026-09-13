@@ -33,6 +33,12 @@ export function createAgentApp(): {
     return res.json(stateStore.getState());
   });
 
+  // POST /state
+  app.post("/state", (req, res) => {
+    stateStore.updateState(req.body);
+    return res.json(stateStore.getState());
+  });
+
   // GET /events
   app.get("/events", (req, res) => {
     const limit = parseInt((req.query.limit as string) || "50", 10);

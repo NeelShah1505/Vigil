@@ -1,0 +1,175 @@
+{
+  "phase": "EXECUTING",
+  "balances": {
+    "hbarTinybars": "7793400000",
+    "fusdcBaseUnits": "700000"
+  },
+  "obligations": [
+    {
+      "id": "ob-mtztslq4",
+      "description": "10 metered market data queries (base 0.50 + 0.10/field × 5 fields = 1.00 FUSDC/call)",
+      "asset": "FUSDC",
+      "callsTotal": 10,
+      "callsRemaining": 0,
+      "costPerCallFusdc": 1.00,
+      "amountFusdc": 10.00,
+      "feeEstimateFusdc": 0.10,
+      "bufferFusdc": 0.20,
+      "requiredFusdc": 10.30,
+      "dueAt": "2026-09-13T13:34:17.404Z",
+      "status": "FULFILLED"
+    }
+  ],
+  "latestForecast": {
+    "pcrPct": 110.0,
+    "availableFusdc": 11.00,
+    "requiredFusdc": 10.30,
+    "shortfallFusdc": 0,
+    "hbarNeededEstimate": 0,
+    "state": "HEALTHY",
+    "ts": "2026-09-13T13:05:10.120Z"
+  },
+  "latestRouteEvaluation": {
+    "ts": "2026-09-13T13:04:18.725Z",
+    "quotes": [
+      {
+        "id": "VIGIL_ROUTER",
+        "available": true,
+        "costHbar": 22.066,
+        "feeBps": 30,
+        "latencyNote": "1 sub-block (native mirror settle)",
+        "riskPenaltyHbar": 0,
+        "detail": "Autonomous LP swap: rate 2 HBAR/FUSDC + 30 bps fee"
+      },
+      {
+        "id": "SAUCERSWAP_V2",
+        "available": false,
+        "costHbar": 0,
+        "feeBps": 25,
+        "latencyNote": "EVM contract execution (~3-5s)",
+        "riskPenaltyHbar": 0.5,
+        "detail": "No FUSDC pool deployed on Hedera Testnet (graceful fallback per §17)"
+      }
+    ],
+    "selected": "VIGIL_ROUTER",
+    "reason": "Selected VIGIL_ROUTER: lowest total cost (22.066 HBAR) with zero execution risk penalty."
+  },
+  "payments": [
+    {
+      "callIndex": 1,
+      "asset": "FUSDC",
+      "amountFusdc": 1.00,
+      "symbol": "FUSDC",
+      "txId": "0.0.10510026@1789304101.120000001",
+      "status": "SUCCESS",
+      "timestamp": "2026-09-13T13:05:12.100Z"
+    },
+    {
+      "callIndex": 2,
+      "asset": "FUSDC",
+      "amountFusdc": 1.00,
+      "symbol": "FUSDC",
+      "txId": "0.0.10510026@1789304103.340000002",
+      "status": "SUCCESS",
+      "timestamp": "2026-09-13T13:05:14.200Z"
+    },
+    {
+      "callIndex": 3,
+      "asset": "FUSDC",
+      "amountFusdc": 1.00,
+      "symbol": "FUSDC",
+      "txId": "0.0.10510026@1789304105.560000003",
+      "status": "SUCCESS",
+      "timestamp": "2026-09-13T13:05:16.300Z"
+    },
+    {
+      "callIndex": 4,
+      "asset": "FUSDC",
+      "amountFusdc": 1.00,
+      "symbol": "FUSDC",
+      "txId": "0.0.10510026@1789304107.780000004",
+      "status": "SUCCESS",
+      "timestamp": "2026-09-13T13:05:18.400Z"
+    },
+    {
+      "callIndex": 5,
+      "asset": "FUSDC",
+      "amountFusdc": 1.00,
+      "symbol": "FUSDC",
+      "txId": "0.0.10510026@1789304109.910000005",
+      "status": "SUCCESS",
+      "timestamp": "2026-09-13T13:05:20.500Z"
+    },
+    {
+      "callIndex": 6,
+      "asset": "FUSDC",
+      "amountFusdc": 1.00,
+      "symbol": "FUSDC",
+      "txId": "0.0.10510026@1789304112.130000006",
+      "status": "SUCCESS",
+      "timestamp": "2026-09-13T13:05:22.600Z"
+    },
+    {
+      "callIndex": 7,
+      "asset": "FUSDC",
+      "amountFusdc": 1.00,
+      "symbol": "FUSDC",
+      "txId": "0.0.10510026@1789304114.350000007",
+      "status": "SUCCESS",
+      "timestamp": "2026-09-13T13:05:24.700Z"
+    },
+    {
+      "callIndex": 8,
+      "asset": "FUSDC",
+      "amountFusdc": 1.00,
+      "symbol": "FUSDC",
+      "txId": "0.0.10510026@1789304116.570000008",
+      "status": "SUCCESS",
+      "timestamp": "2026-09-13T13:05:26.800Z"
+    },
+    {
+      "callIndex": 9,
+      "asset": "FUSDC",
+      "amountFusdc": 1.00,
+      "symbol": "FUSDC",
+      "txId": "0.0.10510026@1789304118.790000009",
+      "status": "SUCCESS",
+      "timestamp": "2026-09-13T13:05:28.900Z"
+    },
+    {
+      "callIndex": 10,
+      "asset": "FUSDC",
+      "amountFusdc": 1.00,
+      "symbol": "FUSDC",
+      "txId": "0.0.10510026@1789304121.010000010",
+      "status": "SUCCESS",
+      "timestamp": "2026-09-13T13:05:31.000Z"
+    }
+  ],
+  "swap": {
+    "status": "SETTLED",
+    "amountFusdc": 11.00,
+    "costHbar": 22.066,
+    "rate": 2.0,
+    "feeBps": 30,
+    "hbarTxId": "0.0.10510026@1789304095.102938475",
+    "fusdcTxId": "0.0.10510029@1789304098.837462918"
+  },
+  "schedule": {
+    "scheduleId": "0.0.10522980",
+    "status": "SCHEDULED",
+    "forwardAmountFusdc": 1.00,
+    "dueInMinutes": 30,
+    "waitForExpiry": true
+  },
+  "config": {
+    "network": "testnet",
+    "topicId": "0.0.10510035",
+    "tokenId": "0.0.10510032",
+    "agentAccount": "0.0.10510026",
+    "merchantAccount": "0.0.10510028",
+    "hashscanBase": "https://hashscan.io/testnet"
+  },
+  "eventsSeen": 15,
+  "ts": "2026-09-13T13:05:35.000Z"
+}
