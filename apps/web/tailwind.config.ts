@@ -9,27 +9,59 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#0B1220",
-        card: "#111A2E",
-        "card-hover": "#17223B",
+        background: "#060A12",
+        surface: {
+          DEFAULT: "#0D1527",
+          subtle: "#0F1A30",
+          card: "#121E36",
+          hover: "#182847",
+          border: "rgba(255, 255, 255, 0.08)",
+        },
+        brand: {
+          teal: "#22D3A7",
+          emerald: "#10B981",
+          cyan: "#00E5FF",
+          purple: "#8B5CF6",
+          violet: "#A78BFA",
+          hedera: "#2C3440",
+        },
         accent: {
           healthy: "#22D3A7",
-          critical: "#F04438",
-          warn: "#F5A623",
-          info: "#38BDF8",
+          critical: "#F43F5E",
+          warn: "#F59E0B",
+          info: "#00E5FF",
         },
       },
       fontFamily: {
+        heading: ["'Space Grotesk'", "sans-serif"],
+        sans: ["'Plus Jakarta Sans'", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
         mono: [
+          "'JetBrains Mono'",
           "ui-monospace",
           "SFMono-Regular",
           "Menlo",
           "Monaco",
           "Consolas",
-          "Liberation Mono",
-          "Courier New",
           "monospace",
         ],
+      },
+      boxShadow: {
+        "glow-teal": "0 0 30px -5px rgba(34, 211, 167, 0.25)",
+        "glow-cyan": "0 0 30px -5px rgba(0, 229, 255, 0.25)",
+        "glow-purple": "0 0 30px -5px rgba(139, 92, 246, 0.25)",
+        "glow-red": "0 0 30px -5px rgba(244, 63, 94, 0.25)",
+        glass: "0 8px 32px 0 rgba(0, 0, 0, 0.4)",
+        "glass-sm": "0 4px 16px 0 rgba(0, 0, 0, 0.3)",
+      },
+      animation: {
+        "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "flow-dash": "flowDash 20s linear infinite",
+      },
+      keyframes: {
+        flowDash: {
+          "0%": { strokeDashoffset: "100" },
+          "100%": { strokeDashoffset: "0" },
+        },
       },
     },
   },
