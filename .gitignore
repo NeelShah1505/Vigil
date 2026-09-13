@@ -10,3 +10,7 @@ used-swaps.json
 apps/agent/config/
 *.tsbuildinfo
 .DS_Store
+
+# Development notes (keep README.md only in git)
+*.md
+!README.md
