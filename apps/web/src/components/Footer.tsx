@@ -11,7 +11,7 @@ export default function Footer() {
           {/* Col 1 */}
           <div className="md:col-span-1 space-y-3">
             <div className="flex items-center gap-2">
-              <span className="font-serif font-bold text-xl tracking-tight">FATERA</span>
+              <span className="font-serif font-bold text-xl tracking-tight">VIGIL</span>
               <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-desk text-ink-muted border border-desk-line">
                 v0.1
               </span>
@@ -134,7 +134,7 @@ export default function Footer() {
         </div>
 
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-ink-faint">
-          <div>© 2026 Fatera Project • Open Source under MIT License</div>
+          <div>© 2026 Vigil Project • Open Source under MIT License</div>
           <div className="font-mono">Hedera Testnet Consensus Finality ~2.3s</div>
         </div>
       </div>

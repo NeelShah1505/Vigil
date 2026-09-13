@@ -31,7 +31,7 @@ export async function executeSwap(params: {
     hcs,
   } = params;
 
-  if (selectedRoute !== "FATERA_ROUTER") {
+  if (selectedRoute !== "VIGIL_ROUTER" && selectedRoute !== "FATERA_ROUTER") {
     throw new Error(`Execution for route ${selectedRoute} is not supported on testnet.`);
   }
 

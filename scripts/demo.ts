@@ -18,7 +18,7 @@ import type { Server } from "node:http";
 
 async function main() {
   const isDryRun = process.argv.includes("--dry");
-  console.log(`\n=== FATERA AGENT DEMO (${isDryRun ? "DRY RUN / PHASE 5" : "LIVE RUN / PHASE 6"}) ===\n`);
+  console.log(`\n=== VIGIL AGENT DEMO (${isDryRun ? "DRY RUN / PHASE 5" : "LIVE RUN / PHASE 6"}) ===\n`);
 
   const config = loadConfig(true);
   const servers: Server[] = [];
@@ -42,7 +42,7 @@ async function main() {
   };
 
   try {
-    console.log("[1/6] Launching Fatera Services Architecture...");
+    console.log("[1/6] Launching Vigil Services Architecture...");
 
     // 1. Directory Service (port 3004)
     const { app: directoryApp, services: directoryMap } = createDirectoryApp();
@@ -56,7 +56,7 @@ async function main() {
 
     // 3. Router Service (port 3003)
     const { app: routerApp } = createRouterApp();
-    const routerServer = await startServer(routerApp, config.PORT_ROUTER, "FateraRouter LP Service");
+    const routerServer = await startServer(routerApp, config.PORT_ROUTER, "VigilRouter LP Service");
     servers.push(routerServer);
 
     // 4. Agent State API (port 3002)
@@ -65,7 +65,7 @@ async function main() {
     servers.push(agentServer);
 
     // Register services into Directory
-    console.log("\n[2/6] Registering Services into Fatera Directory...");
+    console.log("\n[2/6] Registering Services into Vigil Directory...");
     const dirBase = `http://localhost:${config.PORT_DIRECTORY}`;
 
     await fetch(`${dirBase}/register`, {
@@ -91,8 +91,8 @@ async function main() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        id: "fatera-router",
-        name: "Fatera Liquidity Router",
+        id: "vigil-router",
+        name: "Vigil Liquidity Router",
         baseUrl: `http://localhost:${config.PORT_ROUTER}`,
         kind: "SWAP",
         pricing: {
@@ -104,7 +104,7 @@ async function main() {
         registeredAt: new Date().toISOString(),
       }),
     });
-    console.log("  ✓ Merchant API & FateraRouter registered with discovery directory");
+    console.log("  ✓ Merchant API & VigilRouter registered with discovery directory");
 
     // Phase 8: Anchor Agent Identity on HCS (HCS-14 inspired)
     console.log("\n[Bonus] Anchoring Agent Identity on HCS Topic...");
@@ -265,7 +265,7 @@ async function main() {
       console.log(`Balances:     HBAR: ${balances.hbarBalance.toFixed(4)}, FUSDC: ${balances.fusdcBalance.toFixed(4)}`);
       console.log(`Obligation:   Required ${obligation.requiredFusdc.toFixed(2)} FUSDC (10 calls @ 1.00)`);
       console.log(`Forecast:     PCR ${forecast.pcrPct.toFixed(1)}% (${forecast.state}), Shortfall: ${forecast.shortfallFusdc.toFixed(2)} FUSDC`);
-      console.log(`Route Matrix: FATERA_ROUTER selected (~${selectedQuote?.costHbar.toFixed(2)} HBAR), SAUCERSWAP_V2 unavailable`);
+      console.log(`Route Matrix: ${selectedQuote?.id} selected (~${selectedQuote?.costHbar.toFixed(2)} HBAR), SAUCERSWAP_V2 unavailable`);
       console.log(`Policy Check: PASS`);
       console.log(`State API:    http://localhost:${config.PORT_AGENT}/state (OK)`);
       console.log("==================================================\n");
@@ -281,7 +281,7 @@ async function main() {
 
     // 1. Execute Liquidity Swap to acquire FUSDC
     const swapAmountFusdc = Math.max(1, Math.ceil(forecast.shortfallFusdc)); // 11 FUSDC
-    console.log(`[1/3] Executing Autonomous LP Swap: Acquiring ${swapAmountFusdc} FUSDC via FateraRouter...`);
+    console.log(`[1/3] Executing Autonomous LP Swap: Acquiring ${swapAmountFusdc} FUSDC via VigilRouter...`);
     stateStore.setPhase("SWAPPING");
 
     const swapResult = await executeSwap({
@@ -415,7 +415,7 @@ async function main() {
     }
 
     console.log("\n==================================================");
-    console.log("       FATERA DEMO EXECUTION COMPLETE ✅          ");
+    console.log("        VIGIL DEMO EXECUTION COMPLETE ✅          ");
     console.log("==================================================");
     console.log(`Initial Balances: ~100.0000 HBAR / 0.0000 FUSDC`);
     console.log(`Ending Balances:  ${finalBalances.hbarBalance.toFixed(4)} HBAR (Target: ≈78 HBAR)`);

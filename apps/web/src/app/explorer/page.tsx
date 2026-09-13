@@ -29,7 +29,7 @@ export default function ExplorerPage() {
       badge: "MERCHANT",
     },
     {
-      role: "FateraRouter LP Treasury Account",
+      role: "VigilRouter LP Treasury Account",
       id: "0.0.10510029",
       desc: "Liquidity provider account for autonomous two-leg swaps (HBAR to FUSDC).",
       url: `${hashscanBase}/account/0.0.10510029`,
@@ -86,7 +86,7 @@ export default function ExplorerPage() {
             On-Chain Entity Registry
           </h1>
           <p className="text-sm text-ink-muted leading-relaxed font-sans">
-            Every account, token, consensus topic, and schedule in Fatera is live on the Hedera Testnet. You can verify every transaction and state change independently on HashScan.
+            Every account, token, consensus topic, and schedule in Vigil is live on the Hedera Testnet. You can verify every transaction and state change independently on HashScan.
           </p>
         </div>
 

@@ -24,7 +24,7 @@ export function createAgentApp(): {
 
   const mirror = new MirrorClient(config.mirrorNodeUrl);
   const hedera = HederaService.fromEnv(config.operatorId, config.operatorKey, config.network);
-  const hcs = new HcsLogger(hedera, config.topicId, "fatera-agent");
+  const hcs = new HcsLogger(hedera, config.topicId, "vigil-agent");
   const stateStore = new StateStore(config);
   const treasury = new TreasuryService(mirror, config.agentAccount, config.fusdcTokenId);
 
@@ -70,7 +70,7 @@ async function start() {
 
   const server = app.listen(port, () => {
     console.log(`\n==================================================`);
-    console.log(`  FATERA AGENT (State API & Core) running on port ${port}`);
+    console.log(`  VIGIL AGENT (State API & Core) running on port ${port}`);
     console.log(`  State API:       http://localhost:${port}/state`);
     console.log(`  Events Feed:     http://localhost:${port}/events`);
     console.log(`  Health Check:    http://localhost:${port}/health`);

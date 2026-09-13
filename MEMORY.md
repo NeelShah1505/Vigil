@@ -1,12 +1,12 @@
 # FATERA — Build Memory (the IDE agent MUST update this file after every phase)
 
 ## Meta
-- Project: Fatera — Autonomous Working Capital OS (ETHOnline / Hedera x402 bounty)
+- Project: VIGIL (Vigil OS) — Autonomous Working Capital OS for AI Agents (ETHOnline / Hedera x402 bounty)
 - Master spec: MASTER_PROMPT.md (authoritative)
 - Started: 2026-09-13 · Deadline: check ETHOnline dates — submit EARLY
 
 ## Current phase
-Phase 9 — README, QA, submission preparation
+Phase 10 — VIGIL Rebrand, Editorial Redesign & Final Pitch Prep
 
 ## Completed phases
 - Phase 0 ✅ checkpoint passed: `pnpm install && pnpm -r build` exited 0. Workspace scaffolded with turbo, tsconfig.base, packages/types, packages/config.
@@ -14,11 +14,12 @@ Phase 9 — README, QA, submission preparation
 - Phase 2 ✅ checkpoint passed: `pnpm topic:tail` decoded and printed HCS Audit Topic events from the mirror node as structured JSON.
 - Phase 3 ✅ checkpoint passed: `pnpm e2e:single` executed full 402 -> pay -> retry -> 200 loop on Hedera testnet. Metered pricing validated, mirror-node verification passed, replay protection verified, and PAYMENT_SETTLED HCS audit event verified on-chain.
 - Phase 4 ✅ checkpoint passed: `pnpm verify:router` verified quote (2 FUSDC for 4.012 HBAR), settled Leg 1 (HBAR transfer to ROUTER_LP), settled Leg 2 (FUSDC transfer from ROUTER_LP to AGENT), verified replay protection rejection, verified both legs on mirror node, and confirmed SWAP_SETTLED event on HCS topic.
-- Phase 5 ✅ checkpoint passed: `pnpm demo:dry` verified discovery directory (`apps/directory`), balance polling, obligation formulation (10.30 FUSDC), forecast (PCR 0%, shortfall 10.30 FUSDC), route decision matrix selecting FATERA_ROUTER (~22.07 HBAR) over SAUCERSWAP_V2, policy validation, and State API `GET /state`.
-- Phase 6 ✅ checkpoint passed: `pnpm demo` executed full autonomous working capital lifecycle on Hedera Testnet: discovered merchant service via directory, forecasted shortfall (PCR 0%, 10.30 FUSDC required), routed through FateraRouter to swap 22.066 HBAR for 11.00 FUSDC, refreshed treasury to flip PCR to 110.0% (HEALTHY), executed 10 sequential metered x402 paid calls to /market-data with on-chain settlement, replay protection, and mirror verification, fulfilled obligation, and ended with 77.933 HBAR and 1.000 FUSDC. Full event sequence logged to HCS topic 0.0.10510035.
-- Phase 7 ✅ checkpoint passed: `apps/web` live on Next.js 14 App Router + Tailwind. Dark fintech UI (`#0B1220` / `#111A2E` / `#22D3A7`) verified with live PCR circular gauge (110.0% green), Autonomous Route Decision Table highlighting FATERA_ROUTER with decision rationale, 10 on-chain x402 payment records with HashScan links, and real-time HCS consensus audit stream from topic 0.0.10510035. Zero console errors.
-- Phase 8 ✅ checkpoint passed: `pnpm verify:bonus` anchored agent identity profile to HCS Identity Topic 0.0.10510037 (verified AGENT_REGISTERED on mirror node); created and verified time-based scheduled renewal transfer with `scheduleFusdcTransfer` (`waitForExpiry=true`, Schedule `0.0.10521550` verified on Hedera Mirror Node with expiration timestamp). Unit tests passed 10/10 with `pnpm test`.
-- Phase 9 ✅ checkpoint passed: Production `README.md` written with real live Hedera IDs, HashScan explorer anchors, ASCII architecture diagram, rubric mapping table, and quickstart commands. Pre-submission QA (§19) passed: 10/10 vitest unit tests passing, clean monorepo build across all 10 packages (`pnpm -r build`), `.env` verified gitignored (only `.env.example` tracked), and `DEMO_SCRIPT.md` finalized.
+- Phase 5 ✅ checkpoint passed: `pnpm demo:dry` verified discovery directory (`apps/directory`), balance polling, obligation formulation (10.30 FUSDC), forecast (PCR 0%, shortfall 10.30 FUSDC), route decision matrix selecting VIGIL_ROUTER (~22.07 HBAR) over SAUCERSWAP_V2, policy validation, and State API `GET /state`.
+- Phase 6 ✅ checkpoint passed: `pnpm demo` executed full autonomous working capital lifecycle on Hedera Testnet: discovered merchant service via directory, forecasted shortfall (PCR 0%, 10.30 FUSDC required), routed through VigilRouter to swap 22.066 HBAR for 11.00 FUSDC, refreshed treasury to flip PCR to 110.0% (HEALTHY), executed 10 sequential metered x402 paid calls to /market-data with on-chain settlement, replay protection, and mirror verification, fulfilled obligation, and ended with 77.933 HBAR and 1.000 FUSDC. Full event sequence logged to HCS topic 0.0.10510035.
+- Phase 7 ✅ checkpoint passed: `apps/web` live on Next.js 14 App Router + Tailwind.
+- Phase 8 ✅ checkpoint passed: `pnpm verify:bonus` anchored agent identity profile to HCS Identity Topic 0.0.10510037; created and verified time-based scheduled renewal transfer on Hedera Mirror Node. Unit tests passed 10/10 with `pnpm test`.
+- Phase 9 ✅ checkpoint passed: Production `README.md` written with real live Hedera IDs, HashScan explorer anchors, ASCII architecture diagram, rubric mapping table, and quickstart commands.
+- Phase 10 ✅ checkpoint passed: Rebranded project to **VIGIL (Vigil OS)**. Redesigned web UI with Aegis "Deskwork" warm editorial paper-and-ink aesthetic across 4 dedicated pages (`/`, `/dashboard`, `/architecture`, `/explorer`). Hardened demo script down to ~20s runtime with automated normalization. Authored director-level 5-minute video pitch script in `walkthrough.md`. All 10 unit tests passing (`tests/vigil.test.ts`).
 
 ## Live environment (fill during Phase 1 — NEVER commit real keys here, IDs only)
 - AGENT_ACCOUNT_ID: 0.0.10510026

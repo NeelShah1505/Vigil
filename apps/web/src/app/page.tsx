@@ -45,7 +45,7 @@ export default function HomePage() {
               {/* Thesis */}
               <p className="text-lg sm:text-xl text-ink-muted leading-relaxed font-sans font-normal">
                 Agents shouldn't just know how to pay with x402. They should know how to stay solvent.
-                Fatera forecasts upcoming obligations, detects liquidity shortfalls before default, and executes autonomous swaps and metered settlements on Hedera.
+                Vigil forecasts upcoming obligations, detects liquidity shortfalls before default, and executes autonomous swaps and metered settlements on Hedera.
               </p>
 
               {/* CTAs */}
@@ -99,7 +99,7 @@ export default function HomePage() {
                   Coverage Ratio (PCR)
                 </span>
                 <div className="text-2xl font-serif font-bold text-sage mt-2">0% → 110%</div>
-                <p className="text-xs text-ink-muted mt-1">Flipped by FateraRouter swap</p>
+                <p className="text-xs text-ink-muted mt-1">Flipped by VigilRouter swap</p>
               </div>
 
               <div className="paper-card rounded-xl p-5 border border-desk-line">
@@ -126,7 +126,7 @@ export default function HomePage() {
                 Why wallets don't prevent agent defaults.
               </h2>
               <p className="text-ink-muted text-base mt-3 leading-relaxed">
-                An AI agent holding 100 HBAR can still default on a FUSDC-denominated API obligation due in 30 minutes. Traditional DeFi optimizes for yield; Fatera optimizes for <strong>guaranteed continuous solvency</strong>.
+                An AI agent holding 100 HBAR can still default on a FUSDC-denominated API obligation due in 30 minutes. Traditional DeFi optimizes for yield; Vigil optimizes for <strong>guaranteed continuous solvency</strong>.
               </p>
             </div>
 
@@ -161,7 +161,7 @@ export default function HomePage() {
                   <ShieldCheck className="w-5 h-5" />
                 </div>
                 <h3 className="font-serif font-bold text-xl text-ink">
-                  The Fatera Agent (Solvency OS)
+                  The Vigil Agent (Solvency OS)
                 </h3>
                 <ul className="space-y-3 text-sm text-ink-muted">
                   <li className="flex items-start gap-2.5">
@@ -170,7 +170,7 @@ export default function HomePage() {
                   </li>
                   <li className="flex items-start gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-sage mt-0.5 flex-shrink-0" />
-                    <span><strong>Payment Coverage Ratio (PCR):</strong> Maintains solvency above 110%, triggering automatic FateraRouter LP swaps when low.</span>
+                    <span><strong>Payment Coverage Ratio (PCR):</strong> Maintains solvency above 110%, triggering automatic VigilRouter LP swaps when low.</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-sage mt-0.5 flex-shrink-0" />
@@ -192,10 +192,10 @@ export default function HomePage() {
                 System Lifecycle
               </span>
               <h2 className="font-serif font-bold text-3xl sm:text-4xl text-ink mt-2">
-                How Fatera operates autonomously on Hedera.
+                How Vigil operates autonomously on Hedera.
               </h2>
               <p className="text-ink-muted text-sm sm:text-base mt-3">
-                From requirement discovery to on-chain settlement, Fatera executes every phase with cryptographic verification.
+                From requirement discovery to on-chain settlement, Vigil executes every phase with cryptographic verification.
               </p>
             </div>
 
@@ -205,7 +205,7 @@ export default function HomePage() {
                 <span className="text-[11px] font-mono font-bold text-terracotta">01 / FORECAST</span>
                 <h4 className="font-serif font-bold text-lg text-ink">Obligation Model</h4>
                 <p className="text-xs text-ink-muted leading-relaxed">
-                  Agent discovers service on the Fatera Directory, requests quotation (0.50 base + 0.10/field × 5 fields = 1.00 FUSDC), adds HTS custom fee (0.10) + safety buffer (0.20), totaling <strong>10.30 FUSDC</strong>.
+                  Agent discovers service on the Vigil Directory, requests quotation (0.50 base + 0.10/field × 5 fields = 1.00 FUSDC), adds HTS custom fee (0.10) + safety buffer (0.20), totaling <strong>10.30 FUSDC</strong>.
                 </p>
               </div>
 
@@ -214,7 +214,7 @@ export default function HomePage() {
                 <span className="text-[11px] font-mono font-bold text-terracotta">02 / SOLVENCY</span>
                 <h4 className="font-serif font-bold text-lg text-ink">PCR Evaluation</h4>
                 <p className="text-xs text-ink-muted leading-relaxed">
-                  With 0 FUSDC held, Payment Coverage Ratio is <strong>0.0% (CRITICAL)</strong>. Fatera emits <code>SHORTFALL_DETECTED</code> to HCS and activates the algorithmic treasury desk.
+                  With 0 FUSDC held, Payment Coverage Ratio is <strong>0.0% (CRITICAL)</strong>. Vigil emits <code>SHORTFALL_DETECTED</code> to HCS and activates the algorithmic treasury desk.
                 </p>
               </div>
 
@@ -223,7 +223,7 @@ export default function HomePage() {
                 <span className="text-[11px] font-mono font-bold text-terracotta">03 / ROUTING</span>
                 <h4 className="font-serif font-bold text-lg text-ink">Two-Leg Swap</h4>
                 <p className="text-xs text-ink-muted leading-relaxed">
-                  Evaluates FateraRouter (2 HBAR/FUSDC + 30 bps) vs DEX AMMs. Executes on-chain swap of 22.066 HBAR for 11.00 FUSDC. PCR flips to <strong>110.0% (HEALTHY)</strong>.
+                  Evaluates VigilRouter (2 HBAR/FUSDC + 30 bps) vs DEX AMMs. Executes on-chain swap of 22.066 HBAR for 11.00 FUSDC. PCR flips to <strong>110.0% (HEALTHY)</strong>.
                 </p>
               </div>
 
@@ -352,7 +352,7 @@ export default function HomePage() {
               Ready to witness autonomous solvency?
             </h2>
             <p className="text-ink-muted text-base leading-relaxed">
-              Experience the full working capital lifecycle in real time: trigger liquidity forecasts, watch the route matrix pick FateraRouter, and observe on-chain metered settlements with HCS receipts.
+              Experience the full working capital lifecycle in real time: trigger liquidity forecasts, watch the route matrix pick VigilRouter, and observe on-chain metered settlements with HCS receipts.
             </p>
             <div className="pt-2 flex justify-center gap-4">
               <Link

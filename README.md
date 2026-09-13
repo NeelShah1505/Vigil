@@ -1,4 +1,4 @@
-# FATERA — Autonomous Working Capital OS for AI Agents
+# VIGIL — Autonomous Working Capital OS for AI Agents
 
 > **"Agents shouldn't just know how to pay. They should know how to stay solvent."**
 
@@ -8,7 +8,7 @@
 [![HCS Audited](https://img.shields.io/badge/HCS-Audited-teal)](https://hashscan.io/testnet/topic/0.0.10510035)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Fatera forecasts an autonomous AI agent's upcoming payment obligations (x402 pay-per-call services), detects liquidity shortfalls before they occur, evaluates acquisition routes like an automated treasury desk, and settles real payments on Hedera with a cryptographically verifiable HCS audit trail.
+Vigil forecasts an autonomous AI agent's upcoming payment obligations (x402 pay-per-call services), detects liquidity shortfalls before they occur, evaluates acquisition routes like an automated treasury desk, and settles real payments on Hedera with a cryptographically verifiable HCS audit trail.
 
 ---
 
@@ -23,7 +23,7 @@ Fatera forecasts an autonomous AI agent's upcoming payment obligations (x402 pay
 | **FUSDC Token** | `0.0.10510032` | [View FUSDC on HashScan](https://hashscan.io/testnet/token/0.0.10510032) | HTS Token with on-chain Custom Fixed Fee (10,000 base units) |
 | **HCS Audit Topic** | `0.0.10510035` | [View Audit Topic on HashScan](https://hashscan.io/testnet/topic/0.0.10510035) | Consensus topic recording all forecasts, swaps, & settlements |
 | **HCS Identity Topic** | `0.0.10510037` | [View Identity Topic on HashScan](https://hashscan.io/testnet/topic/0.0.10510037) | HCS-14-inspired agent identity & capability registry |
-| **Scheduled Tx** | `0.0.10521550` | [View Schedule on HashScan](https://hashscan.io/testnet/schedule/0.0.10521550) | Time-based forward renewal with `waitForExpiry=true` |
+| **Scheduled Tx** | `0.0.10522980` | [View Schedule on HashScan](https://hashscan.io/testnet/schedule/0.0.10522980) | Time-based forward renewal with `waitForExpiry=true` |
 
 ---
 
@@ -31,7 +31,7 @@ Fatera forecasts an autonomous AI agent's upcoming payment obligations (x402 pay
 
 AI agents are becoming primary economic actors, paying per-request for data, inference, and compute over **x402**. But an agent with a wallet is not an agent with working capital: it can hold ample HBAR and still default on a FUSDC-denominated obligation due in 30 minutes.
 
-Traditional DeFi treasuries optimize for yield; **Fatera optimizes for solvency**.
+Traditional DeFi treasuries optimize for yield; **Vigil optimizes for solvency**.
 
 ---
 
@@ -41,7 +41,7 @@ Traditional DeFi treasuries optimize for yield; **Fatera optimizes for solvency*
 2. **Obligation Formulation:** The Agent identifies a requirement for 10 metered market-intelligence queries priced at 1.00 FUSDC each. Adding HTS custom fees (0.10 FUSDC) and a safety buffer (0.20 FUSDC), the total requirement is **10.30 FUSDC**.
 3. **Shortfall Detection:** Payment Coverage Ratio (PCR) is calculated as **0.0% (CRITICAL)**. A `SHORTFALL_DETECTED` event is emitted to HCS.
 4. **Autonomous Route Matrix:** The Agent evaluates available liquidity venues:
-   - **FateraRouter:** Available · Rate 2 HBAR/FUSDC + 30 bps fee · Total cost ~22.07 HBAR · Risk 0.00 · **SELECTED**
+   - **VigilRouter:** Available · Rate 2 HBAR/FUSDC + 30 bps fee · Total cost ~22.07 HBAR · Risk 0.00 · **SELECTED**
    - **SaucerSwap V2:** Unavailable on testnet · 25 bps · Risk 0.50 (graceful DEX fallback per §17)
 5. **On-Chain LP Swap:** Agent transfers 22.066 HBAR to the Router LP account, settles Leg 2 to receive 11.00 FUSDC, and emits `SWAP_SETTLED`. The PCR gauge flips from **0% Red → 110% Green (HEALTHY)**.
 6. **10 Metered Paid Calls:** Agent executes 10 sequential calls to `/market-data`. Each call:
@@ -58,27 +58,27 @@ Traditional DeFi treasuries optimize for yield; **Fatera optimizes for solvency*
 
 ```
 ┌───────────────────────────────────────────────────────────────────────────┐
-│                           FATERA ARCHITECTURE                             │
+│                            VIGIL ARCHITECTURE                             │
 └───────────────────────────────────────────────────────────────────────────┘
 
            ┌──────────────────────────────────────────────┐
-           │   Fatera Discovery Registry (:3004)          │
+           │    Vigil Discovery Registry (:3004)          │
            │   (Machine Discovery & HCS Registered)       │
            └──────────────────────┬───────────────────────┘
                                   │ GET /services
                                   ▼
 ┌───────────────────────────────────────────────────────────────────────────┐
-│                         Fatera Agent (:3002)                              │
+│                          Vigil Agent (:3002)                              │
 │  ┌────────────────┐  ┌──────────────────┐  ┌───────────────────────────┐  │
 │  │ Treasury Core  │  │ Solvency Engine  │  │ Autonomous Router Matrix  │  │
-│  │ (HBAR & FUSDC) │  │ (PCR & Shortfall)│  │ (FateraRouter vs DEX)     │  │
+│  │ (HBAR & FUSDC) │  │ (PCR & Shortfall)│  │ (VigilRouter vs DEX)      │  │
 │  └───────┬────────┘  └────────┬─────────┘  └─────────────┬─────────────┘  │
 └──────────┼────────────────────┼──────────────────────────┼────────────────┘
            │                    │                          │
            │                    │ Swap Leg 1: HBAR         │ POST /settle
            │                    ▼                          ▼
            │           ┌─────────────────────────────────────────────────┐
-           │           │   FateraRouter LP Service (:3003)               │
+           │           │    VigilRouter LP Service (:3003)               │
            │           │   Rate: 2 HBAR/FUSDC + 30 bps · Mirror Verified │
            │           └────────────────────────┬────────────────────────┘
            │                                    │ Swap Leg 2: FUSDC

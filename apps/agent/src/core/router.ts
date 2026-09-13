@@ -13,14 +13,14 @@ export async function evaluateRoutes(options: EvaluateRoutesOptions): Promise<Ro
   // Shortfall rounded up to whole units for LP swap acquisition
   const swapAmountFusdc = Math.max(1, Math.ceil(shortfallFusdc));
 
-  // 1. FATERA_ROUTER
+  // 1. VIGIL_ROUTER
   try {
     const res = await fetch(`${routerUrl}/quote?amountFusdc=${swapAmountFusdc}`);
     if (res.ok) {
       const data = (await res.json()) as any;
       const costHbar = parseFloat(data.amountHbar);
       quotes.push({
-        id: "FATERA_ROUTER",
+        id: "VIGIL_ROUTER",
         available: true,
         costHbar,
         feeBps: data.feeBps ?? 30,
@@ -30,7 +30,7 @@ export async function evaluateRoutes(options: EvaluateRoutesOptions): Promise<Ro
       });
     } else {
       quotes.push({
-        id: "FATERA_ROUTER",
+        id: "VIGIL_ROUTER",
         available: false,
         costHbar: 0,
         feeBps: 30,
@@ -41,13 +41,13 @@ export async function evaluateRoutes(options: EvaluateRoutesOptions): Promise<Ro
     }
   } catch (err: any) {
     quotes.push({
-      id: "FATERA_ROUTER",
+      id: "VIGIL_ROUTER",
       available: false,
       costHbar: 0,
       feeBps: 30,
       latencyNote: "N/A",
       riskPenaltyHbar: 0,
-      detail: `Failed to connect to FateraRouter: ${err.message}`,
+      detail: `Failed to connect to VigilRouter: ${err.message}`,
     });
   }
 

@@ -265,7 +265,7 @@ export default function DashboardPage() {
                 <span>02 / Router</span>
                 <ArrowRightLeft className="w-3.5 h-3.5 text-ink-muted" />
               </div>
-              <div className="font-serif font-bold text-base text-ink">FateraRouter LP</div>
+              <div className="font-serif font-bold text-base text-ink">VigilRouter LP</div>
               <div className="text-xs font-mono text-ink-muted">Rate: 2 ℏ + 30bps</div>
               <div className="pt-2 border-t border-desk-line text-[11px] flex justify-between text-ink-faint font-mono">
                 <span>Settlement:</span>
@@ -473,7 +473,7 @@ export default function DashboardPage() {
                 </h2>
               </div>
               <p className="text-xs text-ink-muted mt-0.5">
-                Real-time liquidity evaluation comparing FateraRouter LP and DEX AMM fallback venues.
+                Real-time liquidity evaluation comparing VigilRouter LP and DEX AMM fallback venues.
               </p>
             </div>
 
@@ -861,8 +861,8 @@ export default function DashboardPage() {
             <div className="space-y-2.5 text-xs font-mono">
               <div className="bg-desk p-3 rounded-md border border-desk-line space-y-1.5">
                 <div className="flex justify-between">
-                  <span className="text-ink-faint">Agent Identifier:</span>
-                  <span className="text-ink font-bold">fatera-agent-01</span>
+                  <span className="text-ink-faint">Agent Identity:</span>
+                  <span className="text-ink font-bold">vigil-agent-01</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-ink-faint">Hedera Account:</span>
@@ -953,7 +953,7 @@ export default function DashboardPage() {
               </div>
 
               <p className="text-ink-muted font-sans text-xs leading-relaxed">
-                To guarantee continuity without human intervention, Fatera schedules renewal transfers on Hedera using <code className="text-ink font-mono bg-desk px-1 py-0.5 rounded">ScheduleCreateTransaction</code> with <code className="text-ink font-mono bg-desk px-1 py-0.5 rounded">waitForExpiry=true</code>. The Hedera consensus network executes the payment at the scheduled expiration time.
+                To guarantee continuity without human intervention, Vigil schedules renewal transfers on Hedera using <code className="text-ink font-mono bg-desk px-1 py-0.5 rounded">ScheduleCreateTransaction</code> with <code className="text-ink font-mono bg-desk px-1 py-0.5 rounded">waitForExpiry=true</code>. The Hedera consensus network executes the payment at the scheduled expiration time.
               </p>
             </div>
 

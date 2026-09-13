@@ -19,7 +19,7 @@ export function createDirectoryApp(): {
 
   const services = new Map<string, ServiceDescriptor>();
   const hedera = HederaService.fromEnv(config.operatorId, config.operatorKey, config.network);
-  const hcs = new HcsLogger(hedera, config.topicId, "fatera-directory");
+  const hcs = new HcsLogger(hedera, config.topicId, "vigil-directory");
 
   // POST /register
   app.post("/register", async (req, res) => {

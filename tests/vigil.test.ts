@@ -6,7 +6,7 @@ import { buildObligation } from "../apps/agent/src/core/obligations.js";
 import { evaluateRoutes } from "../apps/agent/src/core/router.js";
 import { HcsLogger } from "../packages/hcs/src/index.js";
 
-describe("Fatera Core Unit Tests (§18 QA Specification)", () => {
+describe("Vigil Core Unit Tests (§18 QA Specification)", () => {
   describe("1. toMirrorTxId Format Conversion", () => {
     it("converts Hedera SDK transactionId to Mirror Node REST format", () => {
       expect(toMirrorTxId("0.0.5@1.2")).toBe("0.0.5-1-2");

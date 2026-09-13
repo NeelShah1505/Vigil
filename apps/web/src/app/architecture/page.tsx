@@ -31,7 +31,7 @@ export default function ArchitecturePage() {
             System Architecture & Protocol Design
           </h1>
           <p className="text-base text-ink-muted leading-relaxed font-sans">
-            How Fatera orchestrates forward obligation modeling, liquidity route selection, metered x402 settlements, and verifiable HCS consensus logs.
+            How Vigil orchestrates forward obligation modeling, liquidity route selection, metered x402 settlements, and verifiable HCS consensus logs.
           </p>
         </div>
 
@@ -44,27 +44,27 @@ export default function ArchitecturePage() {
 
           <pre className="p-4 rounded bg-desk font-mono text-xs text-ink overflow-x-auto leading-relaxed">
 {`┌───────────────────────────────────────────────────────────────────────────┐
-│                           FATERA ARCHITECTURE                             │
+│                            VIGIL ARCHITECTURE                             │
 └───────────────────────────────────────────────────────────────────────────┘
 
            ┌──────────────────────────────────────────────┐
-           │   Fatera Discovery Registry (:3004)          │
+           │    Vigil Discovery Registry (:3004)          │
            │   (Machine Discovery & HCS Registered)       │
            └──────────────────────┬───────────────────────┘
                                   │ GET /services
                                   ▼
 ┌───────────────────────────────────────────────────────────────────────────┐
-│                         Fatera Agent (:3002)                              │
+│                          Vigil Agent (:3002)                              │
 │  ┌────────────────┐  ┌──────────────────┐  ┌───────────────────────────┐  │
 │  │ Treasury Core  │  │ Solvency Engine  │  │ Autonomous Router Matrix  │  │
-│  │ (HBAR & FUSDC) │  │ (PCR & Shortfall)│  │ (FateraRouter vs DEX)     │  │
+│  │ (HBAR & FUSDC) │  │ (PCR & Shortfall)│  │ (VigilRouter vs DEX)      │  │
 │  └───────┬────────┘  └────────┬─────────┘  └─────────────┬─────────────┘  │
 └──────────┼────────────────────┼──────────────────────────┼────────────────┘
            │                    │                          │
            │                    │ Swap Leg 1: HBAR         │ POST /settle
            │                    ▼                          ▼
            │           ┌─────────────────────────────────────────────────┐
-           │           │   FateraRouter LP Service (:3003)               │
+           │           │    VigilRouter LP Service (:3003)               │
            │           │   Rate: 2 HBAR/FUSDC + 30 bps · Mirror Verified │
            │           └────────────────────────┬────────────────────────┘
            │                                    │ Swap Leg 2: FUSDC
@@ -112,10 +112,10 @@ export default function ArchitecturePage() {
           <section className="space-y-3">
             <span className="text-xs font-mono font-bold text-terracotta">COMPONENT 02</span>
             <h2 className="font-serif font-bold text-2xl text-ink">
-              FateraRouter LP Service (Two-Leg Settlement)
+              VigilRouter LP Service (Two-Leg Settlement)
             </h2>
             <p className="text-sm text-ink-muted leading-relaxed">
-              Located in <code className="font-mono text-xs bg-desk px-1.5 py-0.5 rounded">apps/router</code>. Fatera provides an automated liquidity venue that swaps HBAR for FUSDC at a deterministic rate of 2 HBAR per FUSDC plus 30 bps LP fee.
+              Located in <code className="font-mono text-xs bg-desk px-1.5 py-0.5 rounded">apps/router</code>. Vigil provides an automated liquidity venue that swaps HBAR for FUSDC at a deterministic rate of 2 HBAR per FUSDC plus 30 bps LP fee.
             </p>
             <div className="paper-card rounded-xl p-6 border border-desk-line space-y-3 mt-4 text-xs">
               <h4 className="font-serif font-bold text-sm text-ink">Two-Leg Settlement Sequence:</h4>

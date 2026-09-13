@@ -96,8 +96,8 @@ export const ForecastSchema = z.object({
 });
 
 // ---------- routing ----------
-export type RouteId = "FATERA_ROUTER" | "SAUCERSWAP_V2" | "DIRECT_HBAR_PREMIUM";
-export const RouteIdSchema = z.enum(["FATERA_ROUTER", "SAUCERSWAP_V2", "DIRECT_HBAR_PREMIUM"]);
+export type RouteId = "VIGIL_ROUTER" | "FATERA_ROUTER" | "SAUCERSWAP_V2" | "DIRECT_HBAR_PREMIUM";
+export const RouteIdSchema = z.enum(["VIGIL_ROUTER", "FATERA_ROUTER", "SAUCERSWAP_V2", "DIRECT_HBAR_PREMIUM"]);
 
 export interface RouteQuote {
   id: RouteId;

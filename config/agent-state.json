@@ -1,12 +1,12 @@
 {
-  "phase": "FULFILLED",
+  "phase": "SCHEDULING",
   "balances": {
     "hbarTinybars": "7793300000",
     "fusdcBaseUnits": "1000000"
   },
   "obligations": [
     {
-      "id": "ob-mtzm5q74",
+      "id": "ob-mtzs29ws",
       "description": "10 metered market data queries (base 0.50 + 0.10/field × 5 fields = 1.00 FUSDC/call)",
       "asset": "FUSDC",
       "callsTotal": 10,
@@ -16,7 +16,7 @@
       "feeEstimateFusdc": 0.1,
       "bufferFusdc": 0.2,
       "requiredFusdc": 10.3,
-      "dueAt": "2026-09-13T10:00:32.800Z",
+      "dueAt": "2026-09-13T12:45:49.420Z",
       "status": "FULFILLED"
     }
   ],
@@ -27,13 +27,13 @@
     "shortfallFusdc": 0,
     "hbarNeededEstimate": 0,
     "state": "HEALTHY",
-    "ts": "2026-09-13T09:30:49.040Z"
+    "ts": "2026-09-13T12:16:04.260Z"
   },
   "latestRouteEvaluation": {
-    "ts": "2026-09-13T09:30:34.341Z",
+    "ts": "2026-09-13T12:15:51.256Z",
     "quotes": [
       {
-        "id": "FATERA_ROUTER",
+        "id": "VIGIL_ROUTER",
         "available": true,
         "costHbar": 22.066,
         "feeBps": 30,
@@ -51,8 +51,8 @@
         "detail": "No FUSDC pool deployed on Hedera Testnet (graceful fallback per §17)"
       }
     ],
-    "selected": "FATERA_ROUTER",
-    "reason": "Selected FATERA_ROUTER: lowest total cost (22.066 HBAR) with zero execution risk penalty."
+    "selected": "VIGIL_ROUTER",
+    "reason": "Selected VIGIL_ROUTER: lowest total cost (22.066 HBAR) with zero execution risk penalty."
   },
   "payments": [
     {
@@ -60,110 +60,114 @@
       "symbol": "HBAR",
       "amountFusdc": 1,
       "feeFusdc": 0.01,
-      "txId": "0.0.6914535@1789291847.058661565",
-      "mirrorTxId": "0.0.6914535-1789291847-058661565",
+      "txId": "0.0.6914535@1789301761.606360311",
+      "mirrorTxId": "0.0.6914535-1789301761-606360311",
       "status": "SETTLED",
-      "settledAt": "2026-09-13T09:31:04.505Z"
+      "settledAt": "2026-09-13T12:16:18.685Z"
     },
     {
       "callIndex": 2,
       "symbol": "HBAR",
       "amountFusdc": 1,
       "feeFusdc": 0.01,
-      "txId": "0.0.6914535@1789291859.913290628",
-      "mirrorTxId": "0.0.6914535-1789291859-913290628",
+      "txId": "0.0.6914535@1789301776.016740781",
+      "mirrorTxId": "0.0.6914535-1789301776-016740781",
       "status": "SETTLED",
-      "settledAt": "2026-09-13T09:31:15.195Z"
+      "settledAt": "2026-09-13T12:16:32.245Z"
     },
     {
       "callIndex": 3,
       "symbol": "HBAR",
       "amountFusdc": 1,
       "feeFusdc": 0.01,
-      "txId": "0.0.6914535@1789291871.312873551",
-      "mirrorTxId": "0.0.6914535-1789291871-312873551",
+      "txId": "0.0.6914535@1789301789.338373313",
+      "mirrorTxId": "0.0.6914535-1789301789-338373313",
       "status": "SETTLED",
-      "settledAt": "2026-09-13T09:31:25.094Z"
+      "settledAt": "2026-09-13T12:16:42.691Z"
     },
     {
       "callIndex": 4,
       "symbol": "HBAR",
       "amountFusdc": 1,
       "feeFusdc": 0.01,
-      "txId": "0.0.6914535@1789291880.173620194",
-      "mirrorTxId": "0.0.6914535-1789291880-173620194",
+      "txId": "0.0.6914535@1789301799.430823155",
+      "mirrorTxId": "0.0.6914535-1789301799-430823155",
       "status": "SETTLED",
-      "settledAt": "2026-09-13T09:31:37.312Z"
+      "settledAt": "2026-09-13T12:16:54.820Z"
     },
     {
       "callIndex": 5,
       "symbol": "HBAR",
       "amountFusdc": 1,
       "feeFusdc": 0.01,
-      "txId": "0.0.6914535@1789291893.498978796",
-      "mirrorTxId": "0.0.6914535-1789291893-498978796",
+      "txId": "0.0.6914535@1789301813.259240162",
+      "mirrorTxId": "0.0.6914535-1789301813-259240162",
       "status": "SETTLED",
-      "settledAt": "2026-09-13T09:31:47.893Z"
+      "settledAt": "2026-09-13T12:17:05.825Z"
     },
     {
       "callIndex": 6,
       "symbol": "HBAR",
       "amountFusdc": 1,
       "feeFusdc": 0.01,
-      "txId": "0.0.6914535@1789291905.786034040",
-      "mirrorTxId": "0.0.6914535-1789291905-786034040",
+      "txId": "0.0.6914535@1789301819.999161952",
+      "mirrorTxId": "0.0.6914535-1789301819-999161952",
       "status": "SETTLED",
-      "settledAt": "2026-09-13T09:31:59.212Z"
+      "settledAt": "2026-09-13T12:17:18.750Z"
     },
     {
       "callIndex": 7,
       "symbol": "HBAR",
       "amountFusdc": 1,
       "feeFusdc": 0.01,
-      "txId": "0.0.6914535@1789291916.117585109",
-      "mirrorTxId": "0.0.6914535-1789291916-117585109",
+      "txId": "0.0.6914535@1789301832.897178994",
+      "mirrorTxId": "0.0.6914535-1789301832-897178994",
       "status": "SETTLED",
-      "settledAt": "2026-09-13T09:32:11.119Z"
+      "settledAt": "2026-09-13T12:17:30.102Z"
     },
     {
       "callIndex": 8,
       "symbol": "HBAR",
       "amountFusdc": 1,
       "feeFusdc": 0.01,
-      "txId": "0.0.6914535@1789291927.352521212",
-      "mirrorTxId": "0.0.6914535-1789291927-352521212",
+      "txId": "0.0.6914535@1789301845.762334537",
+      "mirrorTxId": "0.0.6914535-1789301845-762334537",
       "status": "SETTLED",
-      "settledAt": "2026-09-13T09:32:22.495Z"
+      "settledAt": "2026-09-13T12:17:41.455Z"
     },
     {
       "callIndex": 9,
       "symbol": "HBAR",
       "amountFusdc": 1,
       "feeFusdc": 0.01,
-      "txId": "0.0.6914535@1789291937.062481238",
-      "mirrorTxId": "0.0.6914535-1789291937-062481238",
+      "txId": "0.0.6914535@1789301855.886424928",
+      "mirrorTxId": "0.0.6914535-1789301855-886424928",
       "status": "SETTLED",
-      "settledAt": "2026-09-13T09:32:35.372Z"
+      "settledAt": "2026-09-13T12:17:51.540Z"
     },
     {
       "callIndex": 10,
       "symbol": "HBAR",
       "amountFusdc": 1,
       "feeFusdc": 0.01,
-      "txId": "0.0.6914535@1789291951.087422365",
-      "mirrorTxId": "0.0.6914535-1789291951-087422365",
+      "txId": "0.0.6914535@1789301870.336983654",
+      "mirrorTxId": "0.0.6914535-1789301870-336983654",
       "status": "SETTLED",
-      "settledAt": "2026-09-13T09:33:05.515Z"
+      "settledAt": "2026-09-13T12:18:04.645Z"
     }
   ],
   "swap": {
     "status": "DONE",
     "hbarSpent": 22.066,
     "fusdcReceived": 11,
-    "hbarTxId": "0.0.6914535@1789291836.106655006",
-    "fusdcTxId": "0.0.6914535@1789291835.440198952"
+    "hbarTxId": "0.0.6914535@1789301752.667364764",
+    "fusdcTxId": "0.0.6914535@1789301751.464060717"
   },
-  "schedule": null,
+  "schedule": {
+    "scheduleId": "0.0.10522980",
+    "executeAt": "2026-09-13T12:18:29.327Z",
+    "status": "EXECUTED"
+  },
   "config": {
     "network": "testnet",
     "topicId": "0.0.10510035",
@@ -173,5 +177,5 @@
     "hashscanBase": "https://hashscan.io/testnet"
   },
   "eventsSeen": 0,
-  "ts": "2026-09-13T09:33:08.552Z"
+  "ts": "2026-09-13T12:18:36.733Z"
 }

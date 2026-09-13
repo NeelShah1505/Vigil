@@ -4,8 +4,8 @@ import type { ServiceDescriptor } from "@fatera/types";
 
 export async function registerRouter(config: AppConfig, hcs: HcsLogger): Promise<void> {
   const descriptor: ServiceDescriptor = {
-    id: "fatera-router",
-    name: "Fatera Liquidity Router",
+    id: "vigil-router",
+    name: "Vigil Liquidity Router",
     baseUrl: `http://localhost:${config.PORT_ROUTER}`,
     kind: "SWAP",
     pricing: {

@@ -6,7 +6,7 @@ import { HcsLogger } from "@fatera/hcs";
 import { AccountId, PrivateKey } from "@hashgraph/sdk";
 
 async function main() {
-  console.log("=== FATERA DEMO RESET (scripts/demo-reset.ts) ===\n");
+  console.log("=== VIGIL DEMO RESET (scripts/demo-reset.ts) ===\n");
 
   const config = loadConfig(true);
   if (!config.operatorId || !config.agentAccount || !config.routerLpAccount) {
@@ -15,7 +15,7 @@ async function main() {
   }
 
   const hedera = HederaService.fromEnv(config.operatorId, config.operatorKey, config.network);
-  const hcs = new HcsLogger(hedera, config.topicId, "fatera-agent-001");
+  const hcs = new HcsLogger(hedera, config.topicId, "vigil-agent-001");
 
   console.log("1. Checking current balances...");
   const agentBal = await hedera.getBalances(config.agentAccount, config.fusdcTokenId);

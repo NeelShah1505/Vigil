@@ -21,12 +21,12 @@ export default function Navbar() {
         <div className="flex items-center gap-4">
           <Link href="/" className="flex items-center gap-3 group">
             <div className="w-8 h-8 rounded-lg bg-ink text-paper flex items-center justify-center font-serif font-bold text-lg shadow-sm group-hover:bg-terracotta transition-colors">
-              F
+              V
             </div>
             <div>
               <div className="flex items-center gap-2">
                 <span className="font-serif font-bold text-xl tracking-tight text-ink">
-                  FATERA
+                  VIGIL
                 </span>
                 <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-desk-darker text-ink-muted border border-desk-line uppercase tracking-wider">
                   OS

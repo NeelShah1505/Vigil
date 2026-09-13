@@ -19,7 +19,7 @@ export function createRouterApp(): { app: Express; config: AppConfig; hcs: HcsLo
 
   const mirror = new MirrorClient(config.mirrorNodeUrl);
   const hedera = HederaService.fromEnv(config.operatorId, config.operatorKey, config.network);
-  const hcs = new HcsLogger(hedera, config.topicId, "fatera-router");
+  const hcs = new HcsLogger(hedera, config.topicId, "vigil-router");
   const replayStore = new RouterReplayStore();
 
   app.use("/quote", createQuoteRouter(config));
@@ -35,7 +35,7 @@ async function start() {
 
   const server = app.listen(port, async () => {
     console.log(`\n==================================================`);
-    console.log(`  FATERA ROUTER (LP Swap Service) running on port ${port}`);
+    console.log(`  VIGIL ROUTER (LP Swap Service) running on port ${port}`);
     console.log(`  Quote endpoint:   http://localhost:${port}/quote?amountFusdc=10`);
     console.log(`  Settle endpoint:  http://localhost:${port}/settle`);
     console.log(`  Health Check:     http://localhost:${port}/health`);

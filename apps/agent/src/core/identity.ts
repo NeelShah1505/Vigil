@@ -23,8 +23,8 @@ export async function registerAgentIdentity(
   hcsAudit: HcsLogger
 ): Promise<AgentIdentityProfile> {
   const profile: AgentIdentityProfile = {
-    id: "fatera-agent-001",
-    name: "Fatera Autonomous Working Capital Agent",
+    id: "vigil-agent-001",
+    name: "Vigil Autonomous Working Capital Agent",
     account: config.agentAccount,
     capabilities: [
       "x402-metered-client",
