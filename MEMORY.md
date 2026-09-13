@@ -6,13 +6,14 @@
 - Started: 2026-09-13 · Deadline: check ETHOnline dates — submit EARLY
 
 ## Current phase
-Phase 4 — FateraRouter LP swap service (router)
+Phase 5 — Directory + agent core (planning & dry run)
 
 ## Completed phases
 - Phase 0 ✅ checkpoint passed: `pnpm install && pnpm -r build` exited 0. Workspace scaffolded with turbo, tsconfig.base, packages/types, packages/config.
 - Phase 1 ✅ checkpoint passed: `pnpm setup` & `pnpm verify:foundation` passed. AGENT (100 HBAR / 0 FUSDC); FUSDC Token 0.0.10510032 with custom fixed fee (0.01 FUSDC); HCS Audit Topic 0.0.10510035; HCS Identity Topic 0.0.10510037. Checkpoint event verified on mirror node.
 - Phase 2 ✅ checkpoint passed: `pnpm topic:tail` decoded and printed HCS Audit Topic events from the mirror node as structured JSON.
 - Phase 3 ✅ checkpoint passed: `pnpm e2e:single` executed full 402 -> pay -> retry -> 200 loop on Hedera testnet. Metered pricing validated, mirror-node verification passed, replay protection verified, and PAYMENT_SETTLED HCS audit event verified on-chain.
+- Phase 4 ✅ checkpoint passed: `pnpm verify:router` verified quote (2 FUSDC for 4.012 HBAR), settled Leg 1 (HBAR transfer to ROUTER_LP), settled Leg 2 (FUSDC transfer from ROUTER_LP to AGENT), verified replay protection rejection, verified both legs on mirror node, and confirmed SWAP_SETTLED event on HCS topic.
 
 ## Live environment (fill during Phase 1 — NEVER commit real keys here, IDs only)
 - AGENT_ACCOUNT_ID: 0.0.10510026
@@ -37,7 +38,8 @@ Phase 4 — FateraRouter LP swap service (router)
 - [Phase 1] Successfully created child accounts, FUSDC token with custom fixed fee, associated accounts, and created HCS topics.
 - [Phase 2] HcsLogger wraps messages ≤ 1000 bytes with automatic payload trimming for payloads approaching the 1024-byte HCS consensus limit.
 - [Phase 3] Built `apps/api-service` with endpoints `/market-data`, `/price`, `/.well-known/x402`, `/refund`, and `/health`.
-- [Phase 3] Added `ReplayStore` with persistence to `used-payments.json` and mirror-node transaction freshness & payee amount checks.
+- [Phase 3] Refined `parsePrivateKey` to disambiguate 64-character raw hex keys: prefix `0x` denotes ECDSA, whereas raw 64 hex characters denote ED25519.
+- [Phase 4] Implemented `apps/router` with deterministic quote (HBAR/FUSDC + feeBps), two-leg settlement verification via Mirror Node, replay protection, and `SWAP_SETTLED` HCS logging. Verified with `scripts/verify-router-swap.ts`.
 
 ## Blockers & fallbacks used
 - [Phase 1] Portal URL corrected from outdated `portal.prd.hedera.com` to `portal.hedera.com`.
@@ -47,9 +49,9 @@ Phase 4 — FateraRouter LP swap service (router)
 ## Risk register
 
 ## Next actions
-1. Implement Phase 4: `apps/router` (FateraRouter LP swap service with quote and two-leg settle).
-2. Write verification test for FateraRouter.
-3. Verify Phase 4 checkpoint.
+1. Build Phase 5: `apps/directory` (§13) and `apps/agent` core (§14: treasury, obligations, forecast, router evaluation, discovery, state API).
+2. Implement `pnpm demo:dry` and verify Phase 5 checkpoint.
+3. Commit Phase 5 and move to Phase 6 (End-to-End Execution).
 
 ## Submission status
 - [ ] repo public  [ ] README complete  [ ] video recorded  [ ] submitted on platform

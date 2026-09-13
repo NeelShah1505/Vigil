@@ -14,7 +14,8 @@
     "demo:dry": "tsx scripts/demo.ts --dry",
     "demo": "tsx scripts/demo.ts",
     "demo:reset": "tsx scripts/demo-reset.ts",
-    "e2e:single": "tsx scripts/e2e-single-paid-call.ts"
+    "e2e:single": "tsx scripts/e2e-single-paid-call.ts",
+    "verify:router": "tsx scripts/verify-router-swap.ts"
   },
   "dependencies": {
     "@fatera/config": "workspace:*",

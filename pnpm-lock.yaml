@@ -95,6 +95,52 @@ importers:
         specifier: ^5.4.5
         version: 5.9.3
 
+  apps/router:
+    dependencies:
+      '@fatera/config':
+        specifier: workspace:*
+        version: link:../../packages/config
+      '@fatera/hcs':
+        specifier: workspace:*
+        version: link:../../packages/hcs
+      '@fatera/hedera':
+        specifier: workspace:*
+        version: link:../../packages/hedera
+      '@fatera/mirror':
+        specifier: workspace:*
+        version: link:../../packages/mirror
+      '@fatera/types':
+        specifier: workspace:*
+        version: link:../../packages/types
+      '@hashgraph/sdk':
+        specifier: ^2.48.0
+        version: 2.81.0(bn.js@5.2.3)(react-native@0.87.1(@babel/core@7.29.7)(react@19.3.0))
+      cors:
+        specifier: ^2.8.5
+        version: 2.8.6
+      express:
+        specifier: ^4.19.2
+        version: 4.22.2
+      zod:
+        specifier: ^3.23.8
+        version: 3.25.76
+    devDependencies:
+      '@types/cors':
+        specifier: ^2.8.17
+        version: 2.8.19
+      '@types/express':
+        specifier: ^4.17.21
+        version: 4.17.25
+      '@types/node':
+        specifier: ^20.12.7
+        version: 20.19.43
+      tsx:
+        specifier: ^4.19.0
+        version: 4.23.13
+      typescript:
+        specifier: ^5.4.5
+        version: 5.9.3
+
   packages/config:
     dependencies:
       '@fatera/types':
