@@ -141,13 +141,13 @@ Agent                                                       Merchant
 
 ## Bounty Rubric → Feature Verification Map
 
-| Bounty Requirement | Fatera Implementation | Location | Verification Status |
+| Bounty Requirement | Vigil Implementation | Location | Verification Status |
 |---|---|---|---|
-| **Live x402-gated service on Hedera** | Metered Market Intelligence API with 402 challenge & usage reporting | [`apps/api-service`](file:///Users/neelshah/Documents/other/Fatera/apps/api-service) | ✅ Verified (`pnpm e2e:single`) |
-| **Settled through payment facilitator** | Native x402 on Hedera with mirror-node validation & replay defense | [`packages/mirror`](file:///Users/neelshah/Documents/other/Fatera/packages/mirror) | ✅ Verified on HashScan |
-| **Agent consuming it (≥1 real paid request)** | Fatera autonomous agent executing 10 sequential metered calls | [`apps/agent`](file:///Users/neelshah/Documents/other/Fatera/apps/agent) | ✅ Verified (`pnpm demo`) |
+| **Live x402-gated service on Hedera** | Metered Market Intelligence API with 402 challenge & usage reporting | [`apps/api-service`](apps/api-service) | ✅ Verified (`pnpm e2e:single`) |
+| **Settled through payment facilitator** | Native x402 on Hedera with mirror-node validation & replay defense | [`packages/mirror`](packages/mirror) | ✅ Verified on HashScan |
+| **Agent consuming it (≥1 real paid request)** | Vigil autonomous agent executing 10 sequential metered calls | [`apps/agent`](apps/agent) | ✅ Verified (`pnpm demo`) |
 | **Public repo + full documentation** | Monorepo, architecture specs, quickstart, demo scripts | Root | ✅ Complete |
-| **Demo video ≤ 5 minutes** | Video script covering problem, architecture, live run, & HashScan | [`DEMO_SCRIPT.md`](file:///Users/neelshah/Documents/other/Fatera/DEMO_SCRIPT.md) | ✅ Ready |
+| **Demo video ≤ 5 minutes** | Video script covering problem, architecture, live run, & HashScan | [`DEMO_SCRIPT.md`](DEMO_SCRIPT.md) | ✅ Ready |
 
 ### Bonus Points Matrix (7 of 8 Bonus Features Shipped)
 
@@ -159,7 +159,7 @@ Agent                                                       Merchant
 | **4. Autonomous Discovery Directory** | HCS-anchored discovery directory (`apps/directory`) with `/register` and `/services` | P1 | [Directory Endpoint](http://localhost:3004) |
 | **5. Scheduled Transactions** | Time-based forward renewal via `scheduleFusdcTransfer` with `waitForExpiry=true` | P1 | [Schedule 0.0.10521550](https://hashscan.io/testnet/schedule/0.0.10521550) |
 | **6. On-Chain Agent Identity** | HCS-14-inspired agent identity anchoring capabilities and treasury policy | P1 | [Identity Topic 0.0.10510037](https://hashscan.io/testnet/topic/0.0.10510037) |
-| **7. Automated Refund Route** | Merchant `/refund` route and agent fallback handling for paid-but-failed calls | P1 | [`apps/api-service/src/routes/refund.ts`](file:///Users/neelshah/Documents/other/Fatera/apps/api-service/src/routes/refund.ts) |
+| **7. Automated Refund Route** | Merchant `/refund` route and agent fallback handling for paid-but-failed calls | P1 | [`apps/api-service/src/routes/refund.ts`](apps/api-service/src/routes/refund.ts) |
 
 ---
 
@@ -172,8 +172,8 @@ Agent                                                       Merchant
 
 ### 1. Clone and Install
 ```bash
-git clone https://github.com/your-username/fatera.git
-cd fatera
+git clone https://github.com/your-username/vigil.git
+cd vigil
 pnpm install
 ```
 
@@ -211,12 +211,12 @@ pnpm dev
 ## Monorepo Layout
 
 ```
-fatera/
+vigil/
 ├── apps/
 │   ├── agent/             # Autonomous agent core (treasury, forecast, executor)
 │   ├── api-service/       # Merchant intelligence API (x402-gated + refund)
 │   ├── directory/         # Service discovery registry (HCS anchored)
-│   ├── router/            # FateraRouter LP swap service (quote & settle)
+│   ├── router/            # VigilRouter LP swap service (quote & settle)
 │   └── web/               # Next.js 14 App Router dark fintech dashboard
 ├── packages/
 │   ├── config/            # Zod-validated configuration & env loader
@@ -232,7 +232,7 @@ fatera/
 │   ├── setup.ts           # Hedera testnet account & token bootstrapper
 │   └── verify-*.ts        # Phase-gated testnet verification suites
 └── tests/
-    └── fatera.test.ts     # Vitest unit test suite (10/10 passed)
+    └── vigil.test.ts      # Vitest unit test suite (10/10 passed)
 ```
 
 ---
@@ -243,10 +243,10 @@ fatera/
 - **Bonzo Finance Credit Line:** Automated collateralized borrowing route when PCR shortfall exceeds treasury limits.
 - **ERC-8004 Cross-Chain Identity:** Bridging HCS-14 agent credentials to EVM agent registries.
 - **Streaming Micropayments:** Continuous sub-second token streaming for real-time model inference.
-- **MCP Server:** Exposing Fatera's solvency engine as a Model Context Protocol tool for LLM agent frameworks.
+- **MCP Server:** Exposing Vigil's solvency engine as a Model Context Protocol tool for LLM agent frameworks.
 
 ---
 
 ## License
 
-MIT © 2026 Fatera Team
+MIT © 2026 Vigil Team

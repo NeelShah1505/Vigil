@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { FIELDS, type Field } from "@fatera/types";
+import { FIELDS, type Field } from "@vigil/types";
 import { priceCall } from "../pricing.js";
-import type { AppConfig } from "@fatera/config";
+import type { AppConfig } from "@vigil/config";
 
 export function createPriceRouter(config: AppConfig): Router {
   const router = Router();

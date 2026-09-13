@@ -1,10 +1,10 @@
-# FATERA — Autonomous Working Capital OS for AI Agents
+# VIGIL — Autonomous Working Capital OS for AI Agents
 
 > **Agents shouldn't just know how to pay. They should know how to stay solvent.**
 
 <!-- TODO: demo GIF (10s screen capture of PCR flipping red→green) -->
 
-Fatera forecasts an AI agent's upcoming payment obligations (x402 pay-per-call services),
+Vigil forecasts an AI agent's upcoming payment obligations (x402 pay-per-call services),
 detects liquidity shortfalls before they happen, evaluates acquisition routes like a
 treasury desk, and executes the cheapest one — settling real payments on Hedera with a
 verifiable HCS audit trail.
@@ -16,12 +16,12 @@ FUSDC token: TODO (HashScan link)
 AI agents are becoming economic actors, paying per-request for data, inference and compute
 (x402). But an agent with a wallet isn't an agent with working capital: it can be rich in
 HBAR and still default on a USDC-denominated bill due in an hour. Treasuries optimize yield;
-**Fatera optimizes solvency.**
+**Vigil optimizes solvency.**
 
 ## What the demo shows
 Agent holds 100 HBAR and 0 FUSDC. Its task needs 10 metered API calls at 1.00 FUSDC each.
-Fatera computes PCR = 0%, forecasts the shortfall, evaluates liquidity routes, swaps
-HBAR→FUSDC through the FateraRouter (cheapest route), executes all 10 x402 payments with
+Vigil computes PCR = 0%, forecasts the shortfall, evaluates liquidity routes, swaps
+HBAR→FUSDC through the VigilRouter (cheapest route), executes all 10 x402 payments with
 per-call usage metering and a custom HTS fee in the settlement path, then schedules its
 next renewal with a Hedera scheduled transaction. Every decision is receipted on HCS.
 
@@ -31,8 +31,8 @@ next renewal with a Hedera scheduled transaction. Every decision is receipted on
 | Component | Role |
 |---|---|
 | `apps/api-service` | x402-gated metered Market Intelligence API (the merchant) |
-| `apps/agent` | Fatera agent: treasury, forecast, route evaluation, execution, HCS audit |
-| `apps/router` | FateraRouter — x402-style HBAR→FUSDC liquidity service |
+| `apps/agent` | Vigil agent: treasury, forecast, route evaluation, execution, HCS audit |
+| `apps/router` | VigilRouter — x402-style HBAR→FUSDC liquidity service |
 | `apps/directory` | HCS-anchored service registry (agent discovery) |
 | `apps/web` | Live dashboard: balances, PCR gauge, route table, audit feed |
 
@@ -56,7 +56,7 @@ mirror-node verification; the payment layer is behind a swappable PaymentExecuto
 ## Quickstart
 ```bash
 # Prereqs: Node ≥20, pnpm ≥9, a Hedera testnet account (https://portal.hedera.com, free 10k tHBAR)
-git clone <REPO_URL> && cd fatera
+git clone <REPO_URL> && cd vigil
 cp .env.example .env        # fill OPERATOR_ID + OPERATOR_KEY from the portal
 pnpm install
 pnpm setup                  # creates agent/merchant/LP/fee-collector accounts, FUSDC token

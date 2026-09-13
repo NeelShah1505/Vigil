@@ -1,5 +1,5 @@
 {
-  "name": "@fatera/agent",
+  "name": "@vigil/agent",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/server.js",
@@ -9,11 +9,11 @@
     "start": "node dist/server.js"
   },
   "dependencies": {
-    "@fatera/config": "workspace:*",
-    "@fatera/hcs": "workspace:*",
-    "@fatera/hedera": "workspace:*",
-    "@fatera/mirror": "workspace:*",
-    "@fatera/types": "workspace:*",
+    "@vigil/config": "workspace:*",
+    "@vigil/hcs": "workspace:*",
+    "@vigil/hedera": "workspace:*",
+    "@vigil/mirror": "workspace:*",
+    "@vigil/types": "workspace:*",
     "@hashgraph/sdk": "^2.48.0",
     "cors": "^2.8.5",
     "express": "^4.19.2",

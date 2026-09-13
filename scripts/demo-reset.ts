@@ -1,8 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
-import { loadConfig } from "@fatera/config";
-import { HederaService } from "@fatera/hedera";
-import { HcsLogger } from "@fatera/hcs";
+import { loadConfig } from "@vigil/config";
+import { HederaService } from "@vigil/hedera";
+import { HcsLogger } from "@vigil/hcs";
 import { AccountId, PrivateKey } from "@hashgraph/sdk";
 
 async function main() {

@@ -1,7 +1,7 @@
-# FATERA — Project Context
+# VIGIL — Project Context
 
 ## The one-liner
-**Fatera is an Autonomous Working Capital OS for AI agents: it forecasts an agent's upcoming
+**Vigil is an Autonomous Working Capital OS for AI agents: it forecasts an agent's upcoming
 payment obligations and autonomously acquires the right capital, at the right time, at the
 lowest cost — on Hedera.**
 
@@ -25,7 +25,7 @@ Bonus points we deliberately hit: metered pay-per-call pricing · HCS audit trai
 (recurring) · HCS-anchored agent identity · refunds. Skipped (roadmap): A2A/ACP negotiation.
 
 ## Why this wins (differentiation)
-Most submissions will be "agent pays an API" — the literal reading of the bounty. Fatera's
+Most submissions will be "agent pays an API" — the literal reading of the bounty. Vigil's
 reading is deeper: **the economically interesting agent is one that stays solvent.** Our demo
 shows an agent with a currency mismatch (rich in HBAR, broke in FUSDC) that forecasts
 shortfall, evaluates liquidity routes like a mini-treasury desk, executes the cheapest route,

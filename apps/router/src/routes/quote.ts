@@ -1,5 +1,5 @@
 import { Router } from "express";
-import type { AppConfig } from "@fatera/config";
+import type { AppConfig } from "@vigil/config";
 
 export function createQuoteRouter(config: AppConfig): Router {
   const router = Router();

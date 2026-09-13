@@ -1,9 +1,9 @@
 import express, { type Express } from "express";
 import cors from "cors";
-import { loadConfig, type AppConfig } from "@fatera/config";
-import { HederaService } from "@fatera/hedera";
-import { MirrorClient } from "@fatera/mirror";
-import { HcsLogger } from "@fatera/hcs";
+import { loadConfig, type AppConfig } from "@vigil/config";
+import { HederaService } from "@vigil/hedera";
+import { MirrorClient } from "@vigil/mirror";
+import { HcsLogger } from "@vigil/hcs";
 import { StateStore } from "./core/stateStore.js";
 import { TreasuryService } from "./core/treasury.js";
 
@@ -44,7 +44,7 @@ export function createAgentApp(): {
     const state = stateStore.getState();
     return res.json({
       ok: true,
-      service: "fatera-agent",
+      service: "vigil-agent",
       phase: state.phase,
       agentAccount: config.agentAccount,
       eventsSeen: state.eventsSeen,

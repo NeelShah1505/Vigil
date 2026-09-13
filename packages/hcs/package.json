@@ -1,5 +1,5 @@
 {
-  "name": "@fatera/hcs",
+  "name": "@vigil/hcs",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -16,8 +16,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@fatera/types": "workspace:*",
-    "@fatera/hedera": "workspace:*"
+    "@vigil/types": "workspace:*",
+    "@vigil/hedera": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.4.5",

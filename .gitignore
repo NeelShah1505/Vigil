@@ -6,5 +6,7 @@ dist
 logs/
 config/state.json
 used-payments.json
+used-swaps.json
+apps/agent/config/
 *.tsbuildinfo
 .DS_Store

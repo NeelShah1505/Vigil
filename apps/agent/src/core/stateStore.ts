@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { AppConfig } from "@fatera/config";
+import type { AppConfig } from "@vigil/config";
 import type {
   AgentState,
   AgentPhase,
@@ -9,7 +9,7 @@ import type {
   Forecast,
   RouteEvaluation,
   PaymentRecord,
-} from "@fatera/types";
+} from "@vigil/types";
 
 export interface LoggedEvent {
   id: string;

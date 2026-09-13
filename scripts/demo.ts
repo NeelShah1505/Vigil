@@ -1,7 +1,7 @@
-import { loadConfig } from "@fatera/config";
-import { HederaService } from "@fatera/hedera";
-import { MirrorClient } from "@fatera/mirror";
-import { HcsLogger } from "@fatera/hcs";
+import { loadConfig } from "@vigil/config";
+import { HederaService } from "@vigil/hedera";
+import { MirrorClient } from "@vigil/mirror";
+import { HcsLogger } from "@vigil/hcs";
 import { createDirectoryApp } from "../apps/directory/src/server.js";
 import { createApp as createApiApp } from "../apps/api-service/src/server.js";
 import { createRouterApp } from "../apps/router/src/server.js";

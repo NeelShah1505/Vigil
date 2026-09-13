@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
-import type { AgentState } from "@fatera/types";
+import type { AgentState } from "@vigil/types";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import {

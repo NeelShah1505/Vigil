@@ -1,4 +1,4 @@
-# FATERA — MASTER BUILD PROMPT v1.0
+# VIGIL — MASTER BUILD PROMPT v1.0
 ## Autonomous Working Capital OS for AI Agents · ETHOnline · Hedera "AI & Agentic Payments" Track
 
 > You are an expert full-stack blockchain engineer building a hackathon submission.
@@ -29,7 +29,7 @@
 
 ## §1 — MISSION & NON-NEGOTIABLES
 
-**Mission:** Build Fatera — an Autonomous Working Capital OS for AI agents — and win the
+**Mission:** Build Vigil — an Autonomous Working Capital OS for AI agents — and win the
 "AI & Agentic Payments on Hedera" bounty ($6,000) at ETHOnline.
 
 **Non-negotiables (bounty qualification):**
@@ -45,7 +45,7 @@
 
 **The demo story (memorize this):**
 An AI agent holds 100 HBAR and 0 USDC-equivalent. Its task requires 10 paid API calls at
-1.00 FUSDC each. Fatera forecasts the shortfall (PCR = 0%), evaluates liquidity routes,
+1.00 FUSDC each. Vigil forecasts the shortfall (PCR = 0%), evaluates liquidity routes,
 autonomously swaps HBAR→FUSDC, executes all 10 x402 payments, and logs everything to HCS.
 The agent stays solvent by design. Closing line: **"Agents shouldn't just know how to pay.
 They should know how to stay solvent."**
@@ -54,17 +54,17 @@ They should know how to stay solvent."**
 
 ## §2 — HACKATHON RUBRIC → FEATURE MAP
 
-| Bounty requirement | Fatera feature | Where | Verified by |
+| Bounty requirement | Vigil feature | Where | Verified by |
 |---|---|---|---|
 | Live x402-gated service on Hedera | `apps/api-service` (Market Intelligence API) | §11 | `curl -i` returns 402 + payment requirements; paid call returns 200 |
 | Settled through Blocky402 facilitator | Path A integration attempt; Path B native settlement w/ mirror-node verification | §10 | README documents which path shipped; tx on HashScan |
-| Platform/agent consuming it, ≥1 real paid request end-to-end | Fatera agent executes 10 paid requests | §14 | `pnpm demo` full run; HCS events on HashScan |
+| Platform/agent consuming it, ≥1 real paid request end-to-end | Vigil agent executes 10 paid requests | §14 | `pnpm demo` full run; HCS events on HashScan |
 | Public repo + README (setup/architecture/payment flow) | README from README.template.md | §20 | Phase 9 checkpoint |
 | Demo video ≤5 min | DEMO_SCRIPT.md | §21 | Recording |
 
 **Extra points (bonus):**
 
-| Bonus item | Fatera feature | Priority |
+| Bonus item | Vigil feature | Priority |
 |---|---|---|
 | Metered pay-per-call (not flat fee) | Base fee 0.50 + 0.10 per data field; usage report on every response; METERED_USAGE HCS events | P0 |
 | Verifiable payment audit trails on HCS | Every event → HCS topic → HashScan | P0 |
@@ -83,7 +83,7 @@ Read CONTEXT.md for the full narrative. Summary:
 
 - **Problem:** AI agents are becoming economic actors, but nobody guarantees they can *pay
   their future bills*. Wallets answer "where is my money", treasuries answer "where should
-  it earn" — Fatera answers "will I stay solvent through my upcoming obligations?"
+  it earn" — Vigil answers "will I stay solvent through my upcoming obligations?"
 - **Key metric:** PCR (Payment Coverage Ratio) = available payment-asset balance ÷
   outstanding upcoming obligations. Healthy ≥ 110%.
 - **Key mechanic:** liquidity-aware payment routing — the agent evaluates multiple ways to
@@ -121,7 +121,7 @@ Read CONTEXT.md for the full narrative. Summary:
 ## §5 — REPOSITORY STRUCTURE (BUILD EXACTLY THIS)
 
 ```
-fatera/
+vigil/
 ├── MASTER_PROMPT.md / CONTEXT.md / ARCHITECTURE.md / IMPLEMENTATION.md / MEMORY.md   (this docs set)
 ├── README.md                        # generated in Phase 9 from README.template.md
 ├── README.template.md
@@ -142,7 +142,7 @@ fatera/
 │   │   ├── src/verify/replayStore.ts     # used tx-id persistence
 │   │   ├── src/pricing.ts           # metered pricing function
 │   │   └── src/register.ts          # register into directory at startup
-│   ├── agent/                       # THE CONSUMER: Fatera Agent
+│   ├── agent/                       # THE CONSUMER: Vigil Agent
 │   │   ├── src/index.ts             # bootstrap: identity, state API, demo runner
 │   │   ├── src/core/treasury.ts     # balances (SDK + mirror)
 │   │   ├── src/core/obligations.ts  # obligation model
@@ -153,7 +153,7 @@ fatera/
 │   │   ├── src/core/identity.ts     # HCS agent registration (Phase 8)
 │   │   ├── src/state.ts             # in-memory event-sourced state + GET /state + GET /events
 │   │   └── src/discovery.ts         # query directory, pick service
-│   ├── router/                      # THE LP: FateraRouter swap service (HBAR→FUSDC)
+│   ├── router/                      # THE LP: VigilRouter swap service (HBAR→FUSDC)
 │   │   ├── src/server.ts
 │   │   ├── src/routes/quote.ts
 │   │   ├── src/routes/settle.ts     # verify HBAR leg, pay FUSDC leg
@@ -232,13 +232,13 @@ PORT_DIRECTORY=3004
 
 | Account | Role | Starting state |
 |---|---|---|
-| AGENT | Fatera agent treasury | exactly 100 HBAR, 0 FUSDC |
+| AGENT | Vigil agent treasury | exactly 100 HBAR, 0 FUSDC |
 | MERCHANT | api-service payee | 5 HBAR (gas), 0 FUSDC |
 | ROUTER_LP | liquidity provider | 500 HBAR, ≥ 1000 FUSDC |
 | FEE_COLLECTOR | receives custom fees | 5 HBAR |
 | OPERATOR | bootstrap/deployer (yours) | faucet-funded |
 
-**Token:** `FUSDC` ("Fatera USD"), decimals 6, custom fixed fee `0.01 FUSDC` per transfer
+**Token:** `FUSDC` ("Vigil USD"), decimals 6, custom fixed fee `0.01 FUSDC` per transfer
 to FEE_COLLECTOR (assessed on agent→merchant payments — this is the "custom fee schedule
 in the settlement path" bonus; the router must budget for it, §14).
 
@@ -283,7 +283,7 @@ interface Forecast {
 
 // ---------- routing ----------
 interface RouteQuote {
-  id: "FATERA_ROUTER" | "SAUCERSWAP_V2" | "DIRECT_HBAR_PREMIUM";
+  id: "VIGIL_ROUTER" | "SAUCERSWAP_V2" | "DIRECT_HBAR_PREMIUM";
   available: boolean; costHbar: number; feeBps: number;
   latencyNote: string; riskPenaltyHbar: number; detail: string;
 }
@@ -432,7 +432,7 @@ class HcsLogger {
   constructor(private hedera: HederaService, private topicId: string) {}
   async emit(type: HcsEventType, data: Record<string, unknown>): Promise<void> {
     const evt: HcsEvent = { v: 1, seq: ++this.seq, ts: new Date().toISOString(), type,
-                            agent: "fatera-agent-001", data };
+                            agent: "vigil-agent-001", data };
     const msg = JSON.stringify(evt);
     if (Buffer.byteLength(msg) > 1000) {  // HCS hard limit 1024 — trim `data` keys and retry once
       const slim = { ...evt, data: { note: "payload-trimmed", type } };
@@ -462,7 +462,7 @@ const fee = new CustomFixedFee()
   .setAllCollectorsIsExempt(true)   // NOTE: verify exact SDK method name; older SDKs: setAllCollectorsAreExempt(true)
   .setAmount(10_000);                // 0.01 FUSDC (6 decimals); denominating token omitted ⇒ the token itself
 const tx = await new TokenCreateTransaction()
-  .setTokenName("Fatera USD").setSymbol("FUSDC").setDecimals(6)
+  .setTokenName("Vigil USD").setSymbol("FUSDC").setDecimals(6)
   .setInitialSupply(1_000_000_000_000)           // 1,000,000 FUSDC in base units, treasury = ROUTER_LP
   .setTreasuryAccountId(routerLpId)
   .setAdminKey(adminKey.publicKey).setSupplyKey(adminKey.publicKey)
@@ -479,7 +479,7 @@ const { tokenId } = await tx.getReceipt(client);
 
 3. **Associate FUSDC** to AGENT, MERCHANT, FEE_COLLECTOR (`TokenAssociateTransaction`,
    signed by each account's key). (Treasury is associated by creation.)
-4. **Create HCS topic** `Fatera Audit Trail v1` (main) and `Fatera Agent Identity v1` (identity).
+4. **Create HCS topic** `Vigil Audit Trail v1` (main) and `Vigil Agent Identity v1` (identity).
 5. **Write all generated IDs/keys into `.env`** (append/replace keys; keep OPERATOR_* intact)
    and mirror them into `config/state.json` (gitignored). Print a summary table.
 6. **Empirically verify the custom fee** (IMPORTANT — see §26 pitfalls): transfer 1.00 FUSDC
@@ -629,7 +629,7 @@ of `(symbol, dayIndex)` — e.g. price = 0.20 + (hash % 400)/100. Deterministic 
 
 ---
 
-## §12 — COMPONENT SPEC: apps/router (FateraRouter LP swap service)
+## §12 — COMPONENT SPEC: apps/router (VigilRouter LP swap service)
 
 An x402-style swap settlement service — itself a machine-to-machine service (nice narrative).
 
@@ -672,14 +672,14 @@ hbarNeededEstimate= ceil(shortfallFusdc × HBAR_PER_FUSDC × 1.01)
 
 ```
 quotes = []
-1. FATERA_ROUTER:     GET router /quote (shortfallRoundedUp) → available, costHbar=quote.amountHbar, riskPenalty=0
+1. VIGIL_ROUTER:     GET router /quote (shortfallRoundedUp) → available, costHbar=quote.amountHbar, riskPenalty=0
 2. SAUCERSWAP_V2:     try quote via @saucerswaplabs/saucerswap-core-sdk (TESTNET) if installable
                       in ≤30 min; on any failure → available=false, detail="no FUSDC pool on testnet" (EXPECTED)
 3. DIRECT_HBAR_PREMIUM (only if MULTI_ASSET=true): costHbar = shortfall × rate × 1.05, detail="+5% merchant premium"
 select = min over available of (costHbar + riskPenalty); reason = one sentence with numbers.
 ```
 Emit `ROUTE_EVALUATED` (the full table) and `ROUTE_SELECTED` — the dashboard renders this table;
-it is Fatera's signature moment.
+it is Vigil's signature moment.
 
 ### 14.4 The demo loop (src/index.ts — exact control flow)
 
@@ -697,7 +697,7 @@ runDemoGoal():
        emit SHORTFALL_DETECTED {shortfall, required, pcr}
        routeEval = evaluateRoutes(...)                    → emit ROUTE_EVALUATED, ROUTE_SELECTED
        emit SWAP_INITIATED; swapResult = executeSwap(selected, shortfall)
-          // FATERA_ROUTER: quote → transferHbar(agent→LP) → POST /settle → verify FUSDC leg on mirror
+          // VIGIL_ROUTER: quote → transferHbar(agent→LP) → POST /settle → verify FUSDC leg on mirror
        emit SWAP_SETTLED {hbarSpent, fusdcReceived, txIds}
   5. emit CHECKPOINT "EXECUTING"
      for i in 1..10:
@@ -731,11 +731,11 @@ accent `#22D3A7` (healthy) / `#F04438` (critical) / `#F5A623` (warn), mono numer
 (`tabular-nums`), generous spacing, subtle borders (`border-white/8`).
 
 **Layout:**
-- Header: "FATERA — Autonomous Working Capital OS" · network badge · agent account
+- Header: "VIGIL — Autonomous Working Capital OS" · network badge · agent account
   (HashScan link) · HCS topic (HashScan link) · "Run Demo" button.
 - KPI row: HBAR balance · FUSDC balance · **PCR gauge** (number + colored ring; red <80,
   amber 80–110, green ≥110) · Next obligation card (amount, calls remaining, due-in).
-- **Route Decision table** (signature component): rows = FATERA_ROUTER / SAUCERSWAP_V2 /
+- **Route Decision table** (signature component): rows = VIGIL_ROUTER / SAUCERSWAP_V2 /
   (DIRECT_HBAR) with cost in HBAR, fee, availability; selected row highlighted with reason.
 - Payments table: #, symbol, amount, fee, tx (HashScan link), status chip.
 - **Live Audit Trail**: vertical feed of HCS events (type icon, ts, payload summary); poll
@@ -774,7 +774,7 @@ Tasks: apps/api-service full spec §11 with NATIVE mode (Path B) + replay store 
 (uses operator-funded payer): performs the full 402→pay→retry→200 loop, asserts 200 + usage
 report, asserts the tx on the mirror node, asserts PAYMENT_SETTLED in HCS. Exit 0.
 
-**Phase 4 — FateraRouter (60 min)**
+**Phase 4 — VigilRouter (60 min)**
 Tasks: apps/router per §12 (quote, settle, verify HBAR leg, pay FUSDC leg, HCS events).
 ✅ CHECKPOINT: script swaps 2 FUSDC for ~4.012 HBAR LP-side; both legs verified on mirror;
 SWAP_SETTLED event exists.
@@ -783,7 +783,7 @@ SWAP_SETTLED event exists.
 Tasks: apps/directory (§13); agent: treasury, obligations, forecast, route evaluation,
 discovery, state API, `pnpm demo:dry` (plans without executing).
 ✅ CHECKPOINT: `pnpm demo:dry` prints: balances, obligation (required 10.30 FUSDC), forecast
-(PCR 0%, shortfall 10.30), route table with FATERA_ROUTER selected (~22.07 HBAR) and
+(PCR 0%, shortfall 10.30), route table with VIGIL_ROUTER selected (~22.07 HBAR) and
 SAUCERSWAP_V2 unavailable, policy check pass. `curl localhost:3002/state` returns valid JSON.
 
 **Phase 6 — End-to-end agent execution (90 min)**

@@ -1,4 +1,4 @@
-# FATERA — Architecture
+# VIGIL — Architecture
 
 ## System diagram
 
@@ -11,7 +11,7 @@
  ┌──────────┐  polls /state    │                       │                  │
  │  WEB UI  │◄────┐            │                       │                  │
  │ (Next)   │     │      ┌─────┴─────┐   402/pay    ┌──┴──────────┐  ┌────┴─────────┐
- └──────────┘     │      │  AGENT    │◄────────────►│ API SERVICE │  │ FATERAROUTER │
+ └──────────┘     │      │  AGENT    │◄────────────►│ API SERVICE │  │  VIGILROUTER │
                   └──────┤ treasury  │  X-PAYMENT   │ (merchant)  │  │  (LP swap)   │
                          │ forecast  │              │ metered x402│  │ quote/settle │
                          │ router    │  discover    └─────────────┘  └──────────────┘
@@ -37,7 +37,7 @@ Agent                         API Service                    Hedera / Mirror
   │                               │── PAYMENT_SETTLED → HCS ─────►│
 ```
 
-## Swap sequence (FateraRouter)
+## Swap sequence (VigilRouter)
 
 ```
 Agent → GET /quote?amountFusdc=11 → {amountHbar: "22.066", payee: ROUTER_LP}
@@ -78,5 +78,5 @@ MASTER_PROMPT §17.
 
 ## Roadmap (README "what's next")
 SaucerSwap mainnet pools as a real route · Bonzo borrow route in the route matrix ·
-streaming micropayments · MCP server exposing Fatera to LLM agents · A2A/ACP negotiation ·
+streaming micropayments · MCP server exposing Vigil to LLM agents · A2A/ACP negotiation ·
 ERC-8004 identity · on-chain policy enforcement contract.

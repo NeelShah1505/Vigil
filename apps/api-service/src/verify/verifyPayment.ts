@@ -1,5 +1,5 @@
-import { MirrorClient, toMirrorTxId } from "@fatera/mirror";
-import type { X402PaymentProof, X402PaymentRequirement } from "@fatera/types";
+import { MirrorClient, toMirrorTxId } from "@vigil/mirror";
+import type { X402PaymentProof, X402PaymentRequirement } from "@vigil/types";
 import type { ReplayStore } from "./replayStore.js";
 
 export interface VerificationResult {

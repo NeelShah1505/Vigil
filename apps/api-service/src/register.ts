@@ -1,11 +1,11 @@
-import type { AppConfig } from "@fatera/config";
-import type { HcsLogger } from "@fatera/hcs";
-import type { ServiceDescriptor } from "@fatera/types";
+import type { AppConfig } from "@vigil/config";
+import type { HcsLogger } from "@vigil/hcs";
+import type { ServiceDescriptor } from "@vigil/types";
 
 export async function registerService(config: AppConfig, hcs: HcsLogger): Promise<void> {
   const descriptor: ServiceDescriptor = {
-    id: "fatera-market-intelligence",
-    name: "Fatera Market Intelligence API",
+    id: "vigil-market-intelligence",
+    name: "Vigil Market Intelligence API",
     baseUrl: `http://localhost:${config.PORT_API}`,
     kind: "DATA",
     pricing: {

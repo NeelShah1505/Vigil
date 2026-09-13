@@ -1,7 +1,7 @@
-import { loadConfig } from "@fatera/config";
-import { HederaService } from "@fatera/hedera";
-import { MirrorClient } from "@fatera/mirror";
-import { HcsLogger } from "@fatera/hcs";
+import { loadConfig } from "@vigil/config";
+import { HederaService } from "@vigil/hedera";
+import { MirrorClient } from "@vigil/mirror";
+import { HcsLogger } from "@vigil/hcs";
 
 async function main() {
   console.log("=== VERIFY HEDERA FOUNDATION (scripts/verify-foundation.ts) ===\n");
@@ -19,7 +19,7 @@ async function main() {
 
   const hedera = HederaService.fromEnv(config.operatorId, config.operatorKey, config.network);
   const mirror = new MirrorClient(config.mirrorNodeUrl);
-  const hcs = new HcsLogger(hedera, config.topicId, "fatera-agent-001");
+  const hcs = new HcsLogger(hedera, config.topicId, "vigil-agent-001");
 
   console.log("[1/3] Verifying Account Balances & Token Association...");
   const accounts = [

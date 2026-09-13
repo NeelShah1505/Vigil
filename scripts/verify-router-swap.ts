@@ -1,12 +1,12 @@
-import { loadConfig } from "@fatera/config";
-import { HederaService } from "@fatera/hedera";
-import { MirrorClient } from "@fatera/mirror";
+import { loadConfig } from "@vigil/config";
+import { HederaService } from "@vigil/hedera";
+import { MirrorClient } from "@vigil/mirror";
 import { createRouterApp } from "../apps/router/src/server.js";
 import { AccountId } from "@hashgraph/sdk";
 import type { Server } from "node:http";
 
 async function main() {
-  console.log("=== PHASE 4: VERIFY FATERA ROUTER SWAP (scripts/verify-router-swap.ts) ===\n");
+  console.log("=== PHASE 4: VERIFY VIGIL ROUTER SWAP (scripts/verify-router-swap.ts) ===\n");
 
   const config = loadConfig(true);
   const mirror = new MirrorClient(config.mirrorNodeUrl);
@@ -60,7 +60,7 @@ async function main() {
       agentId,
       routerLpId,
       hbarAmount,
-      "FateraRouter swap: HBAR leg",
+      "VigilRouter swap: HBAR leg",
       agentKey
     );
     console.log(`  ✓ Leg 1 submitted and confirmed on-chain: ${hbarTxId}`);

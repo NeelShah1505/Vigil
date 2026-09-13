@@ -1,5 +1,5 @@
 {
-  "name": "@fatera/directory",
+  "name": "@vigil/directory",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/server.js",
@@ -9,10 +9,10 @@
     "start": "node dist/server.js"
   },
   "dependencies": {
-    "@fatera/config": "workspace:*",
-    "@fatera/hcs": "workspace:*",
-    "@fatera/hedera": "workspace:*",
-    "@fatera/types": "workspace:*",
+    "@vigil/config": "workspace:*",
+    "@vigil/hcs": "workspace:*",
+    "@vigil/hedera": "workspace:*",
+    "@vigil/types": "workspace:*",
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "zod": "^3.23.8"

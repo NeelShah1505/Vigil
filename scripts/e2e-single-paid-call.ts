@@ -1,6 +1,6 @@
-import { loadConfig } from "@fatera/config";
-import { HederaService } from "@fatera/hedera";
-import { MirrorClient } from "@fatera/mirror";
+import { loadConfig } from "@vigil/config";
+import { HederaService } from "@vigil/hedera";
+import { MirrorClient } from "@vigil/mirror";
 import { createApp } from "../apps/api-service/src/server.js";
 import { AccountId } from "@hashgraph/sdk";
 import type { Server } from "node:http";

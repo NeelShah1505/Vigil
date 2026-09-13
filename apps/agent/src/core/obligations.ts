@@ -1,4 +1,4 @@
-import type { Obligation } from "@fatera/types";
+import type { Obligation } from "@vigil/types";
 
 export function buildObligation(
   callsTotal = 10,

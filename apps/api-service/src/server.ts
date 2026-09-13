@@ -1,9 +1,9 @@
 import express, { type Express } from "express";
 import cors from "cors";
-import { loadConfig, type AppConfig } from "@fatera/config";
-import { MirrorClient } from "@fatera/mirror";
-import { HederaService } from "@fatera/hedera";
-import { HcsLogger } from "@fatera/hcs";
+import { loadConfig, type AppConfig } from "@vigil/config";
+import { MirrorClient } from "@vigil/mirror";
+import { HederaService } from "@vigil/hedera";
+import { HcsLogger } from "@vigil/hcs";
 import { ReplayStore } from "./verify/replayStore.js";
 import { createMarketDataRouter } from "./routes/marketData.js";
 import { createPriceRouter } from "./routes/price.js";
@@ -21,7 +21,7 @@ export function createApp(): { app: Express; config: AppConfig; hcs: HcsLogger }
 
   const mirror = new MirrorClient(config.mirrorNodeUrl);
   const hedera = HederaService.fromEnv(config.operatorId, config.operatorKey, config.network);
-  const hcs = new HcsLogger(hedera, config.topicId, "fatera-api-service");
+  const hcs = new HcsLogger(hedera, config.topicId, "vigil-api-service");
   const replayStore = new ReplayStore();
 
   app.use("/market-data", createMarketDataRouter(config, mirror, replayStore, hcs));
@@ -39,7 +39,7 @@ async function start() {
 
   const server = app.listen(port, async () => {
     console.log(`\n==================================================`);
-    console.log(`  FATERA API SERVICE (Merchant) running on port ${port}`);
+    console.log(`  VIGIL API SERVICE (Merchant) running on port ${port}`);
     console.log(`  x402 Market Data: http://localhost:${port}/market-data`);
     console.log(`  Price Quote:      http://localhost:${port}/price`);
     console.log(`  Discovery:        http://localhost:${port}/.well-known/x402`);

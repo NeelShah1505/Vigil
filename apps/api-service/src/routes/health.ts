@@ -1,5 +1,5 @@
 import { Router } from "express";
-import type { AppConfig } from "@fatera/config";
+import type { AppConfig } from "@vigil/config";
 import type { ReplayStore } from "../verify/replayStore.js";
 
 export function createHealthRouter(config: AppConfig, replayStore: ReplayStore): Router {
@@ -8,7 +8,7 @@ export function createHealthRouter(config: AppConfig, replayStore: ReplayStore):
   router.get("/", (_req, res) => {
     return res.json({
       ok: true,
-      service: "fatera-api-service",
+      service: "vigil-api-service",
       network: config.network,
       topicId: config.topicId,
       tokenId: config.fusdcTokenId,

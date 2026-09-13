@@ -1,7 +1,7 @@
-import { HederaService } from "@fatera/hedera";
-import type { MirrorClient } from "@fatera/mirror";
-import type { HcsLogger } from "@fatera/hcs";
-import type { AppConfig } from "@fatera/config";
+import { HederaService } from "@vigil/hedera";
+import type { MirrorClient } from "@vigil/mirror";
+import type { HcsLogger } from "@vigil/hcs";
+import type { AppConfig } from "@vigil/config";
 
 export interface ScheduledRenewalResult {
   scheduleId: string;
@@ -27,7 +27,7 @@ export async function createScheduledRenewal(
     tokenId: config.fusdcTokenId,
     amountBaseUnits,
     executeInMs,
-    memo: "Fatera Subscription Forward Renewal",
+    memo: "Vigil Subscription Forward Renewal",
     signerKey: agentKey,
   });
 

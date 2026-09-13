@@ -1,9 +1,9 @@
 import express, { type Express } from "express";
 import cors from "cors";
-import { loadConfig, type AppConfig } from "@fatera/config";
-import { MirrorClient } from "@fatera/mirror";
-import { HederaService } from "@fatera/hedera";
-import { HcsLogger } from "@fatera/hcs";
+import { loadConfig, type AppConfig } from "@vigil/config";
+import { MirrorClient } from "@vigil/mirror";
+import { HederaService } from "@vigil/hedera";
+import { HcsLogger } from "@vigil/hcs";
 import { RouterReplayStore } from "./verify/routerReplayStore.js";
 import { createQuoteRouter } from "./routes/quote.js";
 import { createSettleRouter } from "./routes/settle.js";

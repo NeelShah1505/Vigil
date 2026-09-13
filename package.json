@@ -19,11 +19,11 @@
     "verify:bonus": "tsx scripts/verify-phase8-bonus.ts"
   },
   "dependencies": {
-    "@fatera/config": "workspace:*",
-    "@fatera/hcs": "workspace:*",
-    "@fatera/hedera": "workspace:*",
-    "@fatera/mirror": "workspace:*",
-    "@fatera/types": "workspace:*",
+    "@vigil/config": "workspace:*",
+    "@vigil/hcs": "workspace:*",
+    "@vigil/hedera": "workspace:*",
+    "@vigil/mirror": "workspace:*",
+    "@vigil/types": "workspace:*",
     "@hashgraph/sdk": "^2.48.0"
   },
   "devDependencies": {

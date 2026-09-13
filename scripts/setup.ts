@@ -14,9 +14,9 @@ import {
   TokenId,
   Status,
 } from "@hashgraph/sdk";
-import { loadConfig } from "@fatera/config";
-import { HederaService } from "@fatera/hedera";
-import { MirrorClient } from "@fatera/mirror";
+import { loadConfig } from "@vigil/config";
+import { HederaService } from "@vigil/hedera";
+import { MirrorClient } from "@vigil/mirror";
 
 function updateEnvFile(envPath: string, updates: Record<string, string>) {
   let content = "";
@@ -42,7 +42,7 @@ function updateEnvFile(envPath: string, updates: Record<string, string>) {
 }
 
 async function main() {
-  console.log("=== FATERA TESTNET BOOTSTRAP (scripts/setup.ts) ===\n");
+  console.log("=== VIGIL TESTNET BOOTSTRAP (scripts/setup.ts) ===\n");
 
   const config = loadConfig(true);
 
@@ -81,7 +81,7 @@ async function main() {
   const agentTx = await new AccountCreateTransaction()
     .setKey(agentKey.publicKey)
     .setInitialBalance(new Hbar(100))
-    .setAccountMemo("Fatera Agent Treasury")
+    .setAccountMemo("Vigil Agent Treasury")
     .execute(client);
   const agentReceipt = await agentTx.getReceipt(client);
   const agentId = agentReceipt.accountId!;
@@ -92,7 +92,7 @@ async function main() {
   const merchantTx = await new AccountCreateTransaction()
     .setKey(merchantKey.publicKey)
     .setInitialBalance(new Hbar(5))
-    .setAccountMemo("Fatera API Merchant")
+    .setAccountMemo("Vigil API Merchant")
     .execute(client);
   const merchantReceipt = await merchantTx.getReceipt(client);
   const merchantId = merchantReceipt.accountId!;
@@ -103,7 +103,7 @@ async function main() {
   const routerTx = await new AccountCreateTransaction()
     .setKey(routerLpKey.publicKey)
     .setInitialBalance(new Hbar(routerLpHbar))
-    .setAccountMemo("Fatera Liquidity Router")
+    .setAccountMemo("Vigil Liquidity Router")
     .execute(client);
   const routerReceipt = await routerTx.getReceipt(client);
   const routerLpId = routerReceipt.accountId!;
@@ -114,7 +114,7 @@ async function main() {
   const feeTx = await new AccountCreateTransaction()
     .setKey(feeCollectorKey.publicKey)
     .setInitialBalance(new Hbar(5))
-    .setAccountMemo("Fatera Custom Fee Collector")
+    .setAccountMemo("Vigil Custom Fee Collector")
     .execute(client);
   const feeReceipt = await feeTx.getReceipt(client);
   const feeCollectorId = feeReceipt.accountId!;
@@ -133,7 +133,7 @@ async function main() {
       .setAmount(10_000); // 0.01 FUSDC with 6 decimals
 
     let tokenTx = new TokenCreateTransaction()
-      .setTokenName("Fatera USD")
+      .setTokenName("Vigil USD")
       .setTokenSymbol("FUSDC")
       .setDecimals(6)
       .setInitialSupply(1_000_000_000_000) // 1,000,000 FUSDC in base units
@@ -155,7 +155,7 @@ async function main() {
     console.warn(`  ⚠️ Custom fee at token create failed (${err.message}). Trying fallback without fee...`);
     feeApplied = false;
     let fallbackTx = new TokenCreateTransaction()
-      .setTokenName("Fatera USD")
+      .setTokenName("Vigil USD")
       .setTokenSymbol("FUSDC")
       .setDecimals(6)
       .setInitialSupply(1_000_000_000_000)
@@ -197,10 +197,10 @@ async function main() {
 
   // 4. Create HCS Topics
   console.log("\n[4/6] Creating HCS Topics...");
-  const auditTopicId = await hedera.createTopic("Fatera Audit Trail v1");
+  const auditTopicId = await hedera.createTopic("Vigil Audit Trail v1");
   console.log(`  ✓ Created HCS Audit Topic: ${auditTopicId}`);
 
-  const identityTopicId = await hedera.createTopic("Fatera Agent Identity v1");
+  const identityTopicId = await hedera.createTopic("Vigil Agent Identity v1");
   console.log(`  ✓ Created HCS Identity Topic: ${identityTopicId}`);
 
   // 5. Save generated credentials to .env and config/state.json
@@ -287,7 +287,7 @@ async function main() {
   }
 
   console.log("\n==================================================");
-  console.log("             FATERA SETUP COMPLETE                ");
+  console.log("             VIGIL SETUP COMPLETE                 ");
   console.log("==================================================");
   console.log(`AGENT_ACCOUNT_ID:         ${agentId.toString()}`);
   console.log(`MERCHANT_ACCOUNT_ID:      ${merchantId.toString()}`);

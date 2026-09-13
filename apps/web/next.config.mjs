@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  transpilePackages: ["@fatera/config", "@fatera/types"],
+  transpilePackages: ["@vigil/config", "@vigil/types"],
 };
 
 export default nextConfig;

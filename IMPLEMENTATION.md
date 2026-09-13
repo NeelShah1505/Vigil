@@ -1,4 +1,4 @@
-# FATERA — Implementation Plan (phases, checkpoints, gates)
+# VIGIL — Implementation Plan (phases, checkpoints, gates)
 
 > The authoritative, fully-detailed phase specs live in MASTER_PROMPT.md §16. This file is the
 > execution checklist you (and the IDE agent) track against. Update MEMORY.md after each phase.

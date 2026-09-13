@@ -12,7 +12,7 @@ import {
   ScheduleCreateTransaction,
   Timestamp,
 } from "@hashgraph/sdk";
-import type { Balance } from "@fatera/types";
+import type { Balance } from "@vigil/types";
 
 export class HederaService {
   constructor(public client: Client) {}

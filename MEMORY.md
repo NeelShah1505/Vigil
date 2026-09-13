@@ -1,4 +1,4 @@
-# FATERA — Build Memory (the IDE agent MUST update this file after every phase)
+# VIGIL — Build Memory (the IDE agent MUST update this file after every phase)
 
 ## Meta
 - Project: VIGIL (Vigil OS) — Autonomous Working Capital OS for AI Agents (ETHOnline / Hedera x402 bounty)

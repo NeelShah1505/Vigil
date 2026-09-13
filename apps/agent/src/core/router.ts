@@ -1,4 +1,4 @@
-import type { RouteEvaluation, RouteQuote, RouteId } from "@fatera/types";
+import type { RouteEvaluation, RouteQuote, RouteId } from "@vigil/types";
 
 export interface EvaluateRoutesOptions {
   shortfallFusdc: number;

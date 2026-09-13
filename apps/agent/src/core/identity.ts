@@ -1,6 +1,6 @@
-import type { AppConfig } from "@fatera/config";
-import { HederaService } from "@fatera/hedera";
-import { HcsLogger } from "@fatera/hcs";
+import type { AppConfig } from "@vigil/config";
+import { HederaService } from "@vigil/hedera";
+import { HcsLogger } from "@vigil/hcs";
 import { DEFAULT_POLICY } from "./treasury.js";
 
 export interface AgentIdentityProfile {

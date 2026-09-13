@@ -1,5 +1,5 @@
-import { loadConfig } from "@fatera/config";
-import { MirrorClient } from "@fatera/mirror";
+import { loadConfig } from "@vigil/config";
+import { MirrorClient } from "@vigil/mirror";
 
 async function main() {
   const config = loadConfig();

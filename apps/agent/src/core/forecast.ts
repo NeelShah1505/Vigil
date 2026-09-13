@@ -1,4 +1,4 @@
-import type { Forecast, ForecastState, Obligation } from "@fatera/types";
+import type { Forecast, ForecastState, Obligation } from "@vigil/types";
 
 export function calculateForecast(
   availableFusdc: number,

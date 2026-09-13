@@ -1,7 +1,7 @@
 import { AccountId } from "@hashgraph/sdk";
-import { HederaService } from "@fatera/hedera";
-import type { HcsLogger } from "@fatera/hcs";
-import type { UsageReport, PaymentRecord, RouteId } from "@fatera/types";
+import { HederaService } from "@vigil/hedera";
+import type { HcsLogger } from "@vigil/hcs";
+import type { UsageReport, PaymentRecord, RouteId } from "@vigil/types";
 
 export interface SwapExecutionResult {
   hbarTxId: string;
@@ -62,7 +62,7 @@ export async function executeSwap(params: {
     agentId,
     routerLpId,
     costHbar,
-    `FateraRouter swap: ${amountFusdc} FUSDC`,
+    `VigilRouter swap: ${amountFusdc} FUSDC`,
     agentPrivateKey
   );
 

@@ -1,4 +1,4 @@
-import type { ServiceDescriptor, X402PaymentRequirement } from "@fatera/types";
+import type { ServiceDescriptor, X402PaymentRequirement } from "@vigil/types";
 
 export interface DiscoveredService {
   descriptor: ServiceDescriptor;

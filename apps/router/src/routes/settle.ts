@@ -1,9 +1,9 @@
 import { Router } from "express";
 import { AccountId } from "@hashgraph/sdk";
-import type { AppConfig } from "@fatera/config";
-import type { MirrorClient } from "@fatera/mirror";
-import { HederaService } from "@fatera/hedera";
-import type { HcsLogger } from "@fatera/hcs";
+import type { AppConfig } from "@vigil/config";
+import type { MirrorClient } from "@vigil/mirror";
+import { HederaService } from "@vigil/hedera";
+import type { HcsLogger } from "@vigil/hcs";
 import type { RouterReplayStore } from "../verify/routerReplayStore.js";
 
 export function createSettleRouter(
@@ -98,7 +98,7 @@ export function createSettleRouter(
         AccountId.fromString(payerAccountId),
         config.fusdcTokenId,
         amountBaseUnits,
-        `FateraRouter swap fulfillment for ${transactionId}`,
+        `VigilRouter swap fulfillment for ${transactionId}`,
         routerLpKey
       );
 

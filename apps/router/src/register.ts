@@ -1,6 +1,6 @@
-import type { AppConfig } from "@fatera/config";
-import type { HcsLogger } from "@fatera/hcs";
-import type { ServiceDescriptor } from "@fatera/types";
+import type { AppConfig } from "@vigil/config";
+import type { HcsLogger } from "@vigil/hcs";
+import type { ServiceDescriptor } from "@vigil/types";
 
 export async function registerRouter(config: AppConfig, hcs: HcsLogger): Promise<void> {
   const descriptor: ServiceDescriptor = {

@@ -1,13 +1,13 @@
 import { Router } from "express";
 import crypto from "node:crypto";
-import { FIELDS, type Field, type UsageReport, type X402PaymentProof, type X402PaymentRequirement } from "@fatera/types";
+import { FIELDS, type Field, type UsageReport, type X402PaymentProof, type X402PaymentRequirement } from "@vigil/types";
 import { priceCall } from "../pricing.js";
 import { generateMarketData } from "../data.js";
 import { verifyPayment, PaymentVerificationError } from "../verify/verifyPayment.js";
-import type { MirrorClient } from "@fatera/mirror";
+import type { MirrorClient } from "@vigil/mirror";
 import type { ReplayStore } from "../verify/replayStore.js";
-import type { HcsLogger } from "@fatera/hcs";
-import type { AppConfig } from "@fatera/config";
+import type { HcsLogger } from "@vigil/hcs";
+import type { AppConfig } from "@vigil/config";
 
 export function createMarketDataRouter(
   config: AppConfig,

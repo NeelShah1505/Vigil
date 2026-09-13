@@ -1,5 +1,5 @@
-import type { HederaService } from "@fatera/hedera";
-import type { HcsEvent, HcsEventType } from "@fatera/types";
+import type { HederaService } from "@vigil/hedera";
+import type { HcsEvent, HcsEventType } from "@vigil/types";
 
 export class HcsLogger {
   private seq = 0;
@@ -7,7 +7,7 @@ export class HcsLogger {
   constructor(
     private hedera: HederaService,
     private topicId: string,
-    private agentId = "fatera-agent-001"
+    private agentId = "vigil-agent-001"
   ) {}
 
   static trimPayload(data: Record<string, unknown>, maxBytes = 1000): Record<string, unknown> {

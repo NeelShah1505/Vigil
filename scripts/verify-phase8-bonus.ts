@@ -1,7 +1,7 @@
-import { loadConfig } from "@fatera/config";
-import { HederaService } from "@fatera/hedera";
-import { MirrorClient } from "@fatera/mirror";
-import { HcsLogger } from "@fatera/hcs";
+import { loadConfig } from "@vigil/config";
+import { HederaService } from "@vigil/hedera";
+import { MirrorClient } from "@vigil/mirror";
+import { HcsLogger } from "@vigil/hcs";
 import { registerAgentIdentity } from "../apps/agent/src/core/identity.js";
 import { createScheduledRenewal, pollScheduleExecution } from "../apps/agent/src/core/scheduler.js";
 
@@ -11,7 +11,7 @@ async function main() {
   const config = loadConfig(true);
   const hedera = HederaService.fromEnv(config.operatorId, config.operatorKey, config.network);
   const mirror = new MirrorClient(config.mirrorNodeUrl);
-  const hcsAudit = new HcsLogger(hedera, config.topicId, "fatera-agent-001");
+  const hcsAudit = new HcsLogger(hedera, config.topicId, "vigil-agent-001");
 
   // 1. Verify HCS Agent Identity Registration
   console.log("[1/2] Anchoring and Verifying HCS Agent Identity...");

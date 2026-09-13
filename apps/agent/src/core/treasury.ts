@@ -1,5 +1,5 @@
-import type { MirrorClient } from "@fatera/mirror";
-import type { Balance } from "@fatera/types";
+import type { MirrorClient } from "@vigil/mirror";
+import type { Balance } from "@vigil/types";
 
 export interface TreasuryBalances {
   hbarTinybars: string;

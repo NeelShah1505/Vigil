@@ -1,4 +1,4 @@
-import type { Field } from "@fatera/types";
+import type { Field } from "@vigil/types";
 
 function simpleHash(str: string): number {
   let hash = 0;
