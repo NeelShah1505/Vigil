@@ -21,8 +21,8 @@ export default function Navbar() {
         {/* Brand */}
         <div className="flex items-center gap-4">
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-8 h-8 rounded-lg bg-ink text-paper flex items-center justify-center font-serif font-bold text-lg shadow-sm group-hover:bg-terracotta transition-colors">
-              V
+            <div className="w-9 h-9 rounded-lg overflow-hidden border border-desk-line shadow-subtle flex-shrink-0 group-hover:border-terracotta transition-all bg-paper">
+              <img src="/logo.jpg" alt="Vigil Logo" className="w-full h-full object-cover" />
             </div>
             <div>
               <div className="flex items-center gap-2">

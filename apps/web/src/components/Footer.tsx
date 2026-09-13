@@ -10,7 +10,10 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 pb-10 border-b border-desk-line text-xs">
           {/* Col 1 */}
           <div className="md:col-span-1 space-y-3">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2.5">
+              <div className="w-6 h-6 rounded-md overflow-hidden border border-desk-line shadow-subtle flex-shrink-0 bg-paper">
+                <img src="/logo.jpg" alt="Vigil Logo" className="w-full h-full object-cover" />
+              </div>
               <span className="font-serif font-bold text-xl tracking-tight">VIGIL</span>
               <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-desk text-ink-muted border border-desk-line">
                 v0.1
