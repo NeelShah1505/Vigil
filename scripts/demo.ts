@@ -10,6 +10,7 @@ import { buildObligation } from "../apps/agent/src/core/obligations.js";
 import { calculateForecast } from "../apps/agent/src/core/forecast.js";
 import { evaluateRoutes } from "../apps/agent/src/core/router.js";
 import { discoverDataService } from "../apps/agent/src/core/discovery.js";
+import { executeSwap, x402Fetch } from "../apps/agent/src/core/executor.js";
 import type { Server } from "node:http";
 
 async function main() {
@@ -56,7 +57,7 @@ async function main() {
     servers.push(routerServer);
 
     // 4. Agent State API (port 3002)
-    const { app: agentApp, stateStore, treasury, hcs } = createAgentApp();
+    const { app: agentApp, stateStore, treasury, hcs, hedera, mirror } = createAgentApp();
     const agentServer = await startServer(agentApp, config.PORT_AGENT, "Agent State Service");
     servers.push(agentServer);
 
@@ -238,13 +239,131 @@ async function main() {
       return;
     }
 
-    // Phase 6 full execution loop will follow here when not in dry-run mode
-    console.log("\n[Proceeding to Live Execution in Phase 6...]");
+    // ==========================================================
+    // PHASE 6: AUTONOMOUS LIVE EXECUTION
+    // ==========================================================
+    console.log("\n==================================================");
+    console.log("       PHASE 6: AUTONOMOUS LIVE EXECUTION         ");
+    console.log("==================================================\n");
+
+    // 1. Execute Liquidity Swap to acquire FUSDC
+    const swapAmountFusdc = Math.max(1, Math.ceil(forecast.shortfallFusdc)); // 11 FUSDC
+    console.log(`[1/3] Executing Autonomous LP Swap: Acquiring ${swapAmountFusdc} FUSDC via FateraRouter...`);
+    stateStore.setPhase("SWAPPING");
+
+    const swapResult = await executeSwap({
+      selectedRoute: routeEval.selected!,
+      amountFusdc: swapAmountFusdc,
+      routerUrl: `http://localhost:${config.PORT_ROUTER}`,
+      agentAccount: config.agentAccount,
+      agentKey: config.agentKey,
+      routerLpAccount: config.routerLpAccount,
+      hedera,
+      hcs,
+    });
+
+    stateStore.setSwap({
+      status: "DONE",
+      hbarSpent: swapResult.hbarSpent,
+      fusdcReceived: swapResult.amountFusdc,
+      hbarTxId: swapResult.hbarTxId,
+      fusdcTxId: swapResult.fusdcTxId,
+    });
+
+    console.log(`  ✓ Swap completed! Spent ${swapResult.hbarSpent.toFixed(4)} HBAR -> Received ${swapResult.amountFusdc.toFixed(2)} FUSDC`);
+    console.log(`    HBAR Tx:  https://hashscan.io/testnet/transaction/${swapResult.hbarTxId}`);
+    console.log(`    FUSDC Tx: https://hashscan.io/testnet/transaction/${swapResult.fusdcTxId}`);
+
+    // Wait for mirror node to ingest FUSDC transfer and update agent balance
+    console.log("  Refreshing Agent Treasury post-swap...");
+    await new Promise((r) => setTimeout(r, 2000));
+    const postSwapBal = await treasury.getBalances();
+    stateStore.setBalances(treasury.toBalance(postSwapBal));
+
+    // Re-forecast with new FUSDC balance -> PCR should flip to HEALTHY (≥ 110%)!
+    const postSwapForecast = calculateForecast(
+      postSwapBal.fusdcBalance,
+      obligation,
+      config.HBAR_PER_FUSDC,
+      customFeeFusdc
+    );
+    stateStore.setForecast(postSwapForecast);
+    await hcs.emit("FORECAST_UPDATED", {
+      pcrPct: postSwapForecast.pcrPct,
+      state: postSwapForecast.state,
+      availableFusdc: postSwapBal.fusdcBalance,
+      shortfallFusdc: postSwapForecast.shortfallFusdc,
+    });
+
+    console.log(`  ✓ Treasury Refreshed: PCR is now ${postSwapForecast.pcrPct.toFixed(1)}% (${postSwapForecast.state})`);
+    console.log(`    Available FUSDC: ${postSwapBal.fusdcBalance.toFixed(4)} | HBAR: ${postSwapBal.hbarBalance.toFixed(4)}`);
+
+    // 2. Execute 10 Metered Requests
+    console.log(`\n[2/3] Executing 10 Metered x402 Paid Requests to Market Data API...`);
+    stateStore.setPhase("EXECUTING");
+    await hcs.emit("CHECKPOINT", { phase: 6, status: "EXECUTING" });
+
+    const totalCalls = obligation.callsTotal;
+    const merchantBaseUrl = `http://localhost:${config.PORT_API}`;
+    const marketDataUrl = `${merchantBaseUrl}/market-data`;
+
+    for (let i = 1; i <= totalCalls; i++) {
+      console.log(`\n  --- Executing Paid Request ${i}/${totalCalls} ---`);
+      const result = await x402Fetch({
+        url: marketDataUrl,
+        queryParams: {
+          symbol: "HBAR",
+          fields: "price,volume,sentiment,volatility,trend",
+        },
+        callIndex: i,
+        agentAccount: config.agentAccount,
+        agentKey: config.agentKey,
+        hedera,
+        hcs,
+        merchantBaseUrl,
+      });
+
+      stateStore.addPayment(result.paymentRecord);
+      obligation.callsRemaining = totalCalls - i;
+      obligation.status = i === totalCalls ? "FULFILLED" : "IN_PROGRESS";
+      stateStore.setObligations([obligation]);
+
+      console.log(`  ✓ Call #${i} settled: 1.00 FUSDC paid, Tx: ${result.paymentRecord.txId}`);
+      console.log(`    Usage Report: 5 fields @ 0.10 + 0.50 base = ${result.usage.totalFusdc.toFixed(2)} FUSDC`);
+      console.log(`    Market Data: price=$${result.data?.price?.toFixed(4)}, sentiment=${result.data?.sentiment}, trend=${result.data?.trend}`);
+    }
+
+    // Refresh final balances from mirror node
+    console.log("\n  Refreshing final treasury balances from Mirror Node...");
+    await new Promise((r) => setTimeout(r, 2000));
+    const finalBalances = await treasury.getBalances();
+    stateStore.setBalances(treasury.toBalance(finalBalances));
+
+    // 3. Fulfill Obligation
+    console.log(`\n[3/3] Fulfilling Obligation...`);
+    stateStore.setPhase("FULFILLED");
+    obligation.status = "FULFILLED";
+    stateStore.setObligations([obligation]);
+
+    await hcs.emit("OBLIGATION_FULFILLED", {
+      paid: totalCalls,
+      totalFusdc: totalCalls * 1.0,
+      feesFusdc: totalCalls * customFeeFusdc,
+      completedAt: new Date().toISOString(),
+    });
+
+    console.log("\n==================================================");
+    console.log("       PHASE 6 END-TO-END EXECUTION PASSED ✅     ");
+    console.log("==================================================");
+    console.log(`Initial Balances: ~100.0000 HBAR / 0.0000 FUSDC`);
+    console.log(`Ending Balances:  ${finalBalances.hbarBalance.toFixed(4)} HBAR (Target: ≈78 HBAR)`);
+    console.log(`                  ${finalBalances.fusdcBalance.toFixed(4)} FUSDC (Target: ≈0.90 FUSDC)`);
+    console.log(`Payments Settled: 10 / 10 calls on-chain`);
+    console.log(`Audit Topic:      https://hashscan.io/testnet/topic/${config.topicId}`);
+    console.log("==================================================\n");
   } finally {
-    if (isDryRun) {
-      for (const s of servers) {
-        s.close();
-      }
+    for (const s of servers) {
+      s.close();
     }
   }
 }

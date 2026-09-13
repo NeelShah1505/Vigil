@@ -2,7 +2,7 @@ import { Router } from "express";
 import { AccountId, PrivateKey } from "@hashgraph/sdk";
 import type { AppConfig } from "@fatera/config";
 import type { MirrorClient } from "@fatera/mirror";
-import type { HederaService } from "@fatera/hedera";
+import { HederaService } from "@fatera/hedera";
 import type { HcsLogger } from "@fatera/hcs";
 import type { ReplayStore } from "../verify/replayStore.js";
 
@@ -64,7 +64,7 @@ export function createRefundRouter(
       const refundPayerId = payerTransfer.account;
 
       // Transfer refund back using merchant's key
-      const merchantKey = PrivateKey.fromStringED25519(config.merchantKey);
+      const merchantKey = HederaService.parsePrivateKey(config.merchantKey);
       const refundResult = await hedera.transferFusdc(
         AccountId.fromString(config.merchantAccount),
         AccountId.fromString(refundPayerId),

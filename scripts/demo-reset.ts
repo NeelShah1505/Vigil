@@ -72,11 +72,16 @@ async function main() {
     console.log("  ✓ Excess HBAR refunded");
   }
 
-  // Reset used-payments.json
+  // Reset replay stores
   const usedPaymentsPath = path.join(process.cwd(), "used-payments.json");
   if (fs.existsSync(usedPaymentsPath)) {
     fs.writeFileSync(usedPaymentsPath, JSON.stringify([]), "utf8");
     console.log("  ✓ Cleared used-payments.json");
+  }
+  const usedSwapsPath = path.join(process.cwd(), "used-swaps.json");
+  if (fs.existsSync(usedSwapsPath)) {
+    fs.writeFileSync(usedSwapsPath, JSON.stringify([]), "utf8");
+    console.log("  ✓ Cleared used-swaps.json");
   }
 
   // Emit DEMO_RESET event to HCS
