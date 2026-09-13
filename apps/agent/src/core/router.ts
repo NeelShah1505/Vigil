@@ -15,7 +15,7 @@ export async function evaluateRoutes(options: EvaluateRoutesOptions): Promise<Ro
 
   // 1. VIGIL_ROUTER
   try {
-    const res = await fetch(`${routerUrl}/quote?amountFusdc=${swapAmountFusdc}`);
+    const res: any = await fetch(`${routerUrl}/quote?amountFusdc=${swapAmountFusdc}`);
     if (res.ok) {
       const data = (await res.json()) as any;
       const costHbar = parseFloat(data.amountHbar);
