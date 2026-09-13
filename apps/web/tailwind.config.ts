@@ -9,59 +9,71 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#060A12",
-        surface: {
-          DEFAULT: "#0D1527",
-          subtle: "#0F1A30",
-          card: "#121E36",
-          hover: "#182847",
-          border: "rgba(255, 255, 255, 0.08)",
+        // Aegis Deskwork / Warm Editorial Palette
+        desk: {
+          DEFAULT: "#F4F0E8",
+          raised: "#FAF7F0",
+          darker: "#ECE6DA",
+          line: "#DCD4C4",
         },
-        brand: {
-          teal: "#22D3A7",
-          emerald: "#10B981",
-          cyan: "#00E5FF",
-          purple: "#8B5CF6",
-          violet: "#A78BFA",
-          hedera: "#2C3440",
+        paper: {
+          DEFAULT: "#FFFFFF",
+          warm: "#FCFAF6",
+          muted: "#F7F4EE",
+          border: "#E8E2D4",
         },
-        accent: {
-          healthy: "#22D3A7",
-          critical: "#F43F5E",
-          warn: "#F59E0B",
-          info: "#00E5FF",
+        ink: {
+          DEFAULT: "#1C1915",
+          muted: "#5A544A",
+          faint: "#8C8375",
+          border: "#DCD4C4",
+        },
+        terracotta: {
+          DEFAULT: "#A8341E",
+          hover: "#8F2C19",
+          subtle: "rgba(168, 52, 30, 0.08)",
+          border: "rgba(168, 52, 30, 0.25)",
+        },
+        sage: {
+          DEFAULT: "#2B6B44",
+          light: "#EAF3ED",
+          border: "#B2D8C0",
+        },
+        amber: {
+          DEFAULT: "#9E6B15",
+          light: "#FBF3DE",
+          border: "#E9D29A",
+        },
+        slateInk: {
+          DEFAULT: "#1E2530",
+          card: "#262F3D",
         },
       },
       fontFamily: {
-        heading: ["'Space Grotesk'", "sans-serif"],
-        sans: ["'Plus Jakarta Sans'", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+        serif: ["'Spectral'", "Georgia", "serif"],
+        sans: ["'Space Grotesk'", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
         mono: [
           "'JetBrains Mono'",
           "ui-monospace",
           "SFMono-Regular",
           "Menlo",
-          "Monaco",
           "Consolas",
           "monospace",
         ],
       },
       boxShadow: {
-        "glow-teal": "0 0 30px -5px rgba(34, 211, 167, 0.25)",
-        "glow-cyan": "0 0 30px -5px rgba(0, 229, 255, 0.25)",
-        "glow-purple": "0 0 30px -5px rgba(139, 92, 246, 0.25)",
-        "glow-red": "0 0 30px -5px rgba(244, 63, 94, 0.25)",
-        glass: "0 8px 32px 0 rgba(0, 0, 0, 0.4)",
-        "glass-sm": "0 4px 16px 0 rgba(0, 0, 0, 0.3)",
+        paper: "0 1px 3px rgba(33, 28, 20, 0.05), 0 10px 24px -6px rgba(33, 28, 20, 0.04)",
+        "paper-hover": "0 4px 12px rgba(33, 28, 20, 0.08), 0 16px 32px -8px rgba(33, 28, 20, 0.06)",
+        card: "0 2px 8px rgba(0, 0, 0, 0.04)",
+        subtle: "0 1px 2px rgba(0, 0, 0, 0.03)",
       },
-      animation: {
-        "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
-        "flow-dash": "flowDash 20s linear infinite",
-      },
-      keyframes: {
-        flowDash: {
-          "0%": { strokeDashoffset: "100" },
-          "100%": { strokeDashoffset: "0" },
-        },
+      borderRadius: {
+        sm: "4px",
+        DEFAULT: "6px",
+        md: "8px",
+        lg: "12px",
+        xl: "16px",
+        "2xl": "20px",
       },
     },
   },

@@ -13,6 +13,7 @@ import { discoverDataService } from "../apps/agent/src/core/discovery.js";
 import { executeSwap, x402Fetch } from "../apps/agent/src/core/executor.js";
 import { registerAgentIdentity } from "../apps/agent/src/core/identity.js";
 import { createScheduledRenewal, pollScheduleExecution } from "../apps/agent/src/core/scheduler.js";
+import { AccountId } from "@hashgraph/sdk";
 import type { Server } from "node:http";
 
 async function main() {
@@ -119,7 +120,33 @@ async function main() {
     console.log(`  ✓ Discovered service: ${discovered.descriptor.name} (${discovered.descriptor.id})`);
     console.log(`  ✓ Quoted cost per call: ${discovered.quotedCostPerCallFusdc.toFixed(2)} FUSDC`);
 
-    // Balances
+    // Ensure agent has clean initial state (100 HBAR, 0 FUSDC) to reliably demonstrate shortfall
+    let initialBal = await treasury.getBalances();
+    if (initialBal.fusdcBalance > 0.05) {
+      console.log(`  [Auto-Solvency] Returning residual ${initialBal.fusdcBalance.toFixed(2)} FUSDC to ROUTER_LP for clean demo run...`);
+      const agentKey = HederaService.parsePrivateKey(config.agentKey);
+      await hedera.transferFusdc(
+        AccountId.fromString(config.agentAccount),
+        AccountId.fromString(config.routerLpAccount),
+        config.fusdcTokenId,
+        Number(initialBal.fusdcBaseUnits),
+        "Demo auto-reset FUSDC",
+        agentKey
+      );
+    }
+    if (initialBal.hbarBalance < 75) {
+      console.log(`  [Auto-Solvency] Topping up Agent from ROUTER_LP (current: ${initialBal.hbarBalance.toFixed(2)} ℏ)...`);
+      const routerLpKey = HederaService.parsePrivateKey(config.routerLpKey);
+      await hedera.transferHbar(
+        AccountId.fromString(config.routerLpAccount),
+        AccountId.fromString(config.agentAccount),
+        40,
+        "Demo auto-topup HBAR",
+        routerLpKey
+      );
+    }
+
+    // Balances post-normalization
     const balances = await treasury.getBalances();
     stateStore.setBalances(treasury.toBalance(balances));
     console.log("\n  Current Agent Balances:");
@@ -359,10 +386,10 @@ async function main() {
     });
 
     // Phase 8: Autonomous Working Capital Forward Renewal (Scheduled Transaction)
-    console.log("\n[Bonus] Scheduling Autonomous Working Capital Forward Renewal (120s)...");
+    console.log("\n[Bonus] Scheduling Autonomous Working Capital Forward Renewal (20s)...");
     stateStore.setPhase("SCHEDULING");
     try {
-      const scheduleResult = await createScheduledRenewal(config, hedera, hcs, 120);
+      const scheduleResult = await createScheduledRenewal(config, hedera, hcs, 20);
       stateStore.setSchedule({
         scheduleId: scheduleResult.scheduleId,
         executeAt: scheduleResult.executeAt,
@@ -374,7 +401,7 @@ async function main() {
       console.log(`    Mirror REST: ${config.mirrorNodeUrl}/api/v1/schedules/${scheduleResult.scheduleId}`);
 
       // Poll mirror node for execution verification
-      const execResult = await pollScheduleExecution(mirror, scheduleResult.scheduleId, hcs, 135_000);
+      const execResult = await pollScheduleExecution(mirror, scheduleResult.scheduleId, hcs, 25_000);
       if (execResult.executed) {
         stateStore.setSchedule({
           scheduleId: scheduleResult.scheduleId,
