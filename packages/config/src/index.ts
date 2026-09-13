@@ -64,6 +64,7 @@ export interface AppConfig extends RawConfig {
   network: string;
   mirrorNodeUrl: string;
   hashscanBase: string;
+  customFeeBaseUnits: number;
 }
 
 let cachedConfig: AppConfig | null = null;
@@ -112,6 +113,7 @@ export function loadConfig(forceReload = false): AppConfig {
     network: parsed.HEDERA_NETWORK,
     mirrorNodeUrl: parsed.MIRROR_NODE_URL,
     hashscanBase: parsed.HASHSCAN_BASE_URL,
+    customFeeBaseUnits: parsed.CUSTOM_FEE_BASE_UNITS,
   };
 
   return cachedConfig;

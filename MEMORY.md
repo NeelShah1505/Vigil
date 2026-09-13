@@ -6,7 +6,7 @@
 - Started: 2026-09-13 · Deadline: check ETHOnline dates — submit EARLY
 
 ## Current phase
-Phase 5 — Directory + agent core (planning & dry run)
+Phase 6 — End-to-end agent execution (executor & 10 paid calls)
 
 ## Completed phases
 - Phase 0 ✅ checkpoint passed: `pnpm install && pnpm -r build` exited 0. Workspace scaffolded with turbo, tsconfig.base, packages/types, packages/config.
@@ -14,6 +14,7 @@ Phase 5 — Directory + agent core (planning & dry run)
 - Phase 2 ✅ checkpoint passed: `pnpm topic:tail` decoded and printed HCS Audit Topic events from the mirror node as structured JSON.
 - Phase 3 ✅ checkpoint passed: `pnpm e2e:single` executed full 402 -> pay -> retry -> 200 loop on Hedera testnet. Metered pricing validated, mirror-node verification passed, replay protection verified, and PAYMENT_SETTLED HCS audit event verified on-chain.
 - Phase 4 ✅ checkpoint passed: `pnpm verify:router` verified quote (2 FUSDC for 4.012 HBAR), settled Leg 1 (HBAR transfer to ROUTER_LP), settled Leg 2 (FUSDC transfer from ROUTER_LP to AGENT), verified replay protection rejection, verified both legs on mirror node, and confirmed SWAP_SETTLED event on HCS topic.
+- Phase 5 ✅ checkpoint passed: `pnpm demo:dry` verified discovery directory (`apps/directory`), balance polling, obligation formulation (10.30 FUSDC), forecast (PCR 0%, shortfall 10.30 FUSDC), route decision matrix selecting FATERA_ROUTER (~22.07 HBAR) over SAUCERSWAP_V2, policy validation, and State API `GET /state`.
 
 ## Live environment (fill during Phase 1 — NEVER commit real keys here, IDs only)
 - AGENT_ACCOUNT_ID: 0.0.10510026
@@ -40,6 +41,8 @@ Phase 5 — Directory + agent core (planning & dry run)
 - [Phase 3] Built `apps/api-service` with endpoints `/market-data`, `/price`, `/.well-known/x402`, `/refund`, and `/health`.
 - [Phase 3] Refined `parsePrivateKey` to disambiguate 64-character raw hex keys: prefix `0x` denotes ECDSA, whereas raw 64 hex characters denote ED25519.
 - [Phase 4] Implemented `apps/router` with deterministic quote (HBAR/FUSDC + feeBps), two-leg settlement verification via Mirror Node, replay protection, and `SWAP_SETTLED` HCS logging. Verified with `scripts/verify-router-swap.ts`.
+- [Phase 5] Built `apps/directory` machine service registry with `/register`, `/services`, HTML overview, and HCS logging.
+- [Phase 5] Implemented `apps/agent` core: `treasury`, `obligations`, `forecast` (PCR & shortfall math), `router` (route matrix evaluation), `discovery`, and `StateStore` + State API (`GET /state`, `GET /events`). Verified with `pnpm demo:dry`.
 
 ## Blockers & fallbacks used
 - [Phase 1] Portal URL corrected from outdated `portal.prd.hedera.com` to `portal.hedera.com`.
@@ -49,9 +52,9 @@ Phase 5 — Directory + agent core (planning & dry run)
 ## Risk register
 
 ## Next actions
-1. Build Phase 5: `apps/directory` (§13) and `apps/agent` core (§14: treasury, obligations, forecast, router evaluation, discovery, state API).
-2. Implement `pnpm demo:dry` and verify Phase 5 checkpoint.
-3. Commit Phase 5 and move to Phase 6 (End-to-End Execution).
+1. Build Phase 6: `apps/agent` executor (autonomous FUSDC acquisition swap via FateraRouter, x402Fetch payment executor, metered requests loop for 10 calls, refund error handling).
+2. Execute `pnpm demo` and verify on-chain settlements, balance transition (~78 HBAR, ~0.90 FUSDC), and complete HCS event sequence.
+3. Commit Phase 6 and advance to Phase 7 (Dashboard UI).
 
 ## Submission status
 - [ ] repo public  [ ] README complete  [ ] video recorded  [ ] submitted on platform

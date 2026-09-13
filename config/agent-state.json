@@ -1,0 +1,72 @@
+{
+  "phase": "ROUTING",
+  "balances": {
+    "hbarTinybars": "9999990000",
+    "fusdcBaseUnits": "0"
+  },
+  "obligations": [
+    {
+      "id": "ob-mtzm0t4o",
+      "description": "10 metered market data queries (base 0.50 + 0.10/field × 5 fields = 1.00 FUSDC/call)",
+      "asset": "FUSDC",
+      "callsTotal": 10,
+      "callsRemaining": 10,
+      "costPerCallFusdc": 1,
+      "amountFusdc": 10,
+      "feeEstimateFusdc": 0.1,
+      "bufferFusdc": 0.2,
+      "requiredFusdc": 10.3,
+      "dueAt": "2026-09-13T09:56:43.320Z",
+      "status": "SHORTFALL"
+    }
+  ],
+  "latestForecast": {
+    "pcrPct": 0,
+    "availableFusdc": 0,
+    "requiredFusdc": 10.3,
+    "shortfallFusdc": 10.3,
+    "hbarNeededEstimate": 21,
+    "state": "CRITICAL",
+    "ts": "2026-09-13T09:26:43.320Z"
+  },
+  "latestRouteEvaluation": {
+    "ts": "2026-09-13T09:26:45.218Z",
+    "quotes": [
+      {
+        "id": "FATERA_ROUTER",
+        "available": true,
+        "costHbar": 22.066,
+        "feeBps": 30,
+        "latencyNote": "1 sub-block (native mirror settle)",
+        "riskPenaltyHbar": 0,
+        "detail": "Autonomous LP swap: rate 2 HBAR/FUSDC + 30 bps fee"
+      },
+      {
+        "id": "SAUCERSWAP_V2",
+        "available": false,
+        "costHbar": 0,
+        "feeBps": 25,
+        "latencyNote": "EVM contract execution (~3-5s)",
+        "riskPenaltyHbar": 0.5,
+        "detail": "No FUSDC pool deployed on Hedera Testnet (graceful fallback per §17)"
+      }
+    ],
+    "selected": "FATERA_ROUTER",
+    "reason": "Selected FATERA_ROUTER: lowest total cost (22.066 HBAR) with zero execution risk penalty."
+  },
+  "payments": [],
+  "swap": {
+    "status": "NONE"
+  },
+  "schedule": null,
+  "config": {
+    "network": "testnet",
+    "topicId": "0.0.10510035",
+    "tokenId": "0.0.10510032",
+    "agentAccount": "0.0.10510026",
+    "merchantAccount": "0.0.10510028",
+    "hashscanBase": "https://hashscan.io/testnet"
+  },
+  "eventsSeen": 0,
+  "ts": "2026-09-13T09:26:45.218Z"
+}
